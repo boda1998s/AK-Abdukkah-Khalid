@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AK Media</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#26282A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AK Media">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<style>
+@font-face{font-family:"Cinzel";font-weight:400 900;font-style:normal;font-display:swap;src:url(data:font/woff2;base64,d09GMgABAAAAAEC8ABQAAAAAjYgAAEBQAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGoFVG+FmHHI/SFZBUoF4BmA/U1RBVEonGgCBJi9CEQgK4UjOLTDCIgE2AiQDgwwLgUgABCAFhHAHIAwHG8SBBeMW3u2A3Znohs0G0+A8KYL58bdRlGxS3Pj/fCDHiA3qBir2lSCxbJXo7mq09tnqM1prJVNWJbYnLNXUBXbfWEyhT3VFZzwOi6aFjIM9U+EERACavf08IqBvfvUjJXEgIZDwwqfIzg3FiLRIIT3XWZF0JPFG/0g7+Qfy4mVH3nuEJqdo/YHm9N9dhNxFiQqBCMQIEAgEiBkhCiFoUV9LjQbqa7d20ol3/Z13orWZdCLSdSqfOfhPef3/r41CqoI+3WlfGP3kPxRmgCqf8MycPenS4cHeX69Hus/MLdD+NUGAAEpPylTmNj0RaP7Z5v8Vo39Utu5lhlvLPN8iQwSjGLoBUP+7RpLkS3Kc3NuxCGR/knvNFE8mK1/hVzjkBdJVV0X4fAWnTJkyFVS8IiwZsB5AviITbnVgObA1tC2XF2JZ5SssvxsmdnL8OD8vxdVGfCZmkgN0H2/hhpv0v3bPl2T8PoySC1dQtfvLZenTPyxYdKy2V8vT008aZZCJL8XwnjHRDI88sTksV1QA+h+AUvFhTr/XBBZGyaKpRCktAUh2UjdVgb3A/x+tq30tAD1gNvy9qln7HrEBdCQcKUdxbM5wHclx0cjrfFV5RfXxAR7xAXAEkNQuQGygRW2g9gJIae9AySl2KVSXpt/pL3yQDuBGiOtAp8wLIZT2dTkV1RVFee11jgX+b81/bZL9v0AgqytMXoos1HcVanLv7N7sZPPnE9JQNrv7GGTLCoAcOk1kTc5Tja1T5YHnctq938QxMdOzMNK1bYKHgW2NNJCFAUYLNJbMN3/JSDaG/2RFojhaY/ifezj13Ncff07qC6RjxpnjKIcWYsQAEQEpMh1I5/i+8fF1vnnx/5Pbma+/M4WFQqFQWAgUAoEDgUAgUCgsvD0BQnSRhaNQJcJhwiBOjiJWbhdvLQ0JpDGJNJ9CWkwtLaeRVtFL65ilzcqlrSo9AtZNAL6mwMkJmsBbjHTu+fK+gzEtnEgiBEnRDMeLkpxXtUKxVKZFWTEupNLGYhZjXcP6KnXYHC5fIBSJJXJ1MROW6PRGU7nVVu3wQwBwy1ihO+8aTQPj7BPmJ4FBAWDvc846ZVY3UQAmKM6w0P1zZa/kBVDjRZ9GpjsOP/o38MHfpStiRewRO2AbLR9WybyCndmTm/LSnJf72hMdi59PqjsknNSydRRZJY6GjKiuNtt2tTltVetqRCs/mVChKt3LdBzOfLfFv4pQBcIARAVWqdEMSLHJ6YmUqVTCjkKzOg4WTsnKXVjBx69SWLLpXWk1goPVujDnYF8UpgOAxsWwOX6gacNc+FhhmFGzI0x3ma+HmFd0z+VDg3cm4sAyEpmCUWkMFlsqVyiL1CWaUkMvWidqhts/F5C20IP0qQk6NBbPX0I1zgZOHNsPSfPleVH/S0iQVRfMSEO/CS0znS8F7/9af/yxV5R3jhUivZgWIDmIC8T3AcADTFfzA8OP3PVLEU2T/U0eGH9ngz3FwTdkkcCwlgi+SwcIPNK04uH9PfzGXDC3l1FEBhcZ50Ni9ATnIHUwPimSrm6ekxvGpyB8C9s26frETHoentG7WxDeQBLVeJuk2BD1glyH2LNy1hQAmC9XxV0GbvWsWQMMi+otIIJYRuGtANDrASGjZYHTOJgN96XyhJOX741gWgScC3F9CZxaT5D1qU6rA244njCoFybDUZOodz93ImuGR6Fq+FVjvJ7w40W9L40PjRIXW9AL2ZdfZTPeVcx1UNQbo6C/5Emz14WIjIuR0AOxPcR3AkQfIJ42ewBhMI+lQsu2BipS93rQ14WD+MAwH4RhuxOVaWwgwfVMi8IFpoJhg4WAWeu6AyrMqcgEKFuL+/SJ/HLHlQO3YiMlXAdAQNcrBiH5qFtEt+Aqkrptupswa1YuwS5YAQBUYGbBQ1IP/0Po3KfyAt2987IcygDAebCEUjr2VJogqQDmOjPUe2YIFwgKecpOBBZxAkhlhpAvuhRRGIxMlgswFBIJhM+aYz00f75b3m3Ji1jYSFf9eEcDHuYv60kEwwUB4FgHcUqZhMBrC4ZKEt3QO2k9jqcim4c+Bo7gXFci3i+M6OEgPxMVUT6eb/KOOSag3QTYkn9J5twYRPmt5b5i1YXnAqOKospd/zLCvk4sFQouWNkj2QU0DdQzBK7PTLB3NmhrFfqfm7WUwYck/bI9oEQ/27ppwm2rzrtjKWeaLH+iPE3JQ17QKfVQ6suXvWkFGC4YRijIdOke5axGmUtO9mR+g3REo2OEc+IQVMMiXOvDNLXu6jLT9oJYNGu1naB/k3nA82EVhN7abcvecjDXhbdl6SbaBDdAfTE1DUBwuPdKFVtuyzKe2sQ8E3+DEJhsMg5KylN6AEsXWq0tAZ7UOv5MNZMiiTovL01ZLyMkAgLZTS6g1zS6lILJJb5v2iFLj4gnUS5qVH01S7q126d2Pjqxj1EMzc+xYk2PXkVM2Od0vBNHgRdJWobHDhJSxH4hh7Qd4f+4tdtzCo00p+w9dpa1CwaXDPEoSJ+Zdn6ce+TSnwMm8m0DAfQXCWciSbo4ZExpWI23QmU7sUJtS5LM6BXfYgs9W4IRWrzVfR0wdIDETuYwVVzTV1KxMGefeZSXU2x5UbUCEsqURkyfZw5K0N5Hbhg893uDLnrshL7yMhFml6YR+H6z1it/KrPP+pxn837nY5OMeJZdQrtm6rApGzGLM5CpSSumUrxEWQyxET3h8iO33MO8fSkItVtak517qhutWph2B65e5BH3xIofyOI6c0uSBtExQUoF0ef61Wk0gYD7v7eu8Mj3Dp41AXceUyeSOpaAIUXHkdqg1sljzZXoFCqzH5q1mlGsNNl6eHPpdvGgPwOThBZWUbcD9sSUMWen5W8ha5dtQw07s4Q6n0VYVliM8F/RPt1lUy2gJZy0jm0B8o7iunh0khd7B8GXBz/adsvD5vhCe3I552VA8YFvWQNyz80YnU0hNeDQxVNVLTxh0tjlUK0crpJcHa9OvYQQbbcPZFe9Y09MuBbbbe0Y05+rG91WjzQXFFig7lhnNS1SGM11pbBvQk+L7DP1zImLV1ytOkhhM5vILUkDX5gdltyY/Fe63pGyG/E1V+V2BDfHBoCyGN5CQIIAgAcgfX20FBq+Mj8GwYbHTrwPl3g8UW8ITRAWPNlol/9OossyMGvN+5Y58bAsyl4c/Jb131uJhEUauqfJ0xQiP/gxBMC0gflRtP87nsgoDtdYjz253u0HFRbXATL4dcAqW+j5kZ/dK6VFygpLd4vobBv/9jISmUIpxXcG1hrW4vLXdFXXVYtfleAch2QAdYCPdJR7A17Aj22VCcEOQK+X56e4qsvsCWz17xDn5Mm6GDoj+havgjQhsNzE2gFlm4Px/4xaUcW7Vy9Q6yJAE8L1kJnLEC417eFJGDiZ0kB2dwRN+dlK6iij/5y0angsmM6I4rQqwSxBmPFLyDpt5gvSUJVWMY7TIk32gANOOQHYyy0sFWheg985LXIkXXH2EcLPnPPXzzoNHH9nSIBkDcAAa3DU5jt+lzEkBo+33KJwb24pTdis2Yy6auU6RtEgRD0PY5bcunog08AGJ2lDVWZBMaPs4AcXvwX843MrEHuanhbPZcjprqJb47Fd8GpTXGYPv2UAkngCFnr8svzyXpQ+DNTdkHG+WkQB5YmtTs7G+tY+TDDBX0+uDyJ+OmzTKEq7gwhOFpEG1CV4n/RVWuZf2TBnVONML4G6VHTg6dQkUKIxtqaT2WqClAUNbbbiu95JLPenvafj534kXJkNy5DJ5IO4qx3uDsx9TOJsx3jsMkhEK1NhBwmejGu7D9Jy3loAi8VJ7/apUvy/MAQcWbyW230+tOXxEiIocf1Nkr8Vf+2lowbAJREcDtOOHKjRe0ml7OaOEs1bGctoSnAlo+amR8AVVXz2RASTuLvw9F3vhVJ7qm/jcIA4eTyCVHP6usAHyLWUGpJ4ELoObfiXcXqE5Srcu47uQ9S8Ygtd2ap/6XB3CuWQAwBc3A7umG8odAoIcUlKXjnJp1fyQwj6k63BhlBriZWTP69WjGodOrIcYorByazHYcIlRbERD4GxiRyK/shVaJZgEtsRLMQigNtNqJaIUp1KNapZldOz0aoAAKDBBwDAB1CokAYJkQlRmaBBLZnI6lBNmcOFukbvUVQxxigmWPDE9RQTogZLDlcjNKr/dKELswqHHhdfqWJaGipKMiWk1AAAJAoBAPQYw8kpEsITIpBEpH1vYEAiqjWoE1DPL6SWi5BAEVwBqTAyGjoLrzIibG4VCMRYtIqZ6BQqIUdBhKiiZ8ejJGNFgvEoZ8MB1FQkNKi4gkoZNWLic6hRyUkRmJt/81B9q1xCGLhC2uFInxIU7XRgGum9dshlDt4hnTowMvG3EbVnn9c33qQCX7EOQnpLpRHOEbLBP3gM++g7AEDxPirqprBoFB8W/Y7Kq0roeCyLmHebOEdhi5niVVjR1JS/hchwRr9LMVUpgVexAJDsqGQqtFKjVLqJ6KpUp0vciD4Oneb4pc0hWiwgwsUpIK6ZVYQKgJ/ffhTA5OIwI51fQIahj6scwGEAEsT8YExCAvTOfA1AhDoLOZY1DNuro9T/Z8mL8BilxXv1/3/AaBo/mZeRX3t6pYSiuNelRAhPghR62WnD8wgKANlAEQIAGkLvBQxNtsOOLgySNz4EhG7xGAAAzamz8fSsA6AABLGmKNpyovcDYGGZPF8zO6ecHpsszgaULGq5tFtns7ZFgjVuBlOwQxOBNmz45kvxCPBKa9MuKC6hUY5bkk+YS0hWi1Z+HWKcmnWJ6BHVqUkGAsCCIjWCEBMaPu0podqAaBXQbxpMGps5ZAgZUx2J6WYq+/1C6INnDoCcAFjDAdzLAVh6CGVSAx4UBSQyhGfhOayRDKYWzEZwt711mdu/IAIZ1msWYuiAybqb7hhgEJiyKpaqwoph3QQtNyoeliw6MwV6ww6rh3ZYj3JQFASF11M6Ii30XVmIRk2Iy06fhdDpyK60kUvUsS2f0kNi5mAyqyxha1aurrSskqbilCEsHO9t0cJW3+Tb1MnFzPo3vE/vE361T9UdKR2qCGth7bb1daGk5wRryr10cuFyM4maL1rD9877YgFZh0Zk08jENK2IRiUuYDBQKFwuuaLoEn930mg8Gi3Vy0y1rFqB/yKOjeBdHVdceTTpg1KCICnw6yqHt6OQu/l5KJAMdNHZkkoKCAL1eUF9GBJCuFl/ibJAoOQek62dOAaJGILg5zcugIyiHXc5RlOYLhLUfao9yAeB0kOPRI3+zXY+kZ9aIA9t1IdvctxqXswhBAy5v8VyfCG3VFIsw4WLkkQVwInqP4FQlpIkMNFpDZEM2D024JYOMXzbxxeqTCvta6JFvHUakCS9XBtejOnnRwZZa32MWQUm0LXve/jpRTrpUklRgn+TjbDnhM05ZQkf0WrJXwRK4va/FKYzbgzPQH4Gb6oYPjgNlHgkeI4xRPAMJzPhIoQILDwZieVz52fPrnHB3eCwI3MMaa5KbvuWgb5Ns+EITzt8vEV6Efc+DQO9OGAttxVNn01/Q+u8zPQ8g7WezGV1ckg+9jP+x9vlfsbA2u4k7F/2qUsQ91PSf0LQF9tRDLHh34vYYS3L/J/o+fE0yIX4l//XfpajS4C67YL/A6DjwyKmJYJfU+5lFvCjdOg7EJASryRWaeTd4qgIdM5rBqL546O3QKpXbtypGj9p0eawzJ8cbOkq89OQS768Fu4+4H11YgiCyDyO0NEOH6J7xh+16pZI9tw5ddM9VmAfhk6XjnHnz+/WtrzNxkfjeu7dks/WEqErY9pqLhwrfPXQqkpQznwsIcRmvikSV9a3ud4ytlguowswfP1KDJJrMbd8/ac5QXBSmO4hj8GvRFt7kkbg23SQFYcQhWBUvUSZSLgw3GFWJWninE3XE5RfN3mKznmTrKz+67qGaZGZDh2U65kZInKTGx5UlHezuerGCq5DcUuIqsotLDGFOruooyfJJrjvY3j4EA4XRzabLfJz+jL72Tz28Mm2pS7gO6TtMaGaUx3Kusfzb9m2djRNn4xvvT9CFN5p60tgsrMq/5p9jOZzjc4XyJeIWaU8lfT2fO3/JAGDCE4Gsr5+pGhsojllep5XNxzX8jdV8wx2+9X5CVa91K4SBXumXspMnAPA3gr3eAJV4U52lNk4Zc2p035HeAgqqEk8bOT5EYqMQt9j6gtlaf5OvQIP1qiCtut97Zp8KT+np9csEsCPHiwm+ebO7lEoIjxL/DwElH1+JhP27U0xd+3VBkHRxiGLkpNFBu3zqlVBLVY8z4fC+jxKTOai5mBEEvb4Odx9it0ww36sOb41z6ctIngGZq2hc2VMC2dalM/LnD3qyKbhuNDWxpy3vjv28rCiKI9QITkz0fChBFp/gAAjRmyJGc76KrlbE1Zl4/muzpL8EXDRSABezLu1D0evtPhEs2oKO52mdNffaVPc8eO5wwBurh4I1DamqwCrwLGzKtwrTN17JbMAQw7mrzQTCtLUEmXjrMkBmfbLsYTgnUDhEFUVlaqKetmm1hjHCZoHZS13IaM8g3MWMFhYk8dC8Q93tV+A98sxfmNT3sYJVj2hLrPWW1pMScKq+Wv+OWudfAqDTXOnJJZOE8UU686FqN08FGsIrmyq6qfJpOo9NrBnEcb/m9UINyTKQuJYkMaJ98GD9SQ+/oek3DeiIsztOs5nQq1pGtT3tFKWgRMY1I7GfvG4uGLq3Lyau1W+hbd9pl+KC9bSfdRrp6S82XsNmtvYsWgKRUVv1n/pk9a7XDNqAZ36NjiMHQmPYMFETl/FS+riKGKabUXAdtROsXl2zHHlErrdaoLaNo7DW2HN4llkgW4xLBF02qZZNmNZN+j8n3eW2Z1CTszPff/o4JXcifgAvKLsOPXmKkzUi70fVU2f9py50dh8FLAgpH4fg5ROX88d787v51oS5He4Q1AzC2+9vl63qhura0a3o9oojj+PIxJn4BWzUn+TsxbrbbWcma38TaUOWK+ycqw0eXpNX9PetpiqKsoYCRrouhhqGrbGX6slk+edo/XaOj+njS2nuPcFSaeHpDATzTaaF7QdHcvYJANdNzKuiD2pexqEEM7ePGmMrCdVZYsDKV+Y98M4Fsf+PJZ7DvbWa/O3ZWt4ivjiOM2DLSRLMvb4NYJlHFP1YBBUu3Bhp36VXQzIAe479arioahW4mVt7KnBuC4KZ28HsKCOqioZuSsjl7A8xrPaEf9ADDuW9zSucUuDsc6/JihhKU5QPIRgpU1wjsLiIStvKq3MMaMYk68L/RBMEuC8oZ2YW1bc+hg7W2JkSl8yYbpLsRcDuwE80pH+ArweZsP/cxbOyTca/fLWNbpqz5fSWeEqetXt67k1x86STPgc6CKd0FMx0Fl1Cd0V4ZcouUNLrfalVyLUNV57zlkpXlurrtfD9jNz7FjDan1Cb8iPpFOF8iRNOH55rZmh/Csra5LHN8fw3U0Yvko8dL53fLp9uuX+mt1NvhP3LYJ7AbufQ257zpxoLFlhdmbeMO69QmyPo+em8Ib3/9ZSJjK1METLNqP5UrYXhOeo3z94h+yk9+i0mp0VIGu5L7NnwcAyPvmhHgVKbf4S6FK7gG2CPoQWtTg10Smi7x9lrbqeG6f1TfdU/7XGC9zD98v+J1R9V0/SMPwMDhgIaL8w8xTf33nHmnDLJ4cph47L7fKBZ5OfSQVAAfwzHOO8ClesH/X36MvD1tJV/kOBaJUubq2pSg+bwlOAsGG0MlBcEqhftVKfRx2jFWOCjfVii5HpVFo6kFhz+WnXaXQ2FMdQDBGnxaieMGJI9fUah6fV1GuuirlHNb4hOHxE7sapibYbb8xNhtdrTnP2Y7zW3blcNp/0X9rf7z+0mEohgYXKxAI+ABeuH7uhJXftyEjumhtax96mQ5nLWQYti83+Az099ljbmjNg9HhMIJfKOC8OdBB7MQloYJ851QuNXaMoVHwRlH8pZ6XGIzSJ7IdvaqhyK6/+f+etbpzJPc1F7e3uWtSSfiMyKv+I42whO496jbKNOJ90uTs/zQZ1iv9evpiyyzz1p/0il3DstFU7S8C807gIHoenBEcnmuqmNdEROHxk7saJidwRF3e0urXQL3+Csx/7xhsb0rvT21KBQ/39NuS2ZAoMcW5AcxKmBipY+FM4sxKOeMiuxJ7PJuV3yCsUs3MoOIIOOIRz3fMQ2oKr9cO0ioj8m86lA00Ky0CJdxaB0X7eOyqVBHkuuQajhuXNZSfQIJ4OcsYDZV7S5DnyKV6Gu2+7iQB6m8sRtt+Z9dCaLc0a2dm9ZIyo2mv77LEwF8deOeESLQpaCWuX730xa+8OwQl+MM6d8br/NsFnq8X4x3ZBaApHmCA5WG9GUJQ1ymJi9Xb5Qby29kJbxxnFJH9YMuSZypyJ2TpLxpx5XtNBMbAAnwwW2OsxZmGOhaKw9XnvGGXcO0rmBVI4sBFRhchkXy6EDXgqoN/+ENT2YxWUELQywspaL2BPHdqKAxtEVowQ2JwKoFiRGNgI3PHK2OFc7kjO3GVslF48ciKzmPIfqq27ZNLwnxKcXr/D2W4sb3GY1MF7IsI4KYUD132j+flSCxO8vpRzPcRi9NMb5cY/Elw+6kr2sSZhl3qs7MSGZf7OggXD+5W9/lbreunF1EzxG0NVE1XjpdpPR2+QeMvkipltanlT+CJcYAyKWGKvwWJojdos5E2fw023HfqpauZzGV5tckve/VV91FtxKVv3ngSHT+MHP2r/cCHdHnd89p4bdIBsb3GeqHP79sab4e/u4zyaZ+amMIvLZq72eE0cdOCpBz5olKf6h1qETuy5CrNlfgBzqyNezT29Mb9D1qB89J4PBG5ZqbYpZnkA40V5kDl+wnXCRZB75G5x4mChSDVN8Bo2/rFVS9MN7jT+OkzI3wkUHkwYL9nN45VXGx5afzxYOdHtaPT02asHfU+bn4655ze6EqktTu987BmCg8D/jg8swF/AgQV+K+o4rl97Yr8wSa96MvN7P6eL4sPyDka7/9AHS8c+4dwN9syX/vI5SMLe/6V+BRoeSJxIs8affscbv0sAFz9IwQqzLy/mX4vy9n40+lDLySRc8mIBRu091sV2bb2ei+FP40ABQccNHzTfHeUUPn6tr15/+mT85Mnc3AVbeulAB/xznKFMrTx/zegrAef1/gRhJalg4L/jQAPezT/tpb5c9N7xrc3oikfJwD3ftglecO3EGQoP+dcLxpMMoAEOh9Y9OX7jjwe0C26X+9eF+v9fUHtf3QVbrmUfP3seqZVpNIW+nVIy8BUc6MAfXt8YasaBhkS/tOJvqucMYPDwljB25NBl8oPcJ0tot3SekX+/WXnljuH/1bgDb7ziyheK2HjC5zVk5z2M5gF2d/Ob5LuePHY3m4I/igMFeKd/+Wce2XtO1vj9P7Dy43uwxS1yTF53ffSz01ygAP4STim8G8oO2yDxYy7ZKav8N/aDxLChzKMr1zldJU3Mkk3AYMJCmVe61Wy5yiNP4Hpc8k6QpW8M1bgmkFi9NduYRQXOCA40EDNJ6DuEAroYaIBH4Mp/8D2Xp+wj8rp+uHSv5n3repv3XRoZaNiq+JC3H+O172jubJ71NixmWxoW57wxiCxYIkPEBOw4rO9AoGlXZ2fTzgPBvrdk/m4rzO84uHXrjoPzUNkfkouzrizCdwVxoIPwZxLyFlrAEAIN8CA8cljWmY3WyOmKTyTyT+V0qYKh8D9nu/AKufXF5CcdB+xUemEND61I2itRXk0hveaMj8rkHRMQXhDPYAof7ih6pRUHBojW0vQuSv5PBAzAW2fYS2NWIZV/Li+UKtiKszWcR+n4Il83xX7RWYz35pCn+JWswBToi7JGAUpiDo8bNg6Y4rSgmMjbj73fEOkr9kdnvY2L2dbGbXPeaGmk0K/5AXbkdj4DfwhnGHUL4811k9pAL1y8V2Lful6bvSQCE3NnM1h6UinfJS9fcYZSAsJmPYGviM5MSKgX5YKjyIy73i0Y9T5IzCsxyJvg2dZUQ8bHAOkUyfEwd0oKdMAy+RkM6CCdJDvSk1KEnsrAk99txVKn0iUpwf9KKb0lWaKTQO6S0LAPcbq4i0xwgjBGlBBSP+MltKLzd3HgLH8//1d4QMPRmP/W7CHjRIWH4IFjX7Ix/LkjWWcW8dpQLO4kEVCTVOS0BpQsv2EFbPBPpX7jQiyrzX3vOMN2DZONhOjrNQwnTqE4v3kRfLZaiX9sLPQM48AE8USpifF3nIHZK5XleG19aXXPABPnD1NJRRNtA1Hnin7SW8St3SoCJuDDnoLKWozZ8x2MDeoxbFRPK3hMhsahEAT/8Y18Oh8KAY806HQ3g4Px2zvl8fWMLzfdX37BKPnGnIH0nwC4sHyKf5OhI1Ux6/cbccQT3HGjjgjPlwlvCPi2pTO+RbHDITiLmbQSvD5wz2FT/gFddbTKbo2nSgdAhwPJctD4ba2RXp/yhXsh1kVfXjVCZWGeJoRCqy5MKb8Vtgz41htyKeus32/EEf9Qn2+DjoDnzQTnAt5t6Yx3UfUgOIuZtBL8qPmkh5h1Xl5K3l3s5cxxziOOlexQd3/aZBwWL2ERxXSHeZ2lRwN3H7ZkDvNCpzSl2oDf+BT5lRWYcqPNr1qW4Ipqv+T4r5XPKR5U22tkOPz8393rCe/V1jOpZeZfXmUfRhAkFqNlnVlU8GhmQcKa8B9kJgmktRF+iLAW+GZAesm5wWUooekX66x+WwF9FPv+zNzeHI1qDsVLy2Vu7FKzsWwqSXMoXMq7X/PXlgvJymevfMgu1pe5wpp7KEiADa50xpWxEuQl8mKJj8ri3dGDviCewrhPtWpLnCEcoVbpWQ0EkkI4xl8daM8dPBbVZ1gOvMmdwuCmwzat651q6R4f6dhp2jm8Y2F+bteG4V1oFYrcwgUm4I/gwATOc+xa21uOZB8X7hCPIx746e39bqzsju57SHrsbnbBJ8Vmf6ejjf2LfwN4JeKHv6dM3zNXEL/qPqh9kYKxsyfFBx/9mr/3efJFLUd/hCMvFuDU3iv/brxrH4uCP4RDASgu2nsQYuHKC5R24eXXnnUVNB16QyZxXSbLf+JGDtAAfx+ny+W/PT1Y8xyjcU99Aj3bIKfjP+BAA+7yu6VUO+fie5rRz+uvfCep4U3t3lv/2wWKDLnxnBu9d5kLNMDh0kOPB5e/HJOnURf6dbrxh5HwMcWRcj7QAH8Np0kZbwwgaXTl27Np+Nc40IBfNP3tkgOztHONEwoGAIMDR/ux+fJBeQvvtwzDO3G5/I3pqgsvk8HtB776z7F6NH6az6TOLLc8ZZnCQH8mNNxac+PMjBF3xxDtD8qi2XuvvlrcaFOrELy3Cno4j8/g78M/XZEGrLhGMCxk8tf0PgbtgsLpotMeltLda65qbagwDAf6Ux3NsY+/PGfqCwZu2n81bs52tI1FZkzjpkS0w434IBEBP7z77JFXNWavoVjhMv/vJpWLv1XpNZo1Ka+70zDJOCG6e0SVbDS12eyVwfYih8iY0doiGvr/XKUNnnApzurYFNRB14CtDz/jsj13qWE+KxXtxbnhV/ANT/CZfCr+DIYLGALYcd63DOO1P81S2srLs6gTDdYPdrgH1K3YdlE+wInpvY2mFhvRE0oucxKS7U2MpxnKuqM4HHzP5uf3ZxsWZAdikaI5r6vCclSaZiLy0PEyxa327HUujZ/mZmxWR212y3CP2wNuGPbU5iEHmnRXJZa3tkJRED8mk4tbv3zsvJS6o7hdEX/EPy1uU/QqO8WhvjHVAQS6i8yl4XjZtCWuNUVsBlXQZf3nzuzNBoWj2m+psIWsqo0fo4+GinwWY7C6pjLdY3aXJyTLsoAE//GWXtP3sx+4suABfyTlKT8jc5Voj9yn3+z5d+Uz0DFT4+f0tTZslF0YSajWexorzU9K0ghTHjlxw6e32IMHXCUBqpe1XxXmIv6qgZ6ax4aQLZfti2ivSu4K47v+Pa0l+1JqxB96U270hUf6PjJnux/d1F7aof20n33VITqt/1/Kv7T+h/vUfeyfBdH2sqVAERHxAAoelKSEkjPDT5397BmwOSfe/f7HU+7Ld08L3ivs3dj6Uz/MEjhXck7zGMdwztfU0sgkvHFKuclwn7Sf/Vn+lPzyv9LdoO3GfyZQnR6JmMrbh9ri+h8+v3rb5samiUfTlyuE0scPXvJSibsxVOPwJiCAH+IxvKvgUz46p5PlfHvLjqs3kxfVmruD9dqxwOSZn4efOQscv8t/h9EHRTfiQRWtqCdidwg+eOfYNFmFuvz+3Yf8IYJTSSnw9l+iEzhWcYrWUVVYYKQj+sdjgVcJoP+wPhzze+qBGhyJhtXBx/6IRtuwADhukd/+F9YLdJf0F3j1StQZatm5u8WPulTVzPSz34ENr92KD3F+HuXgd4DwtavuwEc5Pw9xcKh8Y9Y7rTsM+Uiv/k7XYih7KJyunVftgSgIqJZrR5pCd4L+G613RkN1I8rlIARVe+rmw+md2ZBrsfROKIFO3WHPNGjthkyLoQW+P3Pads1N26cwy0qVqvs3OV+VfvKB55uU6b7BBFjWiU81vjnxK5RhT8mnrsdrNRKFe9Xje75TYTREw8b7D15Nc+pVomfj65B+37i4r+FT8ZZBOcdZ9e21xkcfvkYl7vDLeu6uA+0VFxsvXjY/WL5vuegRYwpYlk7icOLt5S3ZqtregGfuqu2kJ+mJjs76My3hCXzbtbUpWnBwZEkthOTfEKnUY+f3Hdl/Kvl61P44V3ZdSfm6xyueX8liw1xLQBu52HjxPfdI+7/d+0zRL128wmncovaeK7OHm+sbE2NRb9LprTvyl9vu1ydxjh/JiG7sOhd9N3Uo3lKaqy15uCkkcuVvwvo0aXdje5G9tocT0uhEQaPssY2weeStxgfFi0KjPHy0RVZTEdNVukUJQpJzyTdCJv4szuTrYfiuftr+UfdhvAfLBK7btPlW9zuUJZt9RLcjf5o8f9fCRPhy/A1ql/XQ9NFxPIydP9ng6xpXBM5jD1LiTqV0oNTo1C/eAX+fveCXiS8+ho71V+r1rymy5HmJSxEZWr+n6UWF6uTgxvW//3raABOxIH/aevP/u4eXGJ/2cBeh7xmnjVD0o8YjVy6Zfe+Tpx1g+CV7D7twL5u9t5C9B0rHnl2X2+fObXuc9Dx5O4BWgi9AXgdk+AJ0BbgDKNDjJ4RuQb1j3d8MZKBzAHoCAGM7hN5CabeSlZhIFcz8K3qNwIFqADJZAVIF5FD6EH3HA3w8cilmuwp9FGgP8hyyiOyjlaRAjvehT6Hnc8wpP/hPIdwoR50Pu7rE+4gLxKv1oFa93aSnSJcawrOI/Dj5crvPkt4NBTcLrnaEz/trKLu96F+O3cQOZgcyo7Ubfx6/LhwO/D9o4wHqE9R83B7/Dy2kPUbbnU/JZ+db83jortCpTevot9PvpyfpXfRB+qXFkfC/wnceQ+UixsX86r/IuLRcUK4pd1VQVVTvqJBj7z722JZ2a80Ss4qckCdAQTgAy7nzBx4wdMaxenQYRlbvC0qp1vAvf4X7x5ZoSwjse0HjxgNfQiDNauRCJPDD5CfEmvHC77be1znCj7uWo9nLtkThSmxT+m3AcizEXCzGmoP5iTvHcpMoLaKHwVkeHp02ptobdJgorfZjZKF4ZLGsreXk7AfOLkrREAedLwuBbIdNA9ULvoptIdTwG5+1RTomWIrawPvSMMBR96rrfa5q0cocEY3dVkfQr9MpbZ7EyAJHHAhUu3S0HaBKeUiu6K4OSmRMM0fdfe6cHjOngViL2mMGb+TG9p32cNBkRYRJio+4EypKmYz1dx+mtZu5bNtqqOKePftnbh49LlCnJZfL4B/Vrcn5aASrVWzME4NoS7McIXSssgyliFQuZcHtTDaSsAaee/a4E/abb6gtZFlbk1xmYGPla7JOWpumloT1FutCMkl53m8sSbjADSwG/ri1vOKpk2/l2K14a63/7pt6UBspA6prigXH0zJ7lXlYPXM4Lsh05hs73LyQ0GHtm6xzjm8w08Lve6+JYWEUhgQPTLdEwiaGfyGRGamaW1llgYBer5Yb3f6eBZ67zSQt/Pefg/hkPGhMO9220sRqU5O28s+dazQx+9YVt60elytQ6vY7Ad4ssySGoyg0Yvncs1nBCv5gfDvS2iwJsPkCS0xjwCqGxi4jXc55FyCEMbQXIa/NvDqX9Wq+7x/788QbpGjNOxKYb7QuAwc0H1G6erUUBwVTEc4g86a5PbONZ3UNvIhbsBbbwo+z7TVcCsIWN0y64AKMoW8c/wAm9mamZ2cmz/4TWG1jBe6b6cn0pJ1wlJ9Us5fptjsss1UUYSPw/T1gbbocsygZZUI2MYrlYlCpJJx+NltzlJOAWxHmdh7oeUJonDl/ryc5rXAUIasqVlHYgaeCmWWEi354777mZ3fua4rFVO1psWIxyJMXCv0GlKS8d6+6+BJjhy+Dfc0DLmx12NI4i/kxp2Cucnvxbg+BhJiLctLQe+/3IfAA7G55sDseyeJFubw+32HXC7o8ehJ83zirJw++RAO8M3NfBsDrA1W/zNvEHG8Zb3VG5kjWrtXf92sZ5xjSE5hNG8CzDsHm627/X4mMIkPFWGvs1gBErGOCYwOQF3UHYDvmYwmWY5X55mDc9s1z2re/qUIuEotEQpl6jghfnaRIckVSKoWCfd7sRSQ4W07R0/6S5PyCohQdITbIMxAFf8as6p+I43mj2df/YBqe7U1mhofilUZLdaWWi+qEghpNW1yX6UIz4yimy9bozvriRdFEOI6BRfyV6q+DyFKeL2CxpaU2u62qXM3lf33qrtNvnS2jVMriFRXv6iPzPT3npeAiA53nsui9KevwCZyFc/AenIFTmLcWjZo+/+16kmbaf/9nWW0smhman1/oa040auVSsVggKq4b3DJPbkGSlL9yyevnRuOB+aVlNs6mr2UdHP7RODrfJMAfTdqO//rXRKfhrK4g+M9yIQJrsc9hoUD+6fu8qrV8I4a4dWxcVt7ig+169KpSqXLw5p5cSyq+3gc73IFLcThlbsa8Q/zfH+ePn1Y6nSlztAx1IsoprmZ98+tfhUyy2AVHsYTnPHB2Wxp+LILQGt4QKF7wwjPGoyqsO6RsDL2yeoejTs/nFpLzkuNPfKYv7/uWAiUip0tgyh5dDXHjW657dHJW3tACOzd39qJDuMJ9JELWwN1f7kYtSrRm94q7I2xQeg+Cwf6BpHOTijFYWJjqySUarNZcrjXi4P0WU/vNzzvyOJQ/Rvo5wLXtkSu8EYcQjAVl3P/Dj1LPbhywqYHyqaauVGi5Mb7qn1WBxF9Dw/cJ9M7M5aQ/ECm4SEJ3LjJox+KouDWwg1fz3w7rt2WOn/MkL3nYlWWOwl82hrPLbuFKs3rjqU9/V4ok3o+CH9PSfX7KzqB7zjAuLPTMktttrQ7PyJP1Twhq7GOHUOMVL4V4bhFHxFHhGTDaSWUm81XD1oHz8zwZyMLDolw8jThWHoC9GIXRc998+8/WxW0fXx3uTM3Np5LJxNReQsmAdiypJ+5ulJtEI3i0KYrklETPI3iKo+H1b/747MO44d5wNBIdGhwa/ejM6MhHy2t680h9zw6A3iO7XQ/g1USSmPmyRIZicfXiV1Vfcal09xMvpoQTJEZsDbzD45dAa+CkhIVqriFWAeCckUzCB1NSkPkUiOk+72xtjnv997oiHMOyAlEiEYLlxc2Pc/zVa+cNz/czaLBm37e2Cf7qSava/cQS1SBFj3//k1mJziMosGMZNLZPdk9ODiup7mxLbmvCocnl2tKfSzsP5XMn+jKZmB6dFrb2rFpoX8u+3c4wHEXjyNjn/z9OU1xYeQbUpOVjTKnxaSqxKUrjvb4h+DoykL6pt1bnnWhZP/BxTvlz8Vdhva6WJUxvf/7kqP/0s9pVJCygU0SU3KMiLmUqc8E1VckRRqZMQva5x+Pgg6RandcRM+eKwYTVVDj8G7LHqgg367BZLArYYsW2nRX3/IwcePh5lExSGAyvWaa2dsLD6VTq7c73v+E4AbKTByKKhmz3gYEf0pLLwVi13fI4dCoJ/UOf6FXYI9QGp/DbX2/9jY9re0t8bmhkVVWZWFERMAY1Kr7SYgqajQ7nX+2Ish1n0tMq6XB+oc7nbqh6+zkKfgzPZtKZQHGzOLb4snYBWdoOjk3ZsXqydPELRdeQM7eMzZ7fDh3a+Xq6LK8QXTUrXLafP//BajhFc6AG1utk2feCN7dJS78pusEqms3EaRV0mJyDGNtyJlGz0GGsVbeo0WErf+tZl+x0alBPtc7nB8HaWlKp5njzEHDS9vP9ukl/Jn/59Hur4kirZCvOW2xRTRAOabxn3KCmzhVRcq4sT4xKd0iwVkwsdde23FjkL21HqGkCksy5pZKTGCkq4IekXbU4H/4tycWMOXXOIc5leEIR0ZNETOBoVRGmJFbD6n0LQrWyNc97pfphQnlXZpq2ZMdaBXBMWWM51v7GSNf7P0gMyb7V3tGS7ki3OP47iJEEte7+LeuvM+v7vcvvOLZlm6+NzE1vUItIrwpkv5nV6KhG4wloRNGo6IXNWuhllWXqOKPm539heLK357lmR70jXudwNtadm0mcOnMnYQr9DbVYvGi35I9hnkP6x0yqjPqgN9iXzKLogx5fqDN0IgGVKR+4UUaUYE1HVW5bQm2wR/ap7yQwULNubiM3ScqyLNRtl5UDim4Nvrt1BjdtGpmYnygzSVf72X5MP+BIJiP9SYe/Oe52e/0d7/4hKOStlmymI5POtr77i2Tp5wl+Cd12h6tkTmUok5LpiHcc5h3comAmIA1Zthsgcs1EuBjTzdsHzymbts0NNgbnjVwymUilMrk2f3UGJYmOlwG8LbKLjr1mibQ19NVsHEferGVuJriR64itvyd6u+HEyg8DhSPxPEvR1YKmHE6p9YkaHRCuv6eC2du/EAyGaCWb3x7x7W+dMmHC+LGjQS5h1jcDjVSc7/nndWsq7QChJEPWfhsB626w3BqwF6udWUnFKmVepyHdEQcBKUhoqagWZYGZI406kvJwQT6C7Qhi3H1nSL74Jpf71wl5+nfRDflWAPns35ovniYUSyR5Z20jiISD7Pqg+fSf0wr5ZKf6NLK932n35QuOL1zN1AbhGdzTiD6EgSbZV8Lb5UoZ85RyNlrOBDlXkGrksLHTV+Wc/gEVBEcigwIgLalXV4lEXLtYaZl0KKAGWS0spKxBNJLMcDO+uQrFce7BDm8mFYw0N0cjMdmbXfjbG91dXZ0x2d3WluvIbEimk6ZZjEAzad9AcJQ5Wh1v6B8rk840J+KIw2BLy6f+YyNzoVKhtR2xgkeOnF54MGgYSq0V04uLvvormyZigZCLJt1mQmA+oWQtdl4iOTtz9V3+0b/Sft7avvaWfVoWSyn46/deOJ2BD+94YOX2dAEdTXUBP2VkH5srN9prbVWVWoHwm4fvPxrMG1GVxQLv9VMwRv317kS3jH82BMvuwkHtWnVr9sJjD7fbONrdTcEJv35BaS6RsMTT0dHZqJMSv/uMxHEsmVa9lecNDQ6PDg5+xu6UoqicxLFMbvAyry7+K0h9ig8OjPT2tnd1zkMFI6Tl47BtNBMVltumWav1Mqm/Ggql8JRDsBv7CEldBK2FhgImvrKpxC95Ws6KA8lcLXH9+O1Obnd05jyhUF1tfTwSaptebwxOj/QlDHi5KDdZjUTjyoUmHZvN/v3n6+mToq7Qk1Yuh1bVqxauMP0XyhRCHYFaL3vmUETNJFzHF3nfUDdIx2Uz/RPMOB//VF8OyePS41hv2B4bEbIrK89yVRJV0VK7XwhZlHrF5s/zZWUGbH5FVUW56d13Uv0vpBKRujrRHw3nVXLhUkEJ/PLF1+LJUhvY0WiRBLJx4qvvz6pTcD9UuRCenBVokiHji272v4oufKnguLVEb4VGX/TrlDslWf1wIEaQSBoXFZVoKO0O0hpiEse55Q4bWTj1ldFTRSE1LJSd++tbx59m2XLxj+DNWtUKmjao5BoDz3n3KwY4fD0/OQFvpYaQmsF13Mcs4ecL6YFydIT0m9UTK/bN0k3XUGD0NYGa+3oqvlRYvvpKFEQJvUChWVOLFVoJA/dzEitwPK8ibSD6n2J+47KcQ+eHfb29ffDqK3bczyJfXleowMwr/rN3g6sAta/ksVrkcLCTKJO3adA7H98Gxxu+VxwHupU6N7Bpvn/YKkaRyWlTHiRjWzndcM/nNc7KYiZmBvGhXf6dbI+c2PnhWSMf/FJvqzPpzbYGk7GiSgdIIsflnjd1Degu88l1u/8RNUaZDpuY2VplBgdvoDcW9jelTr3s9T7++OmljSapVCSTycHTajXasrLYK68n04QnG01N8Vhb+cHAOXrk8MNer8flcspwPvgrkieQtSBYArUlgpBHQPYSd/vm2tsIrZMbtBhM22LXEZ1wUKpa9tVXC7/4ezLorBVLvvnm2MU//pgf2lLdf0UpeULy2wKB51gRNOFr9tjO8y7bcFcaxGJuHls8v1Ry+t3q+7fZag4/RcdO2cbgyCbkjATNgv9PJht7zIFpN2DmHweeAl2WXKZBKs0cwcXYd+iQB3/vlG1/I3soPSDcRIsmLXRgLz4+d7K3ijTm4DTHPXcPWtTaLg/GYyHJA435lTb2aG2ZUXZNzm9aXGxp6ZkGMl8flItEpBBbKjZ8gxGETSdb0ERbC73NFBtf4FPc5obdGIdxTfDkIgWPsR3NtFzvJq9gyAe0A4nRDeixfm5qYnRqwQ1LmLdoqIHzy1otVMoaEZRHWeCzdbnK67zlvyx3ly6DPnmvqaolrzQgeZe5nP915FBCi5Isow2mprRdh4I20+TkpruBW7aCKfvmtkpSTNzg8l/vDoEubXf3yEj3manfD/Y3XlznHA6/jr2OgS8IqscVGpomF9ZjmOGY7o8/EZRkJVkSlZoQ9knyXKETbdnHReT/Pxo7euAxvRxlGis0tueu+ZPGTwQBosqBdTxwdR0WjDYNTmzFWHrrTWoGoOjZM10zC+tHB8Y3umEHRiFa/DUZL2f/tpAl89IszFk6Z8VsnvIZO+TkijgsAd3JukprubXs11gspLstTtZRlwVbPGKnaKkI7kGH6VtnULORTHk6Gg4GwvH+szJ+1FHkAMCTOWk7ppXlcmVRcXgwKL3vXGufpjI9Cn68prZCI2QxN0+LLA2cd6XGtrnctVZswE9Ml5UvxIs+SdR3mSzSysraOodBRg9CCAM5dzXUUxOQpnr72yGMNVPDJX+iEZD80p9eqgVPT6g3qoSMjV0RtTf/tymbt7YVklLWHtVnc0Tcwn9G2cPrbt1+6Pa+rbHiwU5/0X/eNDbZM3iOW6u8sYG52ZnuWhkPkToo3KUiLlf6gGvcDftxDP3Jh8Ac3ZodsqcW5WLFIlJQS1LVsJiOw/3xeH925qQ6YJH+2/abD8hxxJ5Xx8KFwbyAjRQziFwXDU9jfmgI9/koPlKA/AQl1SUCgZ4jM4jp9cfWJ7Z/NrQbL6JWqKPeeAmpJRE46SgUKdQ6cjoHkEZsmCNCQ9pjkRYqCA5UCfFnmUDSrmU8aqcGS/+ROMWh6khza7yas6pziQ7fLdv2UphubaqvKvnvXxghcark7FQlt4O1s4BGmd64oDwSXd5IWDEftIILQ2fb1LY4H8OmLly51fHuEiAIZb48nSNfIhqDLSDBZbjPHifHgaoG5yQJ5Yz+SWnCT4AAKn+RGQf9lEPaSVXxfn4TLXjgIBZhFqKD2bTb5y4ntQo9PUWRrNJw+lyuSbpMOcvkzOVyTojLA7O76j8RLTBWO/0Bf53JqDSH/FUqBubzX+TJ9uaEURIQnL9aY1VTquv7VupUb19nc6VSqNBqodmVGFnviuavD7isAoJyQoA1XRj/1U8iY5akCxUpssH/UxRD8vbdyaE1VUjyQHuG0VhToS058oY3LCz0NBbJVQ3dl40Nw2k/HPmf66ZW6f8jNdCwjq637HRoC20VFHpfv6s4sLpVJfwbmN/goFYACtQokSD/EMfb3p5riSv4xUDcyuSCP6Zd5vz6P4xw2bdcV0KZw3A/pWq6bMlpg4ve4iZ8ak3gN1QQt3KvirWK6GEkdyJOKg2FH5e/zv6One6zbVEHd06FIlN3XZd481yb45yzccI6uV5A/27xw3Kn/nd5ixD/hpIMKPzS3FX99TZ6/OdpOQG/yKh5NmFIpvmkhMolsEQ3jHphB8veMR4j6OuKpYJQlYXYoaGT9ojXHaPF7oka679AUZALPWRpP0twJQz19AQ2/Hhk2AEudRE2GmObvXDNkBqFka9Q9kNnJh6Lhia2zHngQuzGNqyfjluwrLIqmr51o5rmXEcLX1A1x4KP1Coeu+A6zLWvtGSGhjLg7OI0/PjftJq+ti7524uMhZQYdIZUokE9j8umWcrk/lyfjueIeSc4RgdpzuvGIlYlrLVqGsZMsGq0RZIBSRN9qPICOlEvsjIPGamNfS4Qatqb7qVoPzspJ7cVaE533uwkGhNkB/J0unAnnJS2u5tu/Z8IhBPP/6FszI9Yqx2lND6XhPrGBdV1jUYRXsSycUFA3zCnFEuUSra0WK1SKqQiUWldtGdwIlen5fM46kp/T/9QxkW2inksFXTaDuzomNiy+P6QgbKay8OgiQ308P1NoRpKOzZQUBKFQiGuwRg3tUpyKUV5SK+8oQVJRjRQ4S3420DuGdnmggMqcnpmJgnL011lGg13MjOY5bAO1+FKr3E4fuY3jRlwVgSi7vpgsFzKmJZwtxeehPsNaFc+etCVSdv5//D51PaOmYnzorBXrXJPvVCmRZcGDyq6/8PYutUJ+VjcFoBdHXzPuEWu550ItrRkJBLh5Ze7CUU1HaezlqqkMqW93S6lY/xdpCUiheGJHqJaObmHdIGIVdBdvrLk5FowVQgItQgWlhZzqWFR8/ziIn2ZzqQzi9KJF70xjeVRY0Wdx12t4TE2Z/grn7MYPxgutDmqTGathMXY5KUFngWlc0UpR8gUe7H18CGakS83FOqJqHt3KYoj1uWPnga8F6Yvm3VMK6XuDRDXhVxOxOXCRgHkssNibo6O35xxzUwn+E8p07EOprtSKWYSrPISMS9PJz3O1Iwhd195d4ZIaJXxoDyRdVavammrHibZEJMQmUMY5hkJSf8ORhNMGYLyRQNth83AKNMymUjM9eDscAqapmZgRubKqiIyJ6AzsGObY8GXP88ngiTVPLdAAFBg3d2NOG4cp30EeQgAvHDscSoAwAcrrcS1226cu1NeBUDGAAAI/Bcoi3SAin8YVW5MovryO2s+V3qGOfJPE5s2mS6QJZscjMlItry4eVEHrb2OYLabGJuf38puPsDRGPGB2hzFbYWw5rnS29uazMvwENvX7768KlmL6ny8y/50rEiRyr4M8K0dcbSqQM/nR02IkDaJ0iKWNnIX9HbDHMzZ8TI63Zj5Szp+TttexZytRua9nT399rTGyHI8dx3xh2sF6OLXTpgFzqxQpw61fnhbLCuOyxT4AaMTjL7krxBcXc+4FjfqYHUbtRm16IpTADlAxjK6iFrI6CKpLY48tijyN0BeUx0/UMZn8gFo5h3U1HPZRd5eU+P/+kvF0swGSj8RBEgm4RcEAehzGa7b8LPmEohIDN++NnUZANcBOktyn86y0tezYovjWTXPt1ljEuSzrXmhPB8x8thnCqcCWYWPG7MGIR6TtVgRuazDosg/P48lcQOPKdM2mjViyLB5SlaWnquUrnGAeZrupE3Kxsu6cbOmjBp9lq7LeY4Nx4Wz5ijpOElh09XyWmZmQ0aM//jn6WXSZ8oEsxivkBSPZi18ksxO76xHLDliQ+KOW7feZWVi6bTqxDSbeKRPnWWK8Ug1K6UMWwBhsHY4VRqUjuzZV7caiOFSt6nG8n5uNFqfsTAg+FHXmeSzGkPcdqYkOJ+AzGqNxmrf47GHv248) format("woff2")}
+:root{
+  color-scheme:dark;
+  --bg:#26282A;--panel:#323437;--panel2:#3A3C3F;--line:#4B4E52;--text:#ECEBE8;--muted:#AEB0B3;
+  --silver:#D7D8DA;--ink:#26282A;--ok:#9AD7AE;--danger:#F0A0A0;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,"Noto Sans Arabic",Arial,sans-serif;
+  --serif:"Cinzel",Georgia,serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.4}
+body.lock-scroll{overflow:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--silver);outline-offset:2px}
+.ic{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ic.fill{fill:currentColor;stroke:none}
+.wrap{max-width:880px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom))}
+.top{display:flex;align-items:center;gap:6px;min-height:48px}
+.top .sp{flex:1}
+.ib{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;color:var(--silver);background:var(--panel)}
+.ib:active{background:var(--panel2)}
+.ib.plain{background:none}
+.brand{display:flex;justify-content:center;margin:6px 0 4px}
+.logo{width:min(74vw,290px);height:auto;color:var(--silver);display:block}
+.month{font-family:var(--serif);letter-spacing:.28em;text-align:center;color:var(--muted);font-size:13px;margin:6px 0 18px;text-transform:uppercase}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px}
+.lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.big{font-family:var(--serif);font-weight:700;font-size:34px;line-height:1.1;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.sub{color:var(--muted);font-size:14px}
+.total{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.btn{min-height:46px;padding:0 18px;border-radius:14px;background:var(--silver);color:var(--ink);font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn:active{opacity:.85}
+.btn.ghost{background:var(--panel2);color:var(--text);border:1px solid var(--line);font-weight:600}
+.btn.danger{background:none;color:var(--danger);border:1px solid #6b4a4a}
+.btn.sm{min-height:40px;padding:0 14px;border-radius:12px;font-size:15px}
+.btn.wide{width:100%}
+.row{display:flex;gap:10px;align-items:center}
+.row.wrap2{flex-wrap:wrap}
+.mt{margin-top:14px}.mt2{margin-top:22px}
+.timer{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:14px}
+.tm{font-family:var(--serif);font-weight:700;font-size:40px;letter-spacing:.04em;font-variant-numeric:tabular-nums;line-height:1.1}
+.tm.on{color:var(--ok)}
+.timer .btn{min-width:130px}
+details.sess{margin-top:10px;border-top:1px solid var(--line);padding-top:8px}
+details.sess summary{cursor:pointer;color:var(--muted);font-size:14px;min-height:36px;display:flex;align-items:center}
+.sess li{display:flex;align-items:center;gap:8px;padding:6px 0;color:var(--text);font-size:14px;border-bottom:1px solid #3d4044}
+.sess li span{flex:1}
+ul.clean{list-style:none;margin:0;padding:0}
+.sec-h{display:flex;align-items:center;justify-content:space-between;margin:26px 0 12px;gap:10px}
+.sec-h h2{font-family:var(--serif);font-size:18px;letter-spacing:.18em;margin:0;text-transform:uppercase;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.tile{display:flex;align-items:center;gap:14px;text-align:left;width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:12px;min-height:84px}
+.tile:active{background:#43454a}
+.av{width:60px;height:60px;border-radius:14px;background:var(--silver);color:var(--ink);display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:22px;overflow:hidden;flex:none}
+.av img{width:100%;height:100%;object-fit:cover;display:block}
+.tile .nm{font-weight:700;font-size:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tile .tx{min-width:0;flex:1}
+.tile .amt{font-variant-numeric:tabular-nums;color:var(--silver);font-size:15px;margin-top:2px}
+.tile.empty{border-style:dashed;color:var(--muted);justify-content:center}
+/* client screen */
+.chead{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
+.chead .nm{font-size:22px;font-weight:700;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stats .card{padding:14px}
+.stats .v{font-family:var(--serif);font-weight:700;font-size:24px;margin:4px 0;font-variant-numeric:tabular-nums}
+.bar{height:6px;border-radius:3px;background:#4a4d51;overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--ok);width:0}
+button.card{text-align:left;width:100%}
+.cal-h,.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal-h span{text-align:center;color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:6px 0}
+.cell{aspect-ratio:1/1;min-height:46px;border-radius:12px;background:var(--panel2);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-variant-numeric:tabular-nums}
+.cell.empty{background:none;border:0}
+.cell .n{font-weight:600;font-size:16px}
+.cell.today{border-color:var(--silver);box-shadow:inset 0 0 0 1px var(--silver)}
+.cell:active{background:#43454a}
+.ind{display:flex;gap:4px;align-items:center;height:12px}
+.ind .d{width:7px;height:7px;border-radius:50%;background:var(--silver)}
+.ind .p{font-size:11px;font-weight:800;line-height:1;color:var(--ink);background:var(--silver);border-radius:4px;padding:1px 3px}
+.ind .ok{width:13px;height:13px;color:var(--ok);stroke-width:3.2}
+.legend .ok{width:14px;height:14px;color:var(--ok);stroke-width:3.2;vertical-align:-2px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-top:10px}
+.open li{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #3d4044;text-align:left;width:100%}
+.open .dt{color:var(--muted);font-size:13px;min-width:54px}
+/* sheets */
+#sheet,#inv{position:fixed;inset:0;display:none}
+#sheet{background:rgba(0,0,0,.6);z-index:30;align-items:flex-end;justify-content:center}
+#sheet.on{display:flex}
+.sheet{width:min(580px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-bottom:0;border-radius:22px 22px 0 0;padding:18px 18px calc(22px + env(safe-area-inset-bottom))}
+@media(min-width:700px){#sheet{align-items:center}.sheet{border-radius:22px;border-bottom:1px solid var(--line)}}
+.sh-h{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.sh-h h3{margin:0;font-size:19px;flex:1;min-width:0}
+.sh-h .ib{width:42px;height:42px;background:var(--panel2)}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px}
+.choice{background:var(--panel2);border:1px solid var(--line);border-radius:18px;min-height:112px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:17px}
+.choice .ic{width:30px;height:30px}
+.choice small{font-weight:500;color:var(--muted);font-size:13px}
+.choice:active{background:#43454a}
+label.f{display:block;font-size:13px;color:var(--muted);margin:14px 0 6px;letter-spacing:.04em}
+input[type=text],input[type=number],input[type=search],input[type=password],input:not([type]),select{width:100%;min-height:48px;border-radius:12px;border:1px solid var(--line);background:var(--bg);padding:0 14px;color:var(--text)}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 20px) 21px,calc(100% - 14px) 21px;background-size:6px 6px;background-repeat:no-repeat}
+.inl{display:flex;gap:8px}
+.inl input{flex:1;min-width:0}
+ul.notes li{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #404347}
+ul.notes .t{flex:1;min-width:0;overflow-wrap:anywhere;font-size:16px}
+ul.notes li.done .t{text-decoration:line-through;color:var(--muted)}
+.chk{width:44px;height:44px;border-radius:12px;border:2px solid var(--silver);display:grid;place-items:center;color:transparent;flex:none}
+.chk .ic{stroke-width:3.2}
+li.done .chk{background:var(--ok);border-color:var(--ok);color:var(--ink)}
+.xb{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;color:var(--muted);flex:none}
+.xb:active{background:var(--panel2)}
+.empty-n{color:var(--muted);padding:10px 0}
+.sum{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:14px}
+.sum div{display:flex;justify-content:space-between;padding:3px 0;font-variant-numeric:tabular-nums}
+.sum .tt{border-top:1px solid var(--line);margin-top:6px;padding-top:9px;font-weight:800;font-size:19px;color:var(--silver)}
+.adds li{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #404347}
+.adds .t{flex:1;min-width:0;overflow-wrap:anywhere}
+.adds .a{font-variant-numeric:tabular-nums;font-weight:700}
+.adds .dd{color:var(--muted);font-size:13px}
+.photo-row{display:flex;gap:14px;align-items:center}
+.photo-row .av{width:76px;height:76px;border-radius:18px;font-size:28px}
+.hint{color:var(--muted);font-size:13px;margin:8px 0 0}
+.sep{height:1px;background:var(--line);margin:18px 0}
+/* history */
+.mrow{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px;min-height:68px}
+.mrow .mt1{font-weight:700}
+.mrow .ar{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:700;color:var(--silver);text-align:right}
+/* lock */
+#lock{position:fixed;inset:0;background:var(--bg);z-index:60;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px}
+#lock.on{display:flex}
+#lock .logo{width:min(46vw,170px)}
+.dots{display:flex;gap:14px;margin:6px 0 10px}
+.dots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--silver)}
+.dots i.f{background:var(--silver)}
+.dots.bad{animation:sh .35s}
+@keyframes sh{20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+.pad{display:grid;grid-template-columns:repeat(3,76px);gap:12px}
+.pad button{height:68px;border-radius:50%;background:var(--panel);border:1px solid var(--line);font-size:26px;font-family:var(--serif);font-weight:600}
+.pad button:active{background:var(--panel2)}
+.pad .ghost{background:none;border:0}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--silver);color:var(--ink);padding:11px 18px;border-radius:12px;font-weight:600;z-index:80;display:none;max-width:90vw}
+/* invoice overlay */
+#inv{background:#585b60;z-index:50;overflow:auto;-webkit-overflow-scrolling:touch}
+#inv.on{display:block}
+.inv-bar{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center;padding:max(10px,env(safe-area-inset-top)) 12px 10px;flex-wrap:wrap}
+.inv-bar label{display:flex;gap:8px;align-items:center;font-size:14px;min-height:40px}
+.inv-bar input[type=checkbox]{width:20px;height:20px;accent-color:#D7D8DA}
+.doc{background:#fff;color:#1d1f21;width:min(794px,calc(100% - 20px));margin:16px auto 40px;padding:44px 44px 36px;box-shadow:0 8px 40px rgba(0,0,0,.4);font-family:var(--sans);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.d-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+.d-logo{width:190px;height:auto;color:#3A3C3F}
+.d-title{text-align:right}
+.d-title h1{font-family:var(--serif);letter-spacing:.3em;margin:0;font-size:26px;color:#3A3C3F}
+.d-title p{margin:4px 0 0;color:#5d6064;font-size:13px}
+.d-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0 22px;padding:14px 0;border-top:2px solid #3A3C3F;border-bottom:1px solid #d7d8da}
+.d-meta small{display:block;font-size:11px;letter-spacing:.14em;color:#6a6d71;text-transform:uppercase}
+.d-meta b{font-size:16px}
+.doc table{width:100%;border-collapse:collapse;font-size:14px}
+.doc th{text-align:left;background:#3A3C3F;color:#fff;font-weight:600;padding:9px 10px;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.doc td{padding:9px 10px;border-bottom:1px solid #e3e4e6;vertical-align:top;overflow-wrap:anywhere}
+.doc th.r,.doc td.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.doc tr.tot td{border-bottom:0;border-top:2px solid #3A3C3F;font-weight:800;font-size:17px;padding-top:12px}
+.doc h4{font-family:var(--serif);letter-spacing:.2em;margin:26px 0 8px;font-size:13px;color:#3A3C3F;text-transform:uppercase}
+.log li{display:flex;gap:10px;padding:5px 0;border-bottom:1px solid #eceded;font-size:14px}
+.log .m{width:18px;flex:none;font-weight:800}
+.log .dd{color:#6a6d71;min-width:48px;flex:none}
+.log li.pend{color:#6a6d71}
+.d-foot{margin-top:34px;padding-top:12px;border-top:1px solid #d7d8da;text-align:center;font-size:12px;letter-spacing:.16em;color:#6a6d71;text-transform:uppercase}
+@media(max-width:560px){.doc{padding:24px 18px}.d-meta{grid-template-columns:1fr 1fr}.d-title{text-align:left}}
+@media print{
+  html,body{height:auto!important;overflow:visible!important;background:#fff!important}
+  #app,#sheet,#lock,#toast,.inv-bar{display:none!important}
+  #inv{position:static!important;display:block!important;background:#fff!important;overflow:visible!important}
+  .doc{box-shadow:none!important;margin:0!important;width:auto!important;padding:0!important}
+  @page{size:A4;margin:14mm}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="sheet" role="dialog" aria-modal="true"></div>
+<div id="inv"></div>
+<div id="lock" role="dialog" aria-label="Enter PIN"></div>
+<div id="toast" role="status"></div>
+<noscript>This app needs JavaScript.</noscript>
+
+<script>
+"use strict";
+/* ---------- helpers ---------- */
+const LOGO_FULL = '<g fill="none" stroke="currentColor" stroke-width="6.5" stroke-linecap="round"><path d="M480.2,104.4 A24,24 0 0 1 499.6,123.8 M482.9,88.6 A40,40 0 0 1 515.4,121.1 M485.7,72.9 A56,56 0 0 1 531.1,118.3"/></g><g fill="currentColor"><path d="M233.56 124.38 341.26 360.02H282.15L213.54 187.99L233.56 124.38ZM162.61 337.91Q159.9 344.51 161.55 349.13Q163.2 353.75 167.2 356.23Q171.19 358.7 175.15 358.7H178.12V362H107.38V358.7Q107.38 358.7 108.87 358.7Q110.35 358.7 110.35 358.7Q117.94 358.7 126.03 353.92Q134.11 349.13 139.39 337.91H162.61ZM233.56 124.38 234.73 164.71 152.9 361.01H128.89L214.37 167.58Q215.38 165.78 217.79 160.25Q220.21 154.72 223.08 147.78Q225.96 140.84 228.18 134.43Q230.39 128.02 230.59 124.38H233.56ZM268.27 283.33V297.24H170.99V283.33H268.27ZM273.1 337.91H331.02Q336.37 349.13 344.42 353.92Q352.47 358.7 360.06 358.7Q360.06 358.7 361.38 358.7Q362.7 358.7 362.7 358.7V362H257.59V358.7H260.56Q267.03 358.7 272.08 353.25Q277.13 347.81 273.1 337.91Z"/><path d="M381.34 219.92 467.85 338.16Q475.38 348.16 483.37 353.27Q491.37 358.37 501.6 358.7V362H474.39Q470.89 362 462.48 361.61Q454.07 361.21 443.47 358.89Q432.87 356.58 422.16 350.88Q411.46 345.18 403.45 334.57Q401.85 332.37 396.97 325.74Q392.1 319.11 385.43 309.92Q378.76 300.74 371.6 290.87Q364.44 281 358.3 272.49Q352.17 263.99 348.26 258.58Q344.36 253.17 344.36 253.17L381.34 219.92ZM464.09 133.31 364.82 251.17 344.36 253.17 435.11 133.31H464.09ZM487.26 131V134.02H485.94Q475.05 134.02 465.64 138.39Q456.24 142.75 449.64 150.14L422.84 149.48Q426.93 143.87 424.32 138.92Q421.72 133.97 414.98 133.97H411.62V131H485.94H487.26ZM333.8 131V362H284.29V131H333.8ZM285.28 337.91V362H258.88V358.7Q259.28 358.7 261.13 358.7Q262.97 358.7 263.17 358.7Q271.75 358.7 277.86 352.6Q283.96 346.49 284.29 337.91H285.28ZM285.28 155.09H284.29Q283.96 146.51 277.86 140.41Q271.75 134.3 263.17 134.3Q262.97 134.3 261.13 134.3Q259.28 134.3 258.88 134.3V131H285.28V155.09ZM332.81 337.91H333.8Q334.13 346.49 340.23 352.6Q346.34 358.7 354.92 358.7Q355.32 358.7 357.11 358.7Q358.91 358.7 359.21 358.7V362H332.81V337.91ZM332.81 155.09V131H359.21V134.3Q358.88 134.3 357.1 134.3Q355.32 134.3 354.92 134.3Q346.34 134.3 340.23 140.41Q334.13 146.51 333.8 155.09H332.81Z"/><path d="M195.16 406.3 195.67 412.38 177.64 446.26Q177.64 446.26 177.07 447.38Q176.5 448.49 175.92 450.07Q175.35 451.66 175.26 453.16H174.64L172.66 448.09L195.16 406.3ZM153.11 447.33V452H146V451.36Q146.07 451.36 146.55 451.36Q147.03 451.36 147.03 451.36Q148.76 451.36 150.1 450.3Q151.44 449.25 151.7 447.33H153.11ZM155.61 448.35Q155.61 448.42 155.61 448.48Q155.61 448.54 155.61 448.67Q155.61 449.7 156.35 450.56Q157.08 451.42 158.11 451.42H159.09V452H155.16V448.35H155.61ZM156.84 406.3H157.45L159.38 411.84L155.24 452H151.14L156.84 406.3ZM157.45 406.3 177.54 442.5 174.64 453.16 155.95 418.81 157.45 406.3ZM195.74 406.3 201.63 452H193.12L189.78 419.46L195.16 406.3H195.74ZM199.66 447.33H201.03Q201.35 449.25 202.68 450.3Q204.01 451.36 205.7 451.36Q205.7 451.36 206.2 451.36Q206.7 451.36 206.72 451.36V452H199.66V447.33ZM192.74 448.35H193.19V452H189.26V451.42H190.25Q191.31 451.42 192.03 450.56Q192.74 449.7 192.74 448.67Q192.74 448.54 192.74 448.48Q192.74 448.42 192.74 448.35ZM244.4 407.2V452H236.61V407.2H244.4ZM261.42 449.5 262.46 452H244.21V449.5H261.42ZM258.93 428.7V431.14H244.21V428.7H258.93ZM261.94 407.2V409.7H244.21V407.2H261.94ZM265.84 439.82 262.65 452H250.73L253.04 449.5Q256.3 449.5 258.65 448.31Q261 447.13 262.6 444.93Q264.21 442.74 265.21 439.82H265.84ZM258.93 431.01V436.53H258.29V435.83Q258.29 433.85 256.97 432.51Q255.64 431.16 253.66 431.14V431.01H258.93ZM258.93 423.31V428.83H253.66V428.7Q255.64 428.64 256.98 427.28Q258.32 425.93 258.29 423.95V423.31H258.93ZM261.94 409.51V416.18H261.3V415.29Q261.3 412.82 259.77 411.26Q258.24 409.7 255.71 409.64V409.51H261.94ZM261.94 406.05V407.9L254.13 407.2Q255.54 407.2 257.11 407.01Q258.68 406.82 260.02 406.56Q261.36 406.3 261.94 406.05ZM236.81 447.33V452H231.69V451.36Q231.69 451.36 232.1 451.36Q232.52 451.36 232.52 451.36Q234.18 451.36 235.37 450.18Q236.55 448.99 236.61 447.33H236.81ZM236.81 411.87H236.61Q236.59 410.21 235.38 409.02Q234.17 407.84 232.52 407.84Q232.52 407.84 232.12 407.84Q231.72 407.84 231.72 407.84L231.69 407.2H236.81V411.87ZM315.27 407.2Q322.58 407.2 327.97 409.93Q333.35 412.66 336.32 417.71Q339.28 422.75 339.28 429.6Q339.28 436.45 336.32 441.47Q333.35 446.5 327.97 449.25Q322.58 452 315.27 452H300.53L300.47 449.56Q301.71 449.56 303.52 449.56Q305.32 449.56 307.28 449.56Q309.25 449.56 310.95 449.56Q312.64 449.56 313.7 449.56Q314.75 449.56 314.75 449.56Q319.66 449.56 323.23 447.11Q326.8 444.65 328.76 440.17Q330.72 435.69 330.72 429.6Q330.72 423.51 328.76 419.03Q326.8 414.55 323.21 412.09Q319.62 409.64 314.75 409.64Q314.75 409.64 313.65 409.64Q312.54 409.64 310.76 409.64Q308.98 409.64 306.95 409.64Q304.93 409.64 303.03 409.64Q301.13 409.64 299.83 409.64V407.2H315.27ZM305.25 407.2V452H297.46V407.2H305.25ZM297.65 447.33V452H292.53V451.36Q292.53 451.36 292.95 451.36Q293.37 451.36 293.37 451.36Q295.03 451.36 296.21 450.18Q297.4 448.99 297.46 447.33H297.65ZM297.65 411.87H297.46Q297.46 410.21 296.25 409.02Q295.03 407.84 293.37 407.84Q293.37 407.84 292.98 407.84Q292.6 407.84 292.6 407.84L292.53 407.2H297.65V411.87ZM378.51 407.2V452H370.73V407.2H378.51ZM370.92 447.33V452H365.8V451.36Q365.8 451.36 366.21 451.36Q366.63 451.36 366.63 451.36Q368.29 451.36 369.48 450.18Q370.66 448.99 370.73 447.33H370.92ZM370.92 411.87H370.73Q370.66 410.21 369.48 409.02Q368.29 407.84 366.63 407.84Q366.63 407.84 366.21 407.84Q365.8 407.84 365.8 407.84V407.2H370.92V411.87ZM378.32 447.33H378.51Q378.58 448.99 379.76 450.18Q380.95 451.36 382.61 451.36Q382.61 451.36 382.99 451.36Q383.38 451.36 383.44 451.36V452H378.32V447.33ZM378.32 411.87V407.2H383.44V407.84Q383.38 407.84 382.99 407.84Q382.61 407.84 382.61 407.84Q380.95 407.84 379.76 409.02Q378.58 410.21 378.51 411.87H378.32ZM430.93 406.04 451.17 451.62H441.71L427.91 416.3L430.93 406.04ZM417.17 447.33Q416.67 448.61 416.99 449.5Q417.31 450.4 418.07 450.88Q418.83 451.36 419.6 451.36H420.18V452H406.74V451.36Q406.74 451.36 407.03 451.36Q407.32 451.36 407.32 451.36Q408.79 451.36 410.36 450.43Q411.93 449.5 412.95 447.33H417.17ZM430.93 406.04 431.27 412.75 415.34 451.81H410.95L427.47 413.83Q427.6 413.6 428.03 412.61Q428.46 411.63 428.99 410.35Q429.52 409.07 429.92 407.88Q430.33 406.69 430.35 406.04H430.93ZM438.42 436V438.44H419.17V436H438.42ZM440.01 447.33H449.25Q450.26 449.5 451.83 450.43Q453.41 451.36 454.88 451.36Q454.88 451.36 455.13 451.36Q455.39 451.36 455.39 451.36V452H437V451.36H437.58Q438.82 451.36 439.79 450.3Q440.76 449.25 440.01 447.33Z"/><path d="M124.89 484.77 132.48 501.86H128.94L123.76 488.61L124.89 484.77ZM119.73 500.25Q119.55 500.73 119.67 501.06Q119.79 501.4 120.07 501.58Q120.36 501.76 120.65 501.76H120.86V502H115.82V501.76Q115.82 501.76 115.93 501.76Q116.04 501.76 116.04 501.76Q116.59 501.76 117.18 501.41Q117.77 501.06 118.15 500.25H119.73ZM124.89 484.77 125.02 487.28 119.05 501.93H117.4L123.6 487.69Q123.64 487.6 123.81 487.23Q123.97 486.86 124.17 486.38Q124.37 485.9 124.52 485.45Q124.67 485.01 124.68 484.77H124.89ZM127.71 496V496.92H120.48V496H127.71ZM128.3 500.25H131.76Q132.14 501.06 132.73 501.41Q133.32 501.76 133.88 501.76Q133.88 501.76 133.97 501.76Q134.07 501.76 134.07 501.76V502H127.17V501.76H127.39Q127.85 501.76 128.22 501.36Q128.58 500.97 128.3 500.25ZM146.28 485.2H149.89Q151.62 485.2 152.92 485.65Q154.23 486.09 154.96 486.99Q155.69 487.89 155.69 489.28Q155.69 490.34 155.28 491.1Q154.86 491.86 154.22 492.3Q153.57 492.73 152.84 492.86Q154.08 492.99 155.03 493.59Q155.98 494.19 156.52 495.15Q157.06 496.11 157.06 497.37Q157.06 498.84 156.28 499.88Q155.5 500.92 154.06 501.46Q152.63 502 150.69 502H148.22Q148.22 502 148.23 501.75Q148.24 501.49 148.24 501.24Q148.24 500.99 148.24 500.99H149.96Q151.09 500.99 151.93 500.57Q152.77 500.15 153.24 499.29Q153.7 498.42 153.7 497.13Q153.7 495.98 153.32 495.2Q152.93 494.42 152.3 493.97Q151.66 493.51 150.87 493.31Q150.07 493.12 149.25 493.12V492.9Q149.81 492.9 150.39 492.75Q150.96 492.59 151.44 492.21Q151.93 491.84 152.23 491.18Q152.53 490.52 152.53 489.53Q152.53 488.36 152.14 487.61Q151.76 486.86 151.04 486.5Q150.32 486.14 149.32 486.14H146.52Q146.52 486.12 146.46 485.9Q146.4 485.67 146.34 485.44Q146.28 485.2 146.28 485.2ZM148.43 485.2V502H145.51V485.2H148.43ZM145.58 500.25V502H143.66L143.68 501.76Q143.73 501.76 143.84 501.76Q143.95 501.76 143.98 501.76Q144.6 501.76 145.05 501.32Q145.5 500.87 145.51 500.25H145.58ZM145.58 486.95H145.51Q145.5 486.33 145.05 485.88Q144.6 485.44 143.98 485.44Q143.95 485.44 143.84 485.44Q143.73 485.44 143.68 485.44L143.66 485.2H145.58V486.95ZM176.53 485.2Q179.27 485.2 181.29 486.22Q183.31 487.25 184.42 489.14Q185.53 491.03 185.53 493.6Q185.53 496.17 184.42 498.05Q183.31 499.94 181.29 500.97Q179.27 502 176.53 502H171L170.98 501.09Q171.44 501.09 172.12 501.09Q172.8 501.09 173.53 501.09Q174.27 501.09 174.9 501.09Q175.54 501.09 175.94 501.09Q176.33 501.09 176.33 501.09Q178.17 501.09 179.51 500.16Q180.85 499.24 181.59 497.56Q182.32 495.88 182.32 493.6Q182.32 491.32 181.59 489.64Q180.85 487.96 179.5 487.04Q178.16 486.11 176.33 486.11Q176.33 486.11 175.92 486.11Q175.5 486.11 174.84 486.11Q174.17 486.11 173.41 486.11Q172.65 486.11 171.93 486.11Q171.22 486.11 170.74 486.11V485.2H176.53ZM172.77 485.2V502H169.85V485.2H172.77ZM169.92 500.25V502H168V501.76Q168 501.76 168.16 501.76Q168.31 501.76 168.31 501.76Q168.94 501.76 169.38 501.32Q169.82 500.87 169.85 500.25H169.92ZM169.92 486.95H169.85Q169.85 486.33 169.39 485.88Q168.94 485.44 168.31 485.44Q168.31 485.44 168.17 485.44Q168.02 485.44 168.02 485.44L168 485.2H169.92V486.95ZM200.78 485.2V495.76Q200.78 497.47 201.37 498.74Q201.96 500.01 203.04 500.7Q204.12 501.4 205.57 501.4Q207.09 501.4 208.2 500.74Q209.31 500.08 209.92 498.89Q210.54 497.7 210.54 496.07V485.2H212.05V495.97Q212.05 497.91 211.24 499.33Q210.42 500.76 208.89 501.55Q207.37 502.34 205.28 502.34Q202.91 502.34 201.25 501.56Q199.58 500.78 198.72 499.35Q197.86 497.93 197.86 496V485.2H200.78ZM197.93 485.2V486.64H197.86Q197.86 486.11 197.49 485.78Q197.11 485.44 196.59 485.44Q196.59 485.44 196.39 485.44Q196.2 485.44 196.2 485.44V485.2H197.93ZM202.43 485.2V485.44Q202.43 485.44 202.24 485.44Q202.05 485.44 202.05 485.44Q201.52 485.44 201.15 485.78Q200.78 486.11 200.78 486.64H200.73V485.2H202.43ZM210.61 485.2V486.64H210.54Q210.54 486.11 210.17 485.78Q209.79 485.44 209.27 485.44Q209.27 485.44 209.07 485.44Q208.88 485.44 208.88 485.44V485.2H210.61ZM213.71 485.2V485.44Q213.71 485.44 213.52 485.44Q213.33 485.44 213.33 485.44Q212.8 485.44 212.43 485.78Q212.05 486.11 212.05 486.64H212.01V485.2H213.71ZM229.19 485.2V502H226.27V485.2H229.19ZM235.58 501.06 235.96 502H229.12V501.06H235.58ZM237.23 497.43 236.04 502H231.57L232.43 501.06Q233.65 501.06 234.54 500.62Q235.42 500.17 236.02 499.35Q236.62 498.53 237 497.43H237.23ZM226.34 500.25V502H224.42V501.76Q224.42 501.76 224.58 501.76Q224.74 501.76 224.74 501.76Q225.36 501.76 225.8 501.32Q226.25 500.87 226.27 500.25H226.34ZM226.34 486.95H226.27Q226.25 486.33 225.8 485.88Q225.36 485.44 224.74 485.44Q224.74 485.44 224.58 485.44Q224.42 485.44 224.42 485.44V485.2H226.34V486.95ZM229.12 486.95V485.2H231.04V485.44Q231.02 485.44 230.87 485.44Q230.73 485.44 230.73 485.44Q230.1 485.44 229.66 485.88Q229.22 486.33 229.19 486.95H229.12ZM252.33 485.2V502H249.41V485.2H252.33ZM258.71 501.06 259.1 502H252.26V501.06H258.71ZM260.37 497.43 259.17 502H254.7L255.57 501.06Q256.79 501.06 257.67 500.62Q258.55 500.17 259.15 499.35Q259.76 498.53 260.13 497.43H260.37ZM249.48 500.25V502H247.56V501.76Q247.56 501.76 247.72 501.76Q247.87 501.76 247.87 501.76Q248.5 501.76 248.94 501.32Q249.38 500.87 249.41 500.25H249.48ZM249.48 486.95H249.41Q249.38 486.33 248.94 485.88Q248.5 485.44 247.87 485.44Q247.87 485.44 247.72 485.44Q247.56 485.44 247.56 485.44V485.2H249.48V486.95ZM252.26 486.95V485.2H254.18V485.44Q254.15 485.44 254.01 485.44Q253.86 485.44 253.86 485.44Q253.24 485.44 252.8 485.88Q252.35 486.33 252.33 486.95H252.26ZM278.3 484.77 285.89 501.86H282.35L277.17 488.61L278.3 484.77ZM273.14 500.25Q272.95 500.73 273.07 501.06Q273.19 501.4 273.48 501.58Q273.77 501.76 274.05 501.76H274.27V502H269.23V501.76Q269.23 501.76 269.34 501.76Q269.45 501.76 269.45 501.76Q270 501.76 270.59 501.41Q271.18 501.06 271.56 500.25H273.14ZM278.3 484.77 278.43 487.28 272.46 501.93H270.81L277 487.69Q277.05 487.6 277.21 487.23Q277.37 486.86 277.57 486.38Q277.77 485.9 277.93 485.45Q278.08 485.01 278.09 484.77H278.3ZM281.11 496V496.92H273.89V496H281.11ZM281.71 500.25H285.17Q285.55 501.06 286.14 501.41Q286.73 501.76 287.28 501.76Q287.28 501.76 287.38 501.76Q287.48 501.76 287.48 501.76V502H280.58V501.76H280.8Q281.26 501.76 281.63 501.36Q281.99 500.97 281.71 500.25ZM313.22 485.2V502H310.3V485.2H313.22ZM301.84 485.2V502H298.92V485.2H301.84ZM310.51 493.2V494.11H301.6V493.2H310.51ZM298.99 500.25V502H297.07V501.76Q297.07 501.76 297.23 501.76Q297.38 501.76 297.38 501.76Q298.01 501.76 298.45 501.32Q298.9 500.87 298.92 500.25H298.99ZM298.99 486.95H298.92Q298.9 486.33 298.45 485.88Q298.01 485.44 297.38 485.44Q297.38 485.44 297.23 485.44Q297.07 485.44 297.07 485.44V485.2H298.99V486.95ZM301.77 500.25H301.84Q301.86 500.87 302.31 501.32Q302.75 501.76 303.38 501.76Q303.38 501.76 303.52 501.76Q303.66 501.76 303.69 501.76V502H301.77V500.25ZM301.77 486.95V485.2H303.69V485.44Q303.66 485.44 303.52 485.44Q303.38 485.44 303.38 485.44Q302.75 485.44 302.31 485.88Q301.86 486.33 301.84 486.95H301.77ZM310.37 500.25V502H308.45V501.76Q308.47 501.76 308.62 501.76Q308.76 501.76 308.76 501.76Q309.38 501.76 309.84 501.32Q310.3 500.87 310.3 500.25H310.37ZM310.37 486.95H310.3Q310.3 486.33 309.84 485.88Q309.38 485.44 308.76 485.44Q308.76 485.44 308.62 485.44Q308.47 485.44 308.45 485.44V485.2H310.37V486.95ZM313.14 500.25H313.22Q313.24 500.87 313.68 501.32Q314.13 501.76 314.75 501.76Q314.75 501.76 314.91 501.76Q315.06 501.76 315.06 501.76V502H313.14V500.25ZM313.14 486.95V485.2H315.06V485.44Q315.06 485.44 314.91 485.44Q314.75 485.44 314.75 485.44Q314.13 485.44 313.68 485.88Q313.24 486.33 313.22 486.95H313.14ZM349.12 492.03 355.59 500.44Q356.12 501.08 356.68 501.41Q357.24 501.74 357.98 501.76V502H356.32Q356.07 502 355.52 501.97Q354.96 501.94 354.27 501.78Q353.59 501.63 352.9 501.26Q352.21 500.89 351.68 500.21Q351.6 500.11 351.23 499.62Q350.85 499.13 350.31 498.42Q349.76 497.71 349.17 496.93Q348.58 496.15 348.06 495.48Q347.55 494.8 347.22 494.37Q346.89 493.94 346.89 493.94L349.12 492.03ZM355.45 485.37 348.24 493.84 346.89 493.94 353.49 485.37H355.45ZM357.12 485.2V485.42H357.03Q356.23 485.42 355.55 485.73Q354.87 486.05 354.39 486.59L352.58 486.54Q352.88 486.14 352.69 485.78Q352.5 485.42 352.01 485.42H351.77V485.2H357.03H357.12ZM346.12 485.2V502H343.2V485.2H346.12ZM343.27 500.25V502H341.35V501.76Q341.37 501.76 341.51 501.76Q341.65 501.76 341.66 501.76Q342.29 501.76 342.73 501.32Q343.18 500.87 343.2 500.25H343.27ZM343.27 486.95H343.2Q343.18 486.33 342.73 485.88Q342.29 485.44 341.66 485.44Q341.65 485.44 341.51 485.44Q341.37 485.44 341.35 485.44V485.2H343.27V486.95ZM346.05 500.25H346.12Q346.14 500.87 346.59 501.32Q347.03 501.76 347.66 501.76Q347.68 501.76 347.81 501.76Q347.95 501.76 347.97 501.76V502H346.05V500.25ZM346.05 486.95V485.2H347.97V485.44Q347.94 485.44 347.81 485.44Q347.68 485.44 347.66 485.44Q347.03 485.44 346.59 485.88Q346.14 486.33 346.12 486.95H346.05ZM383.87 485.2V502H380.95V485.2H383.87ZM372.5 485.2V502H369.58V485.2H372.5ZM381.17 493.2V494.11H372.26V493.2H381.17ZM369.65 500.25V502H367.73V501.76Q367.73 501.76 367.88 501.76Q368.04 501.76 368.04 501.76Q368.66 501.76 369.11 501.32Q369.55 500.87 369.58 500.25H369.65ZM369.65 486.95H369.58Q369.55 486.33 369.11 485.88Q368.66 485.44 368.04 485.44Q368.04 485.44 367.88 485.44Q367.73 485.44 367.73 485.44V485.2H369.65V486.95ZM372.42 500.25H372.5Q372.52 500.87 372.96 501.32Q373.41 501.76 374.03 501.76Q374.03 501.76 374.18 501.76Q374.32 501.76 374.34 501.76V502H372.42V500.25ZM372.42 486.95V485.2H374.34V485.44Q374.32 485.44 374.18 485.44Q374.03 485.44 374.03 485.44Q373.41 485.44 372.96 485.88Q372.52 486.33 372.5 486.95H372.42ZM381.02 500.25V502H379.1V501.76Q379.13 501.76 379.27 501.76Q379.42 501.76 379.42 501.76Q380.04 501.76 380.5 501.32Q380.95 500.87 380.95 500.25H381.02ZM381.02 486.95H380.95Q380.95 486.33 380.5 485.88Q380.04 485.44 379.42 485.44Q379.42 485.44 379.27 485.44Q379.13 485.44 379.1 485.44V485.2H381.02V486.95ZM383.8 500.25H383.87Q383.9 500.87 384.34 501.32Q384.78 501.76 385.41 501.76Q385.41 501.76 385.56 501.76Q385.72 501.76 385.72 501.76V502H383.8V500.25ZM383.8 486.95V485.2H385.72V485.44Q385.72 485.44 385.56 485.44Q385.41 485.44 385.41 485.44Q384.78 485.44 384.34 485.88Q383.9 486.33 383.87 486.95H383.8ZM404.3 484.77 411.89 501.86H408.35L403.17 488.61L404.3 484.77ZM399.14 500.25Q398.95 500.73 399.07 501.06Q399.19 501.4 399.48 501.58Q399.77 501.76 400.05 501.76H400.27V502H395.23V501.76Q395.23 501.76 395.34 501.76Q395.45 501.76 395.45 501.76Q396 501.76 396.59 501.41Q397.18 501.06 397.56 500.25H399.14ZM404.3 484.77 404.43 487.28 398.46 501.93H396.81L403 487.69Q403.05 487.6 403.21 487.23Q403.37 486.86 403.57 486.38Q403.77 485.9 403.93 485.45Q404.08 485.01 404.09 484.77H404.3ZM407.11 496V496.92H399.89V496H407.11ZM407.71 500.25H411.17Q411.55 501.06 412.14 501.41Q412.73 501.76 413.28 501.76Q413.28 501.76 413.38 501.76Q413.48 501.76 413.48 501.76V502H406.58V501.76H406.8Q407.26 501.76 407.63 501.36Q407.99 500.97 407.71 500.25ZM427.84 485.2V502H424.92V485.2H427.84ZM434.22 501.06 434.61 502H427.77V501.06H434.22ZM435.88 497.43 434.68 502H430.21L431.08 501.06Q432.3 501.06 433.18 500.62Q434.07 500.17 434.67 499.35Q435.27 498.53 435.65 497.43H435.88ZM424.99 500.25V502H423.07V501.76Q423.07 501.76 423.23 501.76Q423.38 501.76 423.38 501.76Q424.01 501.76 424.45 501.32Q424.9 500.87 424.92 500.25H424.99ZM424.99 486.95H424.92Q424.9 486.33 424.45 485.88Q424.01 485.44 423.38 485.44Q423.38 485.44 423.23 485.44Q423.07 485.44 423.07 485.44V485.2H424.99V486.95ZM427.77 486.95V485.2H429.69V485.44Q429.66 485.44 429.52 485.44Q429.38 485.44 429.38 485.44Q428.75 485.44 428.31 485.88Q427.86 486.33 427.84 486.95H427.77ZM450.98 485.2V502H448.06V485.2H450.98ZM448.13 500.25V502H446.21V501.76Q446.21 501.76 446.36 501.76Q446.52 501.76 446.52 501.76Q447.14 501.76 447.59 501.32Q448.03 500.87 448.06 500.25H448.13ZM448.13 486.95H448.06Q448.03 486.33 447.59 485.88Q447.14 485.44 446.52 485.44Q446.52 485.44 446.36 485.44Q446.21 485.44 446.21 485.44V485.2H448.13V486.95ZM450.9 500.25H450.98Q451 500.87 451.44 501.32Q451.89 501.76 452.51 501.76Q452.51 501.76 452.66 501.76Q452.8 501.76 452.82 501.76V502H450.9V500.25ZM450.9 486.95V485.2H452.82V485.44Q452.8 485.44 452.66 485.44Q452.51 485.44 452.51 485.44Q451.89 485.44 451.44 485.88Q451 486.33 450.98 486.95H450.9ZM472.61 485.2Q475.36 485.2 477.38 486.22Q479.39 487.25 480.51 489.14Q481.62 491.03 481.62 493.6Q481.62 496.17 480.51 498.05Q479.39 499.94 477.38 500.97Q475.36 502 472.61 502H467.09L467.06 501.09Q467.53 501.09 468.21 501.09Q468.88 501.09 469.62 501.09Q470.36 501.09 470.99 501.09Q471.63 501.09 472.02 501.09Q472.42 501.09 472.42 501.09Q474.26 501.09 475.6 500.16Q476.94 499.24 477.67 497.56Q478.41 495.88 478.41 493.6Q478.41 491.32 477.67 489.64Q476.94 487.96 475.59 487.04Q474.25 486.11 472.42 486.11Q472.42 486.11 472.01 486.11Q471.59 486.11 470.92 486.11Q470.26 486.11 469.5 486.11Q468.73 486.11 468.02 486.11Q467.31 486.11 466.82 486.11V485.2H472.61ZM468.86 485.2V502H465.94V485.2H468.86ZM466.01 500.25V502H464.09V501.76Q464.09 501.76 464.24 501.76Q464.4 501.76 464.4 501.76Q465.02 501.76 465.47 501.32Q465.91 500.87 465.94 500.25H466.01ZM466.01 486.95H465.94Q465.94 486.33 465.48 485.88Q465.02 485.44 464.4 485.44Q464.4 485.44 464.26 485.44Q464.11 485.44 464.11 485.44L464.09 485.2H466.01V486.95Z"/><path d="M20,428 L122,425.5 L128,428 L122,430.5 Z M580,428 L478,425.5 L472,428 L478,430.5 Z M300,526 L307,536 L300,546 L293,536 Z M300,550 L305,562 L300,576 L295,562 Z"/><rect x="110" y="544" width="150" height="2" rx="1"/><rect x="340" y="544" width="150" height="2" rx="1"/></g><path d="M236,384 C204,388 192,362 216,346 C294,292 386,218 470,134" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/><path d="M300,546 C290,539 276,539 272,547 C269,554 277,558 282,553 M300,546 C310,539 324,539 328,547 C331,554 323,558 318,553" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>';
+const LOGO_MONO = '<g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"><path d="M480.2,104.4 A24,24 0 0 1 499.6,123.8 M482.9,88.6 A40,40 0 0 1 515.4,121.1 M485.7,72.9 A56,56 0 0 1 531.1,118.3"/></g><g fill="currentColor"><path d="M233.56 124.38 341.26 360.02H282.15L213.54 187.99L233.56 124.38ZM162.61 337.91Q159.9 344.51 161.55 349.13Q163.2 353.75 167.2 356.23Q171.19 358.7 175.15 358.7H178.12V362H107.38V358.7Q107.38 358.7 108.87 358.7Q110.35 358.7 110.35 358.7Q117.94 358.7 126.03 353.92Q134.11 349.13 139.39 337.91H162.61ZM233.56 124.38 234.73 164.71 152.9 361.01H128.89L214.37 167.58Q215.38 165.78 217.79 160.25Q220.21 154.72 223.08 147.78Q225.96 140.84 228.18 134.43Q230.39 128.02 230.59 124.38H233.56ZM268.27 283.33V297.24H170.99V283.33H268.27ZM273.1 337.91H331.02Q336.37 349.13 344.42 353.92Q352.47 358.7 360.06 358.7Q360.06 358.7 361.38 358.7Q362.7 358.7 362.7 358.7V362H257.59V358.7H260.56Q267.03 358.7 272.08 353.25Q277.13 347.81 273.1 337.91Z"/><path d="M381.34 219.92 467.85 338.16Q475.38 348.16 483.37 353.27Q491.37 358.37 501.6 358.7V362H474.39Q470.89 362 462.48 361.61Q454.07 361.21 443.47 358.89Q432.87 356.58 422.16 350.88Q411.46 345.18 403.45 334.57Q401.85 332.37 396.97 325.74Q392.1 319.11 385.43 309.92Q378.76 300.74 371.6 290.87Q364.44 281 358.3 272.49Q352.17 263.99 348.26 258.58Q344.36 253.17 344.36 253.17L381.34 219.92ZM464.09 133.31 364.82 251.17 344.36 253.17 435.11 133.31H464.09ZM487.26 131V134.02H485.94Q475.05 134.02 465.64 138.39Q456.24 142.75 449.64 150.14L422.84 149.48Q426.93 143.87 424.32 138.92Q421.72 133.97 414.98 133.97H411.62V131H485.94H487.26ZM333.8 131V362H284.29V131H333.8ZM285.28 337.91V362H258.88V358.7Q259.28 358.7 261.13 358.7Q262.97 358.7 263.17 358.7Q271.75 358.7 277.86 352.6Q283.96 346.49 284.29 337.91H285.28ZM285.28 155.09H284.29Q283.96 146.51 277.86 140.41Q271.75 134.3 263.17 134.3Q262.97 134.3 261.13 134.3Q259.28 134.3 258.88 134.3V131H285.28V155.09ZM332.81 337.91H333.8Q334.13 346.49 340.23 352.6Q346.34 358.7 354.92 358.7Q355.32 358.7 357.11 358.7Q358.91 358.7 359.21 358.7V362H332.81V337.91ZM332.81 155.09V131H359.21V134.3Q358.88 134.3 357.1 134.3Q355.32 134.3 354.92 134.3Q346.34 134.3 340.23 140.41Q334.13 146.51 333.8 155.09H332.81Z"/></g><path d="M236,384 C204,388 192,362 216,346 C294,292 386,218 470,134" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>';
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const uid = () => Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-4);
+const pad = n => String(n).padStart(2, "0");
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const MS3 = MONTHS.map(m => m.slice(0, 3));
+const WD = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const monthKey = d => d.getFullYear() + "-" + pad(d.getMonth() + 1);
+const dayKey = d => monthKey(d) + "-" + pad(d.getDate());
+const monthLabel = mk => MONTHS[parseInt(mk.slice(5, 7), 10) - 1] + " " + mk.slice(0, 4);
+const dayLabel = k => { const d = new Date(+k.slice(0, 4), +k.slice(5, 7) - 1, +k.slice(8, 10)); return WD[d.getDay()] + ", " + d.getDate() + " " + MONTHS[d.getMonth()]; };
+const dayShort = k => MS3[+k.slice(5, 7) - 1] + " " + (+k.slice(8, 10));
+const dateFull = ts => { const d = new Date(ts); return d.getDate() + " " + MS3[d.getMonth()] + " " + d.getFullYear(); };
+const timeHM = ts => { const d = new Date(ts); return pad(d.getHours()) + ":" + pad(d.getMinutes()); };
+const fmtN = n => (Math.round(n * 100) / 100).toLocaleString("en-US", { maximumFractionDigits: 2 });
+const fmt = n => "EGP " + fmtN(n);
+const fmtDur = ms => { const s = Math.floor(ms / 1000); return pad(Math.floor(s / 3600)) + ":" + pad(Math.floor(s % 3600 / 60)) + ":" + pad(s % 60); };
+const fmtHM = ms => { const m = Math.floor(ms / 60000); return Math.floor(m / 60) + "h " + pad(m % 60) + "m"; };
+const AR = "٠١٢٣٤٥٦٧٨٩";
+function num(v) {
+  const s = String(v == null ? "" : v).replace(/[٠-٩]/g, d => AR.indexOf(d)).replace(/٫/g, ".").replace(/[٬,\s]/g, "");
+  const n = parseFloat(s); return isFinite(n) ? n : 0;
+}
+const IC = {
+  back: '<path d="M15 5l-7 7 7 7"/>', plus: '<path d="M12 5v14M5 12h14"/>', check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  x: '<path d="M6 6l12 12M18 6L6 18"/>', lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/>',
+  set: '<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',
+  hist: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>', trash: '<path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/>',
+  edit: '<path d="M5 19l1-4 9-9 3 3-9 9-4 1zM14 7l3 3"/>', file: '<path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/>',
+  play: '<path d="M8 5l11 7-11 7z"/>', stop: '<rect x="6" y="6" width="12" height="12" rx="2"/>',
+  down: '<path d="M12 4v10M8 11l4 4 4-4M5 19h14"/>', up: '<path d="M12 15V5M8 8l4-4 4 4M5 19h14"/>',
+  img: '<rect x="3.5" y="6" width="17" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.2"/><path d="M8 6l1.5-2h5L16 6"/>',
+  notes: '<path d="M6 4h12v16H6zM9 9h6M9 13h6M9 17h3"/>', cash: '<rect x="3" y="7" width="18" height="10" rx="2"/><circle cx="12" cy="12" r="2.5"/>',
+  print: '<path d="M7 9V4h10v5M7 17H5a1 1 0 01-1-1v-5a2 2 0 012-2h12a2 2 0 012 2v5a1 1 0 01-1 1h-2"/><path d="M7 14h10v6H7z"/>'
+};
+const ic = (n, c = "") => `<svg class="ic ${c}" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
+const logoSvg = (cls) => `<svg class="${cls}" viewBox="0 55 600 530" role="img" aria-label="AK Media — Abdullah Khalid">${LOGO_FULL}</svg>`;
+const monoSvg = (cls) => `<svg class="${cls}" viewBox="120 60 430 410" role="img" aria-label="AK">${LOGO_MONO}</svg>`;
+const initials = n => (String(n).trim().match(/[\p{L}\p{N}]/gu) || ["?"]).slice(0, 2).join("").toUpperCase();
+const safeImg = s => (typeof s === "string" && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(s)) ? s : null;
+const avatar = c => { const p = safeImg(c.photo); return `<span class="av">${p ? `<img src="${p}" alt="">` : esc(initials(c.name))}</span>`; };
+
+/* ---------- storage ---------- */
+const KEY = "ak_media_tracker_v1";
+const defaults = () => ({ v: 1, pin: "1998", weekStart: 6, month: monthKey(new Date()), clients: [], cur: {}, sessions: [], timer: { running: false, startedAt: null }, archive: [], pending: null, manualClosed: null });
+function load() {
+  try { const r = localStorage.getItem(KEY); if (r) return Object.assign(defaults(), JSON.parse(r)); } catch (e) {}
+  return defaults();
+}
+let D = load();
+let toastT;
+function toast(m) { const t = $("#toast"); t.textContent = m; t.style.display = "block"; clearTimeout(toastT); toastT = setTimeout(() => t.style.display = "none", 2600); }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) { toast("Storage is full — export a backup"); } }
+const cd = id => (D.cur[id] = D.cur[id] || { notes: {}, adds: [] });
+const getClient = id => D.clients.find(c => c.id === id);
+function totalsOf(c, data) {
+  const x = data || D.cur[c.id] || { adds: [] };
+  const adds = (x.adds || []).reduce((a, v) => a + (+v.amount || 0), 0);
+  const base = +c.base || 0;
+  return { base, adds, total: base + adds };
+}
+function notesCount(id) {
+  const n = (D.cur[id] || { notes: {} }).notes; let t = 0, d = 0;
+  Object.keys(n).forEach(k => n[k].forEach(x => { t++; if (x.done) d++; }));
+  return { t, d };
+}
+
+/* ---------- timer / months ---------- */
+const overlap = (s, e, a, b) => Math.max(0, Math.min(e, b) - Math.max(s, a));
+const elapsedNow = () => D.timer.running ? Math.max(0, Date.now() - D.timer.startedAt) : 0;
+const sessionsMs = () => D.sessions.reduce((a, s) => a + (s.end - s.start), 0);
+function todayMs() {
+  const n = Date.now(), d = new Date(); const a = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  let t = D.sessions.reduce((x, s) => x + overlap(s.start, s.end, a, n), 0);
+  if (D.timer.running) t += overlap(D.timer.startedAt, n, a, n);
+  return t;
+}
+function toggleTimer() {
+  if (D.timer.running) {
+    const end = Date.now();
+    if (end - D.timer.startedAt >= 1000) D.sessions.push({ id: uid(), start: D.timer.startedAt, end });
+    D.timer = { running: false, startedAt: null };
+  } else D.timer = { running: true, startedAt: Date.now() };
+  save(); render();
+}
+function snapshot(mk) {
+  const cl = D.clients.map(c => {
+    const x = D.cur[c.id] || { notes: {}, adds: [] };
+    const adds = x.adds.map(a => ({ day: a.day, title: a.title, amount: +a.amount || 0 }));
+    const notes = [];
+    Object.keys(x.notes).sort().forEach(day => x.notes[day].forEach(n => notes.push({ day, text: n.text, done: !!n.done })));
+    const addsTotal = adds.reduce((a, v) => a + v.amount, 0), base = +c.base || 0;
+    return { id: c.id, name: c.name, base, adds, notes, addsTotal, total: base + addsTotal };
+  });
+  return { month: mk, closedAt: Date.now(), clients: cl, total: cl.reduce((a, c) => a + c.total, 0), ms: sessionsMs(), sessionCount: D.sessions.length };
+}
+function hasActivity() {
+  return D.sessions.length > 0 || Object.keys(D.cur).some(id => { const x = D.cur[id]; return x.adds.length || Object.keys(x.notes).length; });
+}
+function archiveCurrent() {
+  const s = snapshot(D.month);
+  D.archive.unshift(s);
+  D.cur = {}; D.sessions = [];
+  return s;
+}
+function checkMonth() {
+  const cm = monthKey(new Date());
+  if (cm === D.month) return false;
+  const old = D.month;
+  const boundary = new Date(+old.slice(0, 4), +old.slice(5, 7), 1).getTime();
+  if (D.timer.running && D.timer.startedAt < boundary) D.sessions.push({ id: uid(), start: D.timer.startedAt, end: boundary });
+  const skip = D.manualClosed === old && !hasActivity();
+  if (D.clients.length && !skip) { archiveCurrent(); D.pending = old; }
+  else { D.cur = {}; D.sessions = []; }
+  if (D.timer.running) { const now = new Date(); D.timer.startedAt = new Date(now.getFullYear(), now.getMonth(), 1).getTime(); }
+  D.month = cm; D.manualClosed = null;
+  save(); return true;
+}
+
+/* ---------- UI state ---------- */
+const U = { locked: !sessionStorage.getItem("ak_unlocked"), screen: "home", cid: null, mk: null, sheet: null, inv: null, tmpPhoto: undefined, pinBuf: "", focus: null };
+
+/* ---------- renderers ---------- */
+function homeHTML() {
+  const t = D.clients.reduce((a, c) => { const x = totalsOf(c); a.base += x.base; a.adds += x.adds; a.total += x.total; return a; }, { base: 0, adds: 0, total: 0 });
+  const tiles = D.clients.map(c => {
+    const n = notesCount(c.id), x = totalsOf(c);
+    return `<button class="tile" data-a="openClient" data-id="${c.id}">${avatar(c)}<span class="tx"><div class="nm" dir="auto">${esc(c.name)}</div><div class="amt">${fmt(x.total)}</div><div class="sub">${n.t ? n.d + "/" + n.t + " notes done" : "No notes yet"}</div></span></button>`;
+  }).join("");
+  const sess = D.sessions.slice().reverse().slice(0, 10).map(s =>
+    `<li><span>${dayShort(dayKey(new Date(s.start)))} · ${timeHM(s.start)} → ${timeHM(s.end)} · <b>${fmtHM(s.end - s.start)}</b></span><button class="xb" data-a="delSess" data-id="${s.id}" aria-label="Delete session">${ic("x")}</button></li>`).join("");
+  return `<div class="wrap">
+  <div class="top"><button class="ib" data-a="history" aria-label="History">${ic("hist")}</button><span class="sp"></span><button class="ib" data-a="settings" aria-label="Settings">${ic("set")}</button><button class="ib" data-a="lock" aria-label="Lock">${ic("lock")}</button></div>
+  <div class="brand">${logoSvg("logo")}</div>
+  <p class="month">${esc(monthLabel(D.month))}</p>
+  <section class="card"><div class="total"><div><div class="lbl">Total this month · all clients</div><div class="big" id="gt">${fmt(t.total)}</div><div class="sub">Base ${fmt(t.base)} + additions ${fmt(t.adds)}</div></div>
+  <button class="btn ghost sm" data-a="invSummary">${ic("file")} Summary</button></div></section>
+  <section class="card timer"><div><div class="lbl">Work timer</div><div class="tm ${D.timer.running ? "on" : ""}" id="tm">${fmtDur(elapsedNow())}</div><div class="sub" id="tmSub">Today ${fmtHM(todayMs())} · This month ${fmtHM(sessionsMs() + elapsedNow())}</div></div>
+  <button class="btn" data-a="timer">${D.timer.running ? ic("stop", "fill") + " Stop" : ic("play", "fill") + " Start"}</button>
+  ${sess ? `<details class="sess" style="width:100%"><summary>Logged sessions (${D.sessions.length})</summary><ul class="clean">${sess}</ul></details>` : ""}</section>
+  <div class="sec-h"><h2>Clients</h2><button class="btn sm" data-a="addClient">${ic("plus")} Add client</button></div>
+  <div class="grid">${tiles || `<button class="tile empty" data-a="addClient">${ic("plus")} Add your first client</button>`}</div>
+  </div>`;
+}
+function calHTML(c) {
+  const [y, m] = D.month.split("-").map(Number);
+  const first = new Date(y, m - 1, 1).getDay(), dim = new Date(y, m, 0).getDate(), off = (first - D.weekStart + 7) % 7;
+  const x = D.cur[c.id] || { notes: {}, adds: [] }, today = dayKey(new Date());
+  let h = '<div class="cal-h">' + Array.from({ length: 7 }, (_, i) => `<span>${WD[(D.weekStart + i) % 7]}</span>`).join("") + '</div><div class="cal">';
+  for (let i = 0; i < off; i++) h += '<span class="cell empty"></span>';
+  for (let d = 1; d <= dim; d++) {
+    const k = D.month + "-" + pad(d), ns = x.notes[k] || [], done = ns.filter(n => n.done).length, ad = x.adds.filter(a => a.day === k).length;
+    const ind = (ns.length ? (done === ns.length ? ic("check", "ok") : '<i class="d"></i>') : "") + (ad ? '<i class="p">+</i>' : "");
+    h += `<button class="cell ${k === today ? "today" : ""}" data-a="day" data-day="${k}" aria-label="${esc(dayLabel(k))}${ns.length ? ", " + ns.length + " notes" : ""}${ad ? ", " + ad + " additions" : ""}"><span class="n">${d}</span><span class="ind">${ind}</span></button>`;
+  }
+  return h + "</div>";
+}
+function clientHTML() {
+  const c = getClient(U.cid); if (!c) { U.screen = "home"; return homeHTML(); }
+  const n = notesCount(c.id), x = totalsOf(c), data = cd(c.id);
+  const pend = []; Object.keys(data.notes).sort().forEach(k => data.notes[k].forEach(nn => { if (!nn.done) pend.push({ k, t: nn.text }); }));
+  const open = pend.slice(0, 12).map(p => `<li><button style="display:flex;gap:10px;width:100%;text-align:left;align-items:center" data-a="day" data-day="${p.k}"><span class="dt">${dayShort(p.k)}</span><span dir="auto" style="flex:1;overflow-wrap:anywhere">${esc(p.t)}</span></button></li>`).join("");
+  return `<div class="wrap">
+  <div class="chead"><button class="ib" data-a="back" aria-label="Back">${ic("back")}</button>${avatar(c)}<div class="nm" dir="auto">${esc(c.name)}</div><button class="ib" data-a="editClient" aria-label="Edit client">${ic("edit")}</button></div>
+  <div class="stats"><div class="card"><div class="lbl">Notes</div><div class="v">${n.d}/${n.t}</div><div class="bar"><i style="width:${n.t ? Math.round(n.d / n.t * 100) : 0}%"></i></div></div>
+  <button class="card" data-a="salaryToday"><div class="lbl">Salary · tap to edit</div><div class="v">${fmt(x.total)}</div><div class="sub">Base ${fmtN(x.base)} + ${fmtN(x.adds)}</div></button></div>
+  <div class="sec-h"><h2>${esc(monthLabel(D.month))}</h2><button class="btn ghost sm" data-a="invClient" data-id="${c.id}">${ic("file")} Invoice</button></div>
+  ${calHTML(c)}
+  <div class="legend"><span>● has notes</span><span>${ic("check", "ok")} all done</span><span><b>+</b> salary addition</span></div>
+  ${pend.length ? `<div class="sec-h"><h2>Open items (${pend.length})</h2></div><ul class="clean open">${open}</ul>` : ""}
+  </div>`;
+}
+function historyHTML() {
+  const rows = D.archive.map((a, i) => `<button class="mrow" data-a="openMonth" data-i="${i}"><div><div class="mt1">${esc(monthLabel(a.month))}</div><div class="sub">${a.clients.length} clients · ${fmtHM(a.ms)} worked</div></div><div class="ar">${fmt(a.total)}</div></button>`).join("");
+  return `<div class="wrap"><div class="chead"><button class="ib" data-a="back" aria-label="Back">${ic("back")}</button><div class="nm">History</div></div>
+  ${rows || '<p class="sub">Closed months appear here. The month closes automatically on the 1st, and you can close it early from Settings.</p>'}</div>`;
+}
+function monthHTML() {
+  const a = D.archive[U.mk]; if (!a) { U.screen = "history"; return historyHTML(); }
+  const rows = a.clients.map((c, i) => `<div class="mrow" style="cursor:default"><div style="min-width:0"><div class="mt1" dir="auto">${esc(c.name)}</div><div class="sub">Base ${fmtN(c.base)} + ${fmtN(c.addsTotal)}</div></div><div class="ar">${fmt(c.total)}</div><button class="ib" data-a="invArch" data-i="${i}" aria-label="Invoice for ${esc(c.name)}">${ic("file")}</button></div>`).join("");
+  return `<div class="wrap"><div class="chead"><button class="ib" data-a="back" aria-label="Back">${ic("back")}</button><div class="nm">${esc(monthLabel(a.month))}</div></div>
+  <section class="card"><div class="lbl">Total</div><div class="big">${fmt(a.total)}</div><div class="sub">${fmtHM(a.ms)} worked · closed ${dateFull(a.closedAt)}</div><button class="btn mt wide" data-a="invArch" data-i="all">${ic("file")} Summary invoice</button></section>
+  <div class="sec-h"><h2>Clients</h2></div>${rows}</div>`;
+}
+
+/* sheets */
+function sheetHTML() {
+  const s = U.sheet; if (!s) return "";
+  const head = (t, back) => `<div class="sh-h">${back ? `<button class="ib" data-a="${back}" aria-label="Back">${ic("back")}</button>` : ""}<h3>${t}</h3><button class="ib" data-a="close" aria-label="Close">${ic("x")}</button></div>`;
+  if (s.k === "day") {
+    const c = getClient(U.cid), x = cd(c.id), ns = x.notes[s.day] || [], ad = x.adds.filter(a => a.day === s.day);
+    const left = ns.filter(n => !n.done).length;
+    return `<div class="sheet">${head(esc(dayLabel(s.day)))}<div class="choices">
+    <button class="choice" data-a="toNotes">${ic("notes")}Notes<small>${ns.length ? left + " left of " + ns.length : "none yet"}</small></button>
+    <button class="choice" data-a="toSalary">${ic("cash")}Salary<small>${ad.length ? ad.length + " addition" + (ad.length > 1 ? "s" : "") : "base + additions"}</small></button></div></div>`;
+  }
+  if (s.k === "notes") {
+    const c = getClient(U.cid), ns = cd(c.id).notes[s.day] || [];
+    const li = ns.map(n => `<li class="${n.done ? "done" : ""}"><button class="chk" data-a="tn" data-id="${n.id}" aria-pressed="${n.done}" aria-label="Mark done">${ic("check")}</button><span class="t" dir="auto">${esc(n.text)}</span><button class="xb" data-a="dn" data-id="${n.id}" aria-label="Delete note">${ic("trash")}</button></li>`).join("");
+    return `<div class="sheet">${head("Notes · " + esc(dayShort(s.day)), "toDay")}
+    <ul class="clean notes">${li || '<li class="empty-n" style="display:block;border:0">No notes for this day yet.</li>'}</ul>
+    <form data-form="note" class="inl mt"><input name="t" id="noteIn" dir="auto" autocomplete="off" placeholder="What I did / what is left…" aria-label="New note" required><button class="btn" type="submit">Add</button></form></div>`;
+  }
+  if (s.k === "salary") {
+    const c = getClient(U.cid), x = cd(c.id), t = totalsOf(c);
+    const li = x.adds.map(a => `<li><span class="t">${esc(a.title)}<div class="dd">${esc(dayShort(a.day))}</div></span><span class="a">${fmtN(a.amount)}</span><button class="xb" data-a="da" data-id="${a.id}" aria-label="Delete addition">${ic("trash")}</button></li>`).join("");
+    return `<div class="sheet">${head("Salary · " + esc(c.name), s.top ? "" : "toDay")}
+    <label class="f" for="baseIn">Monthly salary (EGP)</label><input id="baseIn" inputmode="decimal" value="${c.base ? esc(c.base) : ""}" placeholder="e.g. 13000" data-ch="base">
+    <label class="f">Additions this month</label>
+    <ul class="clean adds">${li || '<li class="empty-n" style="display:block;border:0">No additions yet.</li>'}</ul>
+    <form data-form="add" class="mt"><div class="inl"><input name="t" id="addT" dir="auto" autocomplete="off" placeholder="e.g. Built a website" aria-label="Addition title" required><input name="a" inputmode="decimal" placeholder="5000" style="max-width:110px" aria-label="Amount" required></div>
+    <div class="row mt"><span class="sub" style="flex:1">Date: ${esc(dayShort(s.day || dayKey(new Date())))}</span><button class="btn" type="submit">${ic("plus")} Add</button></div></form>
+    <div class="sum"><div><span>Base</span><span>${fmtN(t.base)}</span></div><div><span>Additions</span><span>${fmtN(t.adds)}</span></div><div class="tt"><span>Total</span><span>${fmt(t.total)}</span></div></div></div>`;
+  }
+  if (s.k === "client") {
+    const c = s.id ? getClient(s.id) : null; const ph = safeImg(U.tmpPhoto);
+    return `<div class="sheet">${head(c ? "Edit client" : "New client")}
+    <form data-form="client"><div class="photo-row"><span class="av" id="photoPrev">${ph ? `<img src="${ph}" alt="">` : esc(c ? initials(c.name) : "+")}</span>
+    <div><label class="btn ghost sm" for="photoIn" style="cursor:pointer">${ic("img")} Choose photo</label><input id="photoIn" type="file" accept="image/*" hidden>
+    ${ph ? '<button type="button" class="btn danger sm" data-a="rmPhoto" style="margin-left:8px">Remove</button>' : ""}</div></div>
+    <label class="f" for="cName">Name</label><input id="cName" name="name" dir="auto" autocomplete="off" required value="${c ? esc(c.name) : ""}" placeholder="e.g. Tarkan">
+    <label class="f" for="cBase">Monthly salary (EGP) — optional</label><input id="cBase" name="base" inputmode="decimal" value="${c && c.base ? esc(c.base) : ""}" placeholder="13000">
+    <div class="row mt2"><button class="btn" type="submit" style="flex:1">Save</button>${c ? '<button type="button" class="btn danger" data-a="delClient">Delete</button>' : ""}</div></form></div>`;
+  }
+  if (s.k === "settings") {
+    return `<div class="sheet">${head("Settings")}
+    <label class="f">Backup (move data between devices)</label>
+    <div class="row wrap2"><button class="btn ghost sm" data-a="export">${ic("down")} Backup</button><label class="btn ghost sm" for="impIn" style="cursor:pointer">${ic("up")} Restore</label><input id="impIn" type="file" accept="application/json,.json" hidden></div>
+    <p class="hint">Backup saves one small file. Restore on another device replaces that device's data with the file.</p>
+    <div class="sep"></div>
+    <label class="f" for="wk">Week starts on</label><select id="wk" data-ch="week"><option value="6" ${D.weekStart === 6 ? "selected" : ""}>Saturday</option><option value="0" ${D.weekStart === 0 ? "selected" : ""}>Sunday</option><option value="1" ${D.weekStart === 1 ? "selected" : ""}>Monday</option></select>
+    <form data-form="pin"><label class="f" for="np">Change PIN</label><div class="inl"><input id="np" name="p" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="4 digits" autocomplete="off"><button class="btn ghost" type="submit">Save</button></div></form>
+    <p class="hint">The PIN only locks the screen on this device. It is not encryption.</p>
+    <div class="sep"></div>
+    <button class="btn ghost wide" data-a="closeNow">${ic("file")} Close ${esc(MONTHS[+D.month.slice(5, 7) - 1])} now &amp; make invoices</button>
+    <p class="hint">The month also closes by itself on the 1st. Closing archives it and starts a clean month. Monthly salaries carry over.</p>
+    ${U.installEvt ? `<div class="sep"></div><button class="btn wide" data-a="install">Install app on this device</button>` : `<p class="hint mt">iPhone: Safari → Share → Add to Home Screen. Chrome/Edge on Windows or Mac: install icon in the address bar.</p>`}</div>`;
+  }
+  if (s.k === "closed") {
+    const a = D.archive.find(z => z.month === s.mk) || D.archive[0];
+    if (!a) return "";
+    return `<div class="sheet">${head(esc(monthLabel(a.month)) + " is closed")}
+    <div class="sum"><div class="tt" style="border:0;margin:0;padding:0"><span>Total</span><span>${fmt(a.total)}</span></div></div>
+    <button class="btn wide mt" data-a="invClosed">${ic("file")} Summary invoice (PDF)</button>
+    <button class="btn ghost wide mt" data-a="histClosed">Open month &amp; client invoices</button>
+    <button class="btn ghost wide mt" data-a="dismissClosed">Later</button></div>`;
+  }
+  return "";
+}
+
+/* invoice */
+function invHTML() {
+  const I = U.inv; if (!I) return "";
+  const live = I.src === "live";
+  const snap = live ? snapshot(D.month) : D.archive[I.i0];
+  if (!snap) return "";
+  const issued = live ? Date.now() : snap.closedAt;
+  const ym = snap.month.replace("-", "");
+  let body, no, billed;
+  if (I.kind === "client") {
+    const c = snap.clients[I.idx]; if (!c) return "";
+    no = "AK-" + ym + "-" + pad(I.idx + 1); billed = c.name;
+    const rows = [`<tr><td>Monthly base salary</td><td>${esc(monthLabel(snap.month))}</td><td class="r">${fmtN(c.base)}</td></tr>`]
+      .concat(c.adds.map(a => `<tr><td dir="auto">${esc(a.title)}</td><td>${esc(dayShort(a.day))}</td><td class="r">${fmtN(a.amount)}</td></tr>`)).join("");
+    const log = c.notes.length ? `<h4>Work log</h4><ul class="clean log">${c.notes.map(n => `<li class="${n.done ? "" : "pend"}"><span class="m">${n.done ? "✓" : "○"}</span><span class="dd">${esc(dayShort(n.day))}</span><span dir="auto" style="flex:1">${esc(n.text)}</span></li>`).join("")}</ul>` : "";
+    body = `<table><thead><tr><th>Description</th><th>Date</th><th class="r">Amount (EGP)</th></tr></thead><tbody>${rows}<tr class="tot"><td colspan="2">Total</td><td class="r">${fmt(c.total)}</td></tr></tbody></table>${I.log ? log : ""}`;
+  } else {
+    no = "AK-" + ym + "-ALL"; billed = "All clients";
+    const rows = snap.clients.map(c => `<tr><td dir="auto">${esc(c.name)}</td><td class="r">${fmtN(c.base)}</td><td class="r">${fmtN(c.addsTotal)}</td><td class="r">${fmtN(c.total)}</td></tr>`).join("");
+    body = `<table><thead><tr><th>Client</th><th class="r">Base</th><th class="r">Additions</th><th class="r">Total (EGP)</th></tr></thead><tbody>${rows}<tr class="tot"><td colspan="3">Grand total</td><td class="r">${fmt(snap.total)}</td></tr></tbody></table>
+    <h4>Time worked</h4><p style="margin:0;font-size:14px">${fmtHM(snap.ms)} across ${snap.sessionCount || 0} session${snap.sessionCount === 1 ? "" : "s"}</p>`;
+  }
+  const title = (I.kind === "client" ? "Invoice" : "Statement");
+  return `<div class="inv-bar"><button class="ib" data-a="closeInv" aria-label="Close">${ic("back")}</button>
+  ${I.kind === "client" ? `<label><input type="checkbox" id="logT" ${I.log ? "checked" : ""}> Include work log</label>` : ""}
+  <span style="flex:1"></span><button class="btn sm" data-a="printInv">${ic("print")} Save as PDF</button></div>
+  <div class="doc"><div class="d-head">${logoSvg("d-logo")}<div class="d-title"><h1>${title.toUpperCase()}</h1><p>No. ${esc(no)}</p></div></div>
+  <div class="d-meta"><div><small>${I.kind === "client" ? "Billed to" : "Covers"}</small><b dir="auto">${esc(billed)}</b></div><div><small>Period</small><b>${esc(monthLabel(snap.month))}</b></div><div><small>Issued</small><b>${dateFull(issued)}</b></div></div>
+  ${body}<div class="d-foot">AK Media · Abdullah Khalid</div></div>`;
+}
+
+/* lock */
+function lockHTML() {
+  const n = D.pin.length;
+  const dots = Array.from({ length: n }, (_, i) => `<i class="${i < U.pinBuf.length ? "f" : ""}"></i>`).join("");
+  const keys = ["1","2","3","4","5","6","7","8","9","","0","⌫"].map(k => k === "" ? '<span></span>' : `<button data-pk="${k}" aria-label="${k === "⌫" ? "Delete" : k}">${k}</button>`).join("");
+  return `${monoSvg("logo")}<div class="lbl">Enter PIN</div><div class="dots" id="dots">${dots}</div><div class="pad">${keys}</div>`;
+}
+function pinKey(k) {
+  if (k === "⌫") U.pinBuf = U.pinBuf.slice(0, -1);
+  else if (U.pinBuf.length < D.pin.length) U.pinBuf += k;
+  if (U.pinBuf.length === D.pin.length) {
+    if (U.pinBuf === D.pin) { sessionStorage.setItem("ak_unlocked", "1"); U.locked = false; U.pinBuf = ""; render(); return; }
+    const dEl = $("#dots"); dEl.classList.add("bad"); U.pinBuf = "";
+    setTimeout(() => { $("#lock").innerHTML = lockHTML(); }, 380); return;
+  }
+  $("#lock").innerHTML = lockHTML();
+}
+
+function render() {
+  const lock = $("#lock");
+  lock.classList.toggle("on", U.locked);
+  if (U.locked) { lock.innerHTML = lockHTML(); $("#app").innerHTML = ""; $("#sheet").classList.remove("on"); $("#inv").classList.remove("on"); document.body.classList.add("lock-scroll"); return; }
+  if (D.pending && !U.sheet && !U.inv) { U.sheet = { k: "closed", mk: D.pending }; }
+  const scr = { home: homeHTML, client: clientHTML, history: historyHTML, month: monthHTML }[U.screen] || homeHTML;
+  $("#app").innerHTML = scr();
+  const sh = $("#sheet"), oldS = $(".sheet", sh), keepTop = oldS ? oldS.scrollTop : 0, prevK = sh.dataset.k;
+  sh.innerHTML = sheetHTML(); sh.classList.toggle("on", !!U.sheet); sh.dataset.k = U.sheet ? U.sheet.k : "";
+  { const ns = $(".sheet", sh); if (ns && prevK === sh.dataset.k) ns.scrollTop = keepTop; }
+  const inv = $("#inv"); inv.innerHTML = invHTML(); inv.classList.toggle("on", !!U.inv);
+  document.body.classList.toggle("lock-scroll", !!(U.sheet || U.inv));
+  if (U.focus) { const e = $(U.focus); if (e) e.focus(); U.focus = null; }
+}
+
+/* ---------- actions ---------- */
+function resizeImage(file, size = 256) {
+  return new Promise((res, rej) => {
+    const url = URL.createObjectURL(file), img = new Image();
+    img.onload = () => {
+      const s = Math.min(img.width, img.height), sx = (img.width - s) / 2, sy = (img.height - s) / 2;
+      const c = document.createElement("canvas"); c.width = c.height = size;
+      c.getContext("2d").drawImage(img, sx, sy, s, s, 0, 0, size, size);
+      URL.revokeObjectURL(url); res(c.toDataURL("image/jpeg", 0.82));
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); rej(new Error("bad image")); };
+    img.src = url;
+  });
+}
+async function doExport() {
+  const name = "AK-backup-" + dayKey(new Date()) + ".json";
+  const blob = new Blob([JSON.stringify(D)], { type: "application/json" });
+  try {
+    const f = new File([blob], name, { type: "application/json" });
+    if (navigator.canShare && navigator.canShare({ files: [f] })) { await navigator.share({ files: [f], title: name }); return; }
+  } catch (e) { if (e && e.name === "AbortError") return; }
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  toast("Backup saved");
+}
+function doImport(file) {
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const o = JSON.parse(r.result);
+      if (!o || !Array.isArray(o.clients) || typeof o.month !== "string") throw 0;
+      if (!confirm("Replace ALL data on this device with this backup?")) return;
+      D = Object.assign(defaults(), o); checkMonth(); save();
+      U.screen = "home"; U.sheet = null; render(); toast("Backup restored");
+    } catch (e) { toast("That file is not a valid backup"); }
+  };
+  r.readAsText(file);
+}
+function printInv() {
+  const old = document.title, I = U.inv;
+  const snap = I.src === "live" ? { month: D.month, clients: snapshot(D.month).clients } : D.archive[I.i0];
+  const who = I.kind === "client" ? (snap.clients[I.idx] || {}).name : "All clients";
+  document.title = "AK Media - " + (I.kind === "client" ? "Invoice" : "Statement") + " - " + who + " - " + snap.month;
+  const back = () => { document.title = old; window.removeEventListener("afterprint", back); };
+  window.addEventListener("afterprint", back);
+  window.print(); setTimeout(() => { document.title = old; }, 4000);
+}
+
+function closeSheet() { if (U.sheet && U.sheet.k === "closed") { D.pending = null; save(); } U.sheet = null; U.tmpPhoto = undefined; }
+function onClick(e) {
+  const pk = e.target.closest("[data-pk]"); if (pk) { pinKey(pk.dataset.pk); return; }
+  if (e.target.id === "sheet") { closeSheet(); render(); return; }
+  const el = e.target.closest("[data-a]"); if (!el) return;
+  const a = el.dataset.a, ds = el.dataset;
+  switch (a) {
+    case "lock": sessionStorage.removeItem("ak_unlocked"); U.locked = true; U.pinBuf = ""; U.screen = "home"; U.sheet = null; U.inv = null; break;
+    case "settings": U.sheet = { k: "settings" }; break;
+    case "history": U.screen = "history"; break;
+    case "back": U.screen = (U.screen === "month") ? "history" : "home"; break;
+    case "timer": toggleTimer(); return;
+    case "delSess": D.sessions = D.sessions.filter(s => s.id !== ds.id); save(); break;
+    case "addClient": U.tmpPhoto = null; U.sheet = { k: "client", id: null }; U.focus = "#cName"; break;
+    case "editClient": { const c = getClient(U.cid); U.tmpPhoto = c.photo || null; U.sheet = { k: "client", id: c.id }; break; }
+    case "rmPhoto": U.tmpPhoto = null; { const n = $("#cName"), b = $("#cBase"); const keep = { n: n && n.value, b: b && b.value }; render(); if (keep.n != null) { $("#cName").value = keep.n; $("#cBase").value = keep.b; } } return;
+    case "delClient": { const c = getClient(U.sheet.id); if (c && confirm("Delete " + c.name + " and this month's data? Closed months keep their invoices.")) { D.clients = D.clients.filter(x => x.id !== c.id); delete D.cur[c.id]; save(); U.sheet = null; U.screen = "home"; } else return; break; }
+    case "openClient": U.cid = ds.id; U.screen = "client"; break;
+    case "day": U.sheet = { k: "day", day: ds.day }; break;
+    case "toDay": U.sheet = { k: "day", day: U.sheet.day }; break;
+    case "toNotes": U.sheet = { k: "notes", day: U.sheet.day }; U.focus = "#noteIn"; break;
+    case "toSalary": U.sheet = { k: "salary", day: U.sheet.day }; break;
+    case "salaryToday": U.sheet = { k: "salary", day: dayKey(new Date()), top: true }; break;
+    case "close": closeSheet(); break;
+    case "tn": { const l = cd(U.cid).notes[U.sheet.day] || []; const n = l.find(x => x.id === ds.id); if (n) { n.done = !n.done; save(); } break; }
+    case "dn": { const d = cd(U.cid).notes; d[U.sheet.day] = (d[U.sheet.day] || []).filter(x => x.id !== ds.id); if (!d[U.sheet.day].length) delete d[U.sheet.day]; save(); U.focus = "#noteIn"; break; }
+    case "da": { const x = cd(U.cid); x.adds = x.adds.filter(v => v.id !== ds.id); save(); break; }
+    case "export": doExport(); return;
+    case "install": if (U.installEvt) { U.installEvt.prompt(); U.installEvt = null; } break;
+    case "closeNow": {
+      if (!D.clients.length) { toast("Add a client first"); return; }
+      if (!confirm("Close " + monthLabel(D.month) + " now? It will be archived and the month cleared.")) return;
+      const s = archiveCurrent(); D.manualClosed = D.month;
+      if (D.timer.running) D.timer.startedAt = Date.now();
+      save(); U.sheet = null; U.screen = "month"; U.mk = 0; U.inv = { kind: "summary", src: "arch", i0: 0, log: true }; break;
+    }
+    case "invSummary": if (!D.clients.length) { toast("Add a client first"); return; } U.inv = { kind: "summary", src: "live", log: true }; break;
+    case "invClient": { const i = D.clients.findIndex(c => c.id === ds.id); U.inv = { kind: "client", src: "live", idx: i, log: true }; break; }
+    case "openMonth": U.mk = +ds.i; U.screen = "month"; break;
+    case "invArch": U.inv = ds.i === "all" ? { kind: "summary", src: "arch", i0: U.mk, log: true } : { kind: "client", src: "arch", i0: U.mk, idx: +ds.i, log: true }; break;
+    case "invClosed": { const i = D.archive.findIndex(z => z.month === D.pending); U.inv = { kind: "summary", src: "arch", i0: Math.max(0, i), log: true }; D.pending = null; U.sheet = null; save(); break; }
+    case "histClosed": { const i = D.archive.findIndex(z => z.month === D.pending); D.pending = null; U.sheet = null; U.mk = Math.max(0, i); U.screen = "month"; save(); break; }
+    case "dismissClosed": D.pending = null; U.sheet = null; save(); break;
+    case "closeInv": U.inv = null; break;
+    case "printInv": printInv(); return;
+    default: return;
+  }
+  render();
+}
+function onSubmit(e) {
+  const f = e.target.dataset && e.target.dataset.form; if (!f) return;
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  if (f === "note") {
+    const t = String(fd.get("t") || "").trim(); if (!t) return;
+    const n = cd(U.cid).notes; (n[U.sheet.day] = n[U.sheet.day] || []).push({ id: uid(), text: t, done: false });
+    save(); U.focus = "#noteIn"; render();
+  } else if (f === "add") {
+    const t = String(fd.get("t") || "").trim(), a = num(fd.get("a")); if (!t || !a) { toast("Enter a title and an amount"); return; }
+    cd(U.cid).adds.push({ id: uid(), day: U.sheet.day || dayKey(new Date()), title: t, amount: a });
+    save(); U.focus = "#addT"; render();
+  } else if (f === "client") {
+    const name = String(fd.get("name") || "").trim(); if (!name) return;
+    const base = num(fd.get("base"));
+    if (U.sheet.id) { const c = getClient(U.sheet.id); c.name = name; c.base = base; c.photo = U.tmpPhoto || null; }
+    else { const c = { id: uid(), name, base, photo: U.tmpPhoto || null, created: Date.now() }; D.clients.push(c); }
+    save(); U.sheet = null; U.tmpPhoto = undefined; render();
+  } else if (f === "pin") {
+    const p = String(fd.get("p") || ""); if (!/^\d{4}$/.test(p)) { toast("PIN must be 4 digits"); return; }
+    D.pin = p; save(); toast("PIN changed"); e.target.reset();
+  }
+}
+async function onChange(e) {
+  const t = e.target;
+  if (t.id === "photoIn" && t.files[0]) {
+    try { U.tmpPhoto = await resizeImage(t.files[0]); const n = $("#cName"), b = $("#cBase"); const keep = { n: n.value, b: b.value }; render(); $("#cName").value = keep.n; $("#cBase").value = keep.b; }
+    catch (err) { toast("Could not read that image"); }
+  } else if (t.id === "impIn" && t.files[0]) doImport(t.files[0]);
+  else if (t.dataset.ch === "base") { const c = getClient(U.cid); c.base = num(t.value); save(); render(); }
+  else if (t.dataset.ch === "week") { D.weekStart = +t.value; save(); render(); }
+  else if (t.id === "logT") { U.inv.log = t.checked; render(); }
+}
+document.addEventListener("click", onClick);
+document.addEventListener("submit", onSubmit);
+document.addEventListener("change", onChange);
+document.addEventListener("keydown", e => {
+  if (U.locked && /^[0-9]$/.test(e.key)) pinKey(e.key);
+  else if (U.locked && e.key === "Backspace") pinKey("⌫");
+  else if (e.key === "Escape" && U.sheet) { closeSheet(); render(); }
+});
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); U.installEvt = e; });
+
+/* ---------- clock ---------- */
+function tick() {
+  if (checkMonth()) { render(); return; }
+  const tm = $("#tm"); if (!tm) return;
+  tm.textContent = fmtDur(elapsedNow());
+  const s = $("#tmSub"); if (s) s.textContent = "Today " + fmtHM(todayMs()) + " · This month " + fmtHM(sessionsMs() + elapsedNow());
+}
+setInterval(tick, 1000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) { if (checkMonth() || U.screen === "home") render(); } });
+
+/* ---------- start ---------- */
+checkMonth();
+render();
+try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) {}
+if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register("sw.js").catch(() => {});
+</script>
+</body>
+</html>
