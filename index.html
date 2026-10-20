@@ -38,6 +38,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visi
 .brand{display:flex;justify-content:center;margin:6px 0 4px}
 .logo{width:min(74vw,290px);height:auto;color:var(--silver);display:block}
 .month{font-family:var(--serif);letter-spacing:.28em;text-align:center;color:var(--muted);font-size:13px;margin:6px 0 18px;text-transform:uppercase}
+.chip{display:block;margin:-10px auto 14px;font-size:12.5px;color:var(--muted);min-height:34px;padding:0 12px;border-radius:17px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px}
 .lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .big{font-family:var(--serif);font-weight:700;font-size:34px;line-height:1.1;margin:4px 0 2px;font-variant-numeric:tabular-nums}
@@ -246,7 +247,7 @@ const avatar = c => { const p = safeImg(c.photo); return `<span class="av">${p ?
 
 /* ---------- storage ---------- */
 const KEY = "ak_media_tracker_v1";
-const defaults = () => ({ v: 1, pin: "1998", weekStart: 6, month: monthKey(new Date()), clients: [], cur: {}, sessions: [], timer: { running: false, startedAt: null }, archive: [], pending: null, manualClosed: null });
+const defaults = () => ({ v: 1, pin: "1998", weekStart: 6, month: monthKey(new Date()), clients: [], cur: {}, sessions: [], timer: { running: false, startedAt: null }, archive: [], pending: null, manualClosed: null, updatedAt: 0, syncedRev: 0, cloudUid: null, photoSynced: {} });
 function load() {
   try { const r = localStorage.getItem(KEY); if (r) return Object.assign(defaults(), JSON.parse(r)); } catch (e) {}
   return defaults();
@@ -254,7 +255,12 @@ function load() {
 let D = load();
 let toastT;
 function toast(m) { const t = $("#toast"); t.textContent = m; t.style.display = "block"; clearTimeout(toastT); toastT = setTimeout(() => t.style.display = "none", 2600); }
-function save() { try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) { toast("Storage is full — export a backup"); } }
+function save(o) {
+  const remote = !!(o && o.remote);
+  if (!remote) D.updatedAt = Date.now();
+  try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) { toast("Storage is full — export a backup"); }
+  if (!remote) schedulePush();
+}
 const cd = id => (D.cur[id] = D.cur[id] || { notes: {}, adds: [] });
 const getClient = id => D.clients.find(c => c.id === id);
 function totalsOf(c, data) {
@@ -337,6 +343,7 @@ function homeHTML() {
   <div class="top"><button class="ib" data-a="history" aria-label="History">${ic("hist")}</button><span class="sp"></span><button class="ib" data-a="settings" aria-label="Settings">${ic("set")}</button><button class="ib" data-a="lock" aria-label="Lock">${ic("lock")}</button></div>
   <div class="brand">${logoSvg("logo")}</div>
   <p class="month">${esc(monthLabel(D.month))}</p>
+  ${FIREBASE_CONFIG ? `<button class="chip" id="syncChip" data-a="settings">${esc(STATUS_TXT[S.status] || "")}</button>` : ""}
   <section class="card"><div class="total"><div><div class="lbl">Total this month · all clients</div><div class="big" id="gt">${fmt(t.total)}</div><div class="sub">Base ${fmt(t.base)} + additions ${fmt(t.adds)}</div></div>
   <button class="btn ghost sm" data-a="invSummary">${ic("file")} Summary</button></div></section>
   <section class="card timer"><div><div class="lbl">Work timer</div><div class="tm ${D.timer.running ? "on" : ""}" id="tm">${fmtDur(elapsedNow())}</div><div class="sub" id="tmSub">Today ${fmtHM(todayMs())} · This month ${fmtHM(sessionsMs() + elapsedNow())}</div></div>
@@ -428,6 +435,7 @@ function sheetHTML() {
   }
   if (s.k === "settings") {
     return `<div class="sheet">${head("Settings")}
+    ${cloudHTML()}
     <label class="f">Backup (move data between devices)</label>
     <div class="row wrap2"><button class="btn ghost sm" data-a="export">${ic("down")} Backup</button><label class="btn ghost sm" for="impIn" style="cursor:pointer">${ic("up")} Restore</label><input id="impIn" type="file" accept="application/json,.json" hidden></div>
     <p class="hint">Backup saves one small file. Restore on another device replaces that device's data with the file.</p>
@@ -592,6 +600,8 @@ function onClick(e) {
     case "dn": { const d = cd(U.cid).notes; d[U.sheet.day] = (d[U.sheet.day] || []).filter(x => x.id !== ds.id); if (!d[U.sheet.day].length) delete d[U.sheet.day]; save(); U.focus = "#noteIn"; break; }
     case "da": { const x = cd(U.cid); x.adds = x.adds.filter(v => v.id !== ds.id); save(); break; }
     case "export": doExport(); return;
+    case "syncNow": D.syncedRev = 0; pushNow(); toast("Syncing…"); return;
+    case "signOut": doSignOut(); return;
     case "install": if (U.installEvt) { U.installEvt.prompt(); U.installEvt = null; } break;
     case "closeNow": {
       if (!D.clients.length) { toast("Add a client first"); return; }
@@ -631,6 +641,8 @@ function onSubmit(e) {
     if (U.sheet.id) { const c = getClient(U.sheet.id); c.name = name; c.base = base; c.photo = U.tmpPhoto || null; }
     else { const c = { id: uid(), name, base, photo: U.tmpPhoto || null, created: Date.now() }; D.clients.push(c); }
     save(); U.sheet = null; U.tmpPhoto = undefined; render();
+  } else if (f === "auth") {
+    doAuth((e.submitter && e.submitter.value) || "in", String(fd.get("email") || "").trim(), String(fd.get("pw") || ""));
   } else if (f === "pin") {
     const p = String(fd.get("p") || ""); if (!/^\d{4}$/.test(p)) { toast("PIN must be 4 digits"); return; }
     D.pin = p; save(); toast("PIN changed"); e.target.reset();
@@ -664,11 +676,136 @@ function tick() {
   const s = $("#tmSub"); if (s) s.textContent = "Today " + fmtHM(todayMs()) + " · This month " + fmtHM(sessionsMs() + elapsedNow());
 }
 setInterval(tick, 1000);
-document.addEventListener("visibilitychange", () => { if (!document.hidden) { if (checkMonth() || U.screen === "home") render(); } });
+document.addEventListener("visibilitychange", () => { if (!document.hidden) { if (checkMonth() || U.screen === "home") render(); if (S.user) pushNow(); } });
+window.addEventListener("online", () => { if (S.user) pushNow(); });
+
+
+/* ---------- cloud sync (Firebase) ---------- */
+const FIREBASE_CONFIG = {"apiKey": "AIzaSyBcW9J2MF63KP2qi_ht2Q0YR62oYEhcoQE", "authDomain": "ak-abdullah-khalid.firebaseapp.com", "projectId": "ak-abdullah-khalid", "storageBucket": "ak-abdullah-khalid.firebasestorage.app", "messagingSenderId": "592111934204", "appId": "1:592111934204:web:bd106ee6673328a9159579"};
+const FB_VER = "10.14.1";
+const DEVICE = (() => { try { let d = localStorage.getItem("ak_device"); if (!d) { d = uid(); localStorage.setItem("ak_device", d); } return d; } catch (e) { return uid(); } })();
+const S = { status: FIREBASE_CONFIG ? "signedout" : "off", user: null, fb: null, unsub: null, pushT: null, busy: false };
+const STATUS_TXT = { off: "", signedout: "Cloud: not signed in", syncing: "Cloud: syncing…", synced: "Cloud: synced", offline: "Cloud: offline, will sync later", error: "Cloud: sync problem, retrying" };
+const AUTH_MSG = { "auth/invalid-credential": "Wrong email or password", "auth/wrong-password": "Wrong email or password", "auth/user-not-found": "No account with this email", "auth/email-already-in-use": "This email already has an account, use Sign in", "auth/weak-password": "Password must be at least 6 characters", "auth/invalid-email": "That email is not valid", "auth/network-request-failed": "No internet connection", "auth/too-many-requests": "Too many attempts, try again later", "auth/operation-not-allowed": "Email/Password sign-in is not enabled in Firebase" };
+const hashStr = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36) + "-" + s.length; };
+function setStatus(st) { S.status = st; const c = $("#syncChip"); if (c) c.textContent = STATUS_TXT[st] || ""; }
+async function fbLoad() {
+  if (S.fb) return S.fb;
+  const base = "https://www.gstatic.com/firebasejs/" + FB_VER + "/";
+  const [A, Au, F] = await Promise.all([import(base + "firebase-app.js"), import(base + "firebase-auth.js"), import(base + "firebase-firestore.js")]);
+  const app = A.initializeApp(FIREBASE_CONFIG);
+  S.fb = { A, Au, F, auth: Au.getAuth(app), db: F.getFirestore(app) };
+  return S.fb;
+}
+const mainRef = () => S.fb.F.doc(S.fb.db, "users", S.user.uid, "sync", "main");
+const photoRef = id => S.fb.F.doc(S.fb.db, "users", S.user.uid, "photos", id);
+function buildPayload() {
+  const o = JSON.parse(JSON.stringify(D)), photos = {};
+  ["pin", "pending", "cloudUid", "syncedRev", "photoSynced", "updatedAt"].forEach(k => delete o[k]);
+  o.clients.forEach(c => { if (c.photo) { const h = hashStr(c.photo); photos[c.id] = { h, data: c.photo }; c.photo = "@" + h; } });
+  return { json: JSON.stringify(o), photos };
+}
+function schedulePush() { if (!S.user) return; clearTimeout(S.pushT); S.pushT = setTimeout(pushNow, 1200); }
+function scheduleRetry() { clearTimeout(S.pushT); S.pushT = setTimeout(pushNow, 30000); }
+async function pushNow() {
+  if (!S.user || !S.fb || S.busy) return;
+  if (D.cloudUid === S.user.uid && D.updatedAt <= D.syncedRev) return;
+  S.busy = true; let failed = false; setStatus("syncing");
+  try {
+    const { json, photos } = buildPayload(), F = S.fb.F; D.photoSynced = D.photoSynced || {};
+    for (const id of Object.keys(photos)) {
+      if (D.photoSynced[id] !== photos[id].h) { await F.setDoc(photoRef(id), { data: photos[id].data, h: photos[id].h }); D.photoSynced[id] = photos[id].h; }
+    }
+    const rev = D.updatedAt;
+    await F.setDoc(mainRef(), { rev, by: DEVICE, json });
+    D.syncedRev = rev; D.cloudUid = S.user.uid; save({ remote: true }); setStatus("synced");
+  } catch (e) { failed = true; setStatus(navigator.onLine === false ? "offline" : "error"); scheduleRetry(); }
+  finally { S.busy = false; if (!failed && D.updatedAt > D.syncedRev) schedulePush(); }
+}
+function softRender() {
+  const a = document.activeElement;
+  if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) { setTimeout(softRender, 2500); return; }
+  render();
+}
+async function applyRemote(m, uidv) {
+  const inc = JSON.parse(m.json), keep = { pin: D.pin, pending: D.pending };
+  const have = {}; D.clients.forEach(c => { if (c.photo) have[hashStr(c.photo)] = c.photo; });
+  const synced = {}, need = [];
+  (inc.clients || []).forEach(c => {
+    if (typeof c.photo === "string" && c.photo[0] === "@") {
+      const h = c.photo.slice(1);
+      if (have[h]) { c.photo = have[h]; synced[c.id] = h; } else need.push({ c, h });
+    }
+  });
+  D = Object.assign(defaults(), inc, keep, { updatedAt: m.rev, syncedRev: m.rev, cloudUid: uidv, photoSynced: synced });
+  for (const n of need) {
+    try { const p = await S.fb.F.getDoc(photoRef(n.c.id)); if (p.exists()) { n.c.photo = p.data().data; D.photoSynced[n.c.id] = n.h; } else n.c.photo = null; }
+    catch (e) { n.c.photo = null; }
+  }
+  checkMonth(); save({ remote: true }); setStatus("synced"); softRender();
+}
+function detach() { if (S.unsub) { try { S.unsub(); } catch (e) {} S.unsub = null; } }
+async function attach(u) {
+  detach(); setStatus("syncing");
+  try {
+    const F = S.fb.F, snap = await F.getDoc(mainRef());
+    if (!snap.exists()) { D.updatedAt = Math.max(D.updatedAt, Date.now()); D.syncedRev = 0; await pushNow(); }
+    else {
+      const m = snap.data(), first = D.cloudUid !== u.uid;
+      if (first && D.clients.length && m.rev !== D.syncedRev) {
+        const useCloud = confirm("This account already has data in the cloud.\n\nOK = load the cloud data here (replaces what is on this device).\nCancel = upload this device's data (replaces the cloud).");
+        if (useCloud) await applyRemote(m, u.uid); else { D.updatedAt = Date.now(); D.syncedRev = 0; await pushNow(); }
+      } else if (first || m.rev > D.updatedAt) await applyRemote(m, u.uid);
+      else if (D.updatedAt > m.rev) { D.syncedRev = 0; await pushNow(); }
+      else setStatus("synced");
+    }
+    S.unsub = F.onSnapshot(mainRef(), s => {
+      if (!s.exists() || (s.metadata && s.metadata.hasPendingWrites)) return;
+      const m = s.data(); if (m.by === DEVICE) return;
+      if (m.rev > D.updatedAt) applyRemote(m, u.uid);
+    }, () => setStatus("offline"));
+  } catch (e) { setStatus(navigator.onLine === false ? "offline" : "error"); scheduleRetry(); }
+  render();
+}
+async function syncInit() {
+  if (!FIREBASE_CONFIG) return;
+  try {
+    const fb = await fbLoad();
+    fb.Au.onAuthStateChanged(fb.auth, async u => {
+      S.user = u || null;
+      if (!u) { detach(); setStatus("signedout"); render(); return; }
+      await attach(u);
+    });
+  } catch (e) { setStatus("offline"); }
+}
+async function doAuth(act, email, pw) {
+  if (!email || !pw) { toast("Enter email and password"); return; }
+  try {
+    const fb = await fbLoad(); toast(act === "up" ? "Creating account…" : "Signing in…");
+    if (act === "up") await fb.Au.createUserWithEmailAndPassword(fb.auth, email, pw);
+    else await fb.Au.signInWithEmailAndPassword(fb.auth, email, pw);
+  } catch (e) { toast(AUTH_MSG[e && e.code] || (navigator.onLine === false ? "No internet connection" : "Could not sign in")); }
+}
+async function doSignOut() {
+  if (!confirm("Sign out? Your data stays on this device but stops syncing.")) return;
+  try { const fb = await fbLoad(); detach(); await fb.Au.signOut(fb.auth); D.cloudUid = null; D.syncedRev = 0; save({ remote: true }); } catch (e) { toast("Could not sign out"); }
+  render();
+}
+function cloudHTML() {
+  if (!FIREBASE_CONFIG) return "";
+  if (S.user) return `<label class="f">Cloud sync</label><div class="sum" style="margin-top:0"><div><span>Account</span><span style="direction:ltr">${esc(S.user.email || "")}</span></div><div><span>Status</span><span>${esc((STATUS_TXT[S.status] || "").replace("Cloud: ", ""))}</span></div></div>
+    <div class="row mt wrap2"><button class="btn ghost sm" data-a="syncNow">Sync now</button><button class="btn danger sm" data-a="signOut">Sign out</button></div>
+    <p class="hint">Anything you change on one device appears on your other devices that are signed in.</p><div class="sep"></div>`;
+  return `<label class="f">Cloud sync</label>
+    <form data-form="auth"><input name="email" type="email" inputmode="email" autocomplete="username" placeholder="Email" aria-label="Email" style="margin-bottom:8px"><input name="pw" type="password" autocomplete="current-password" placeholder="Password (6+ characters)" aria-label="Password">
+    <div class="row mt wrap2"><button class="btn sm" type="submit" value="in">Sign in</button><button class="btn ghost sm" type="submit" value="up">Create account</button></div></form>
+    <p class="hint">First device: Create account. Other devices: Sign in with the same email and password.</p><div class="sep"></div>`;
+}
 
 /* ---------- start ---------- */
 checkMonth();
 render();
+syncInit();
 try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch (e) {}
 if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register("sw.js").catch(() => {});
 </script>
