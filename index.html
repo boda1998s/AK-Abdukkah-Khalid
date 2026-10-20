@@ -41,6 +41,9 @@ button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visi
 .chip{display:block;margin:-10px auto 14px;font-size:12.5px;color:var(--muted);min-height:34px;padding:0 12px;border-radius:17px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px}
 .lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.veil{display:block;text-align:left;color:inherit;min-height:44px;border-radius:12px;padding:2px 4px;margin:-2px -4px}
+.veil .blurme{transition:filter .25s}
+.veil.on .blurme{filter:blur(11px);user-select:none;-webkit-user-select:none}
 .big{font-family:var(--serif);font-weight:700;font-size:34px;line-height:1.1;margin:4px 0 2px;font-variant-numeric:tabular-nums}
 .sub{color:var(--muted);font-size:14px}
 .total{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
@@ -328,11 +331,25 @@ function checkMonth() {
 }
 
 /* ---------- UI state ---------- */
-const U = { locked: !sessionStorage.getItem("ak_unlocked"), screen: "home", cid: null, mk: null, sheet: null, inv: null, tmpPhoto: undefined, pinBuf: "", focus: null };
+const U = { reveal: false, revealT: null, locked: !sessionStorage.getItem("ak_unlocked"), screen: "home", cid: null, mk: null, sheet: null, inv: null, tmpPhoto: undefined, pinBuf: "", focus: null };
 
 /* ---------- renderers ---------- */
+function grandTotals() { return D.clients.reduce((a, c) => { const x = totalsOf(c); a.base += x.base; a.adds += x.adds; a.total += x.total; return a; }, { base: 0, adds: 0, total: 0 }); }
+const HID = "EGP 00,000";
+function paintTotal() {
+  const b = $("#veil"); if (!b) return; const t = grandTotals();
+  b.classList.toggle("on", !U.reveal); b.setAttribute("aria-pressed", String(U.reveal));
+  $("#gt").textContent = U.reveal ? fmt(t.total) : HID;
+  $("#gsub").textContent = U.reveal ? "Base " + fmt(t.base) + " + additions " + fmt(t.adds) : "Base " + HID + " + additions " + HID;
+  $("#ghint").textContent = U.reveal ? "" : " · tap to show";
+}
+function toggleReveal() {
+  U.reveal = !U.reveal; clearTimeout(U.revealT);
+  if (U.reveal) U.revealT = setTimeout(() => { U.reveal = false; paintTotal(); }, 10000);
+  paintTotal();
+}
 function homeHTML() {
-  const t = D.clients.reduce((a, c) => { const x = totalsOf(c); a.base += x.base; a.adds += x.adds; a.total += x.total; return a; }, { base: 0, adds: 0, total: 0 });
+  const t = grandTotals();
   const tiles = D.clients.map(c => {
     const n = notesCount(c.id), x = totalsOf(c);
     return `<button class="tile" data-a="openClient" data-id="${c.id}">${avatar(c)}<span class="tx"><div class="nm" dir="auto">${esc(c.name)}</div><div class="amt">${fmt(x.total)}</div><div class="sub">${n.t ? n.d + "/" + n.t + " notes done" : "No notes yet"}</div></span></button>`;
@@ -344,7 +361,7 @@ function homeHTML() {
   <div class="brand">${logoSvg("logo")}</div>
   <p class="month">${esc(monthLabel(D.month))}</p>
   ${FIREBASE_CONFIG ? `<button class="chip" id="syncChip" data-a="settings">${esc(STATUS_TXT[S.status] || "")}</button>` : ""}
-  <section class="card"><div class="total"><div><div class="lbl">Total this month · all clients</div><div class="big" id="gt">${fmt(t.total)}</div><div class="sub">Base ${fmt(t.base)} + additions ${fmt(t.adds)}</div></div>
+  <section class="card"><div class="total"><button class="veil ${U.reveal ? "" : "on"}" id="veil" data-a="reveal" aria-pressed="${U.reveal}" aria-label="Show or hide the total"><div class="lbl">Total this month · all clients<span id="ghint">${U.reveal ? "" : " · tap to show"}</span></div><div class="big blurme" id="gt">${U.reveal ? fmt(t.total) : HID}</div><div class="sub blurme" id="gsub">${U.reveal ? "Base " + fmt(t.base) + " + additions " + fmt(t.adds) : "Base " + HID + " + additions " + HID}</div></button>
   <button class="btn ghost sm" data-a="invSummary">${ic("file")} Summary</button></div></section>
   <section class="card timer"><div><div class="lbl">Work timer</div><div class="tm ${D.timer.running ? "on" : ""}" id="tm">${fmtDur(elapsedNow())}</div><div class="sub" id="tmSub">Today ${fmtHM(todayMs())} · This month ${fmtHM(sessionsMs() + elapsedNow())}</div></div>
   <button class="btn" data-a="timer">${D.timer.running ? ic("stop", "fill") + " Stop" : ic("play", "fill") + " Start"}</button>
@@ -579,11 +596,12 @@ function onClick(e) {
   const el = e.target.closest("[data-a]"); if (!el) return;
   const a = el.dataset.a, ds = el.dataset;
   switch (a) {
-    case "lock": sessionStorage.removeItem("ak_unlocked"); U.locked = true; U.pinBuf = ""; U.screen = "home"; U.sheet = null; U.inv = null; break;
+    case "lock": U.reveal = false; sessionStorage.removeItem("ak_unlocked"); U.locked = true; U.pinBuf = ""; U.screen = "home"; U.sheet = null; U.inv = null; break;
     case "settings": U.sheet = { k: "settings" }; break;
     case "history": U.screen = "history"; break;
     case "back": U.screen = (U.screen === "month") ? "history" : "home"; break;
     case "timer": toggleTimer(); return;
+    case "reveal": toggleReveal(); return;
     case "delSess": D.sessions = D.sessions.filter(s => s.id !== ds.id); save(); break;
     case "addClient": U.tmpPhoto = null; U.sheet = { k: "client", id: null }; U.focus = "#cName"; break;
     case "editClient": { const c = getClient(U.cid); U.tmpPhoto = c.photo || null; U.sheet = { k: "client", id: c.id }; break; }
