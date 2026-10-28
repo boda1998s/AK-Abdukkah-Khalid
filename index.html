@@ -264,7 +264,7 @@ function save(o) {
   try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) { toast("Storage is full — export a backup"); }
   if (!remote) schedulePush();
 }
-const cd = id => (D.cur[id] = D.cur[id] || { notes: {}, adds: [] });
+const cd = id => { const x = (D.cur[id] = D.cur[id] || { notes: {}, adds: [] }); if (!x.hl) x.hl = []; return x; };
 const getClient = id => D.clients.find(c => c.id === id);
 function totalsOf(c, data) {
   const x = data || D.cur[c.id] || { adds: [] };
@@ -303,12 +303,13 @@ function snapshot(mk) {
     const notes = [];
     Object.keys(x.notes).sort().forEach(day => x.notes[day].forEach(n => notes.push({ day, text: n.text, done: !!n.done })));
     const addsTotal = adds.reduce((a, v) => a + v.amount, 0), base = +c.base || 0;
-    return { id: c.id, name: c.name, base, adds, notes, addsTotal, total: base + addsTotal };
+    const hl = (x.hl || []).map(h => ({ day: h.day, text: h.text })).sort((a, b) => a.day < b.day ? -1 : a.day > b.day ? 1 : 0);
+    return { id: c.id, name: c.name, base, adds, notes, hl, addsTotal, total: base + addsTotal };
   });
   return { month: mk, closedAt: Date.now(), clients: cl, total: cl.reduce((a, c) => a + c.total, 0), ms: sessionsMs(), sessionCount: D.sessions.length };
 }
 function hasActivity() {
-  return D.sessions.length > 0 || Object.keys(D.cur).some(id => { const x = D.cur[id]; return x.adds.length || Object.keys(x.notes).length; });
+  return D.sessions.length > 0 || Object.keys(D.cur).some(id => { const x = D.cur[id]; return x.adds.length || Object.keys(x.notes).length || (x.hl || []).length; });
 }
 function archiveCurrent() {
   const s = snapshot(D.month);
@@ -417,10 +418,19 @@ function sheetHTML() {
   const head = (t, back) => `<div class="sh-h">${back ? `<button class="ib" data-a="${back}" aria-label="Back">${ic("back")}</button>` : ""}<h3>${t}</h3><button class="ib" data-a="close" aria-label="Close">${ic("x")}</button></div>`;
   if (s.k === "day") {
     const c = getClient(U.cid), x = cd(c.id), ns = x.notes[s.day] || [], ad = x.adds.filter(a => a.day === s.day);
-    const left = ns.filter(n => !n.done).length;
+    const left = ns.filter(n => !n.done).length, hn = x.hl.filter(h => h.day === s.day).length;
     return `<div class="sheet">${head(esc(dayLabel(s.day)))}<div class="choices">
     <button class="choice" data-a="toNotes">${ic("notes")}Notes<small>${ns.length ? left + " left of " + ns.length : "none yet"}</small></button>
-    <button class="choice" data-a="toSalary">${ic("cash")}Salary<small>${ad.length ? ad.length + " addition" + (ad.length > 1 ? "s" : "") : "base + additions"}</small></button></div></div>`;
+    <button class="choice" data-a="toSalary">${ic("cash")}Salary<small>${ad.length ? ad.length + " addition" + (ad.length > 1 ? "s" : "") : "base + additions"}</small></button>
+    <button class="choice" data-a="toHl" style="grid-column:1/-1;min-height:92px">${ic("file")}Invoice notes<small>${hn ? hn + " item" + (hn > 1 ? "s" : "") + " for the invoice" : "key work that goes on the invoice"}</small></button></div></div>`;
+  }
+  if (s.k === "hl") {
+    const c = getClient(U.cid), hs = cd(c.id).hl.filter(h => h.day === s.day);
+    const li = hs.map(h => `<li><span class="t" dir="auto">${esc(h.text)}</span><button class="xb" data-a="dh" data-id="${h.id}" aria-label="Delete item">${ic("trash")}</button></li>`).join("");
+    return `<div class="sheet">${head("Invoice notes · " + esc(dayShort(s.day)), "toDay")}
+    <p class="hint" style="margin:0 0 6px">Only the key work you want to bill. These lines appear on the invoice. Your daily Notes never do.</p>
+    <ul class="clean notes">${li || '<li class="empty-n" style="display:block;border:0">Nothing added for this day yet.</li>'}</ul>
+    <form data-form="hl" class="inl mt"><input name="t" id="hlIn" dir="auto" autocomplete="off" placeholder="e.g. Built the booking page" aria-label="New invoice note" required><button class="btn" type="submit">Add</button></form></div>`;
   }
   if (s.k === "notes") {
     const c = getClient(U.cid), ns = cd(c.id).notes[s.day] || [];
@@ -491,7 +501,8 @@ function invHTML() {
     no = "AK-" + ym + "-" + pad(I.idx + 1); billed = c.name;
     const rows = [`<tr><td>Monthly base salary</td><td>${esc(monthLabel(snap.month))}</td><td class="r">${fmtN(c.base)}</td></tr>`]
       .concat(c.adds.map(a => `<tr><td dir="auto">${esc(a.title)}</td><td>${esc(dayShort(a.day))}</td><td class="r">${fmtN(a.amount)}</td></tr>`)).join("");
-    const log = c.notes.length ? `<h4>Work log</h4><ul class="clean log">${c.notes.map(n => `<li class="${n.done ? "" : "pend"}"><span class="m">${n.done ? "✓" : "○"}</span><span class="dd">${esc(dayShort(n.day))}</span><span dir="auto" style="flex:1">${esc(n.text)}</span></li>`).join("")}</ul>` : "";
+    const hl = c.hl || [];
+    const log = hl.length ? `<h4>Work completed</h4><ul class="clean log">${hl.map(n => `<li><span class="m">✓</span><span class="dd">${esc(dayShort(n.day))}</span><span dir="auto" style="flex:1">${esc(n.text)}</span></li>`).join("")}</ul>` : "";
     body = `<table><thead><tr><th>Description</th><th>Date</th><th class="r">Amount (EGP)</th></tr></thead><tbody>${rows}<tr class="tot"><td colspan="2">Total</td><td class="r">${fmt(c.total)}</td></tr></tbody></table>${I.log ? log : ""}`;
   } else {
     no = "AK-" + ym + "-ALL"; billed = "All clients";
@@ -501,7 +512,7 @@ function invHTML() {
   }
   const title = (I.kind === "client" ? "Invoice" : "Statement");
   return `<div class="inv-bar"><button class="ib" data-a="closeInv" aria-label="Close">${ic("back")}</button>
-  ${I.kind === "client" ? `<label><input type="checkbox" id="logT" ${I.log ? "checked" : ""}> Include work log</label>` : ""}
+  ${I.kind === "client" ? `<label><input type="checkbox" id="logT" ${I.log ? "checked" : ""}> Include work completed</label>` : ""}
   <span style="flex:1"></span><button class="btn sm" data-a="printInv">${ic("print")} Save as PDF</button></div>
   <div class="doc"><div class="d-head">${logoSvg("d-logo")}<div class="d-title"><h1>${title.toUpperCase()}</h1><p>No. ${esc(no)}</p></div></div>
   <div class="d-meta"><div><small>${I.kind === "client" ? "Billed to" : "Covers"}</small><b dir="auto">${esc(billed)}</b></div><div><small>Period</small><b>${esc(monthLabel(snap.month))}</b></div><div><small>Issued</small><b>${dateFull(issued)}</b></div></div>
@@ -612,6 +623,8 @@ function onClick(e) {
     case "toDay": U.sheet = { k: "day", day: U.sheet.day }; break;
     case "toNotes": U.sheet = { k: "notes", day: U.sheet.day }; U.focus = "#noteIn"; break;
     case "toSalary": U.sheet = { k: "salary", day: U.sheet.day }; break;
+    case "toHl": U.sheet = { k: "hl", day: U.sheet.day }; U.focus = "#hlIn"; break;
+    case "dh": { const x = cd(U.cid); x.hl = x.hl.filter(h => h.id !== ds.id); save(); U.focus = "#hlIn"; break; }
     case "salaryToday": U.sheet = { k: "salary", day: dayKey(new Date()), top: true }; break;
     case "close": closeSheet(); break;
     case "tn": { const l = cd(U.cid).notes[U.sheet.day] || []; const n = l.find(x => x.id === ds.id); if (n) { n.done = !n.done; save(); } break; }
@@ -649,6 +662,9 @@ function onSubmit(e) {
     const t = String(fd.get("t") || "").trim(); if (!t) return;
     const n = cd(U.cid).notes; (n[U.sheet.day] = n[U.sheet.day] || []).push({ id: uid(), text: t, done: false });
     save(); U.focus = "#noteIn"; render();
+  } else if (f === "hl") {
+    const t = String(fd.get("t") || "").trim(); if (!t) return;
+    cd(U.cid).hl.push({ id: uid(), day: U.sheet.day, text: t }); save(); U.focus = "#hlIn"; render();
   } else if (f === "add") {
     const t = String(fd.get("t") || "").trim(), a = num(fd.get("a")); if (!t || !a) { toast("Enter a title and an amount"); return; }
     cd(U.cid).adds.push({ id: uid(), day: U.sheet.day || dayKey(new Date()), title: t, amount: a });
