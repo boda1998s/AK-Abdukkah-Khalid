@@ -426,7 +426,9 @@ function sheetHTML() {
   }
   if (s.k === "hl") {
     const c = getClient(U.cid), hs = cd(c.id).hl.filter(h => h.day === s.day);
-    const li = hs.map(h => `<li><span class="t" dir="auto">${esc(h.text)}</span><button class="xb" data-a="dh" data-id="${h.id}" aria-label="Delete item">${ic("trash")}</button></li>`).join("");
+    const li = hs.map(h => s.edit === h.id
+      ? `<li><form data-form="hlEdit" class="inl" style="flex:1;min-width:0"><input name="t" id="hlEd" dir="auto" autocomplete="off" value="${esc(h.text)}" aria-label="Edit invoice note" required><button class="btn sm" type="submit">Save</button><button type="button" class="xb" data-a="cancelHl" aria-label="Cancel editing">${ic("x")}</button></form></li>`
+      : `<li><span class="t" dir="auto">${esc(h.text)}</span><button class="xb" data-a="eh" data-id="${h.id}" aria-label="Edit item">${ic("edit")}</button><button class="xb" data-a="dh" data-id="${h.id}" aria-label="Delete item">${ic("trash")}</button></li>`).join("");
     return `<div class="sheet">${head("Invoice notes · " + esc(dayShort(s.day)), "toDay")}
     <p class="hint" style="margin:0 0 6px">Only the key work you want to bill. These lines appear on the invoice. Your daily Notes never do.</p>
     <ul class="clean notes">${li || '<li class="empty-n" style="display:block;border:0">Nothing added for this day yet.</li>'}</ul>
@@ -549,7 +551,7 @@ function render() {
   { const ns = $(".sheet", sh); if (ns && prevK === sh.dataset.k) ns.scrollTop = keepTop; }
   const inv = $("#inv"); inv.innerHTML = invHTML(); inv.classList.toggle("on", !!U.inv);
   document.body.classList.toggle("lock-scroll", !!(U.sheet || U.inv));
-  if (U.focus) { const e = $(U.focus); if (e) e.focus(); U.focus = null; }
+  if (U.focus) { const e = $(U.focus); if (e) { e.focus(); try { const n = e.value.length; e.setSelectionRange(n, n); } catch (x) {} } U.focus = null; }
 }
 
 /* ---------- actions ---------- */
@@ -624,6 +626,8 @@ function onClick(e) {
     case "toNotes": U.sheet = { k: "notes", day: U.sheet.day }; U.focus = "#noteIn"; break;
     case "toSalary": U.sheet = { k: "salary", day: U.sheet.day }; break;
     case "toHl": U.sheet = { k: "hl", day: U.sheet.day }; U.focus = "#hlIn"; break;
+    case "eh": U.sheet = { k: "hl", day: U.sheet.day, edit: ds.id }; U.focus = "#hlEd"; break;
+    case "cancelHl": U.sheet = { k: "hl", day: U.sheet.day }; U.focus = "#hlIn"; break;
     case "dh": { const x = cd(U.cid); x.hl = x.hl.filter(h => h.id !== ds.id); save(); U.focus = "#hlIn"; break; }
     case "salaryToday": U.sheet = { k: "salary", day: dayKey(new Date()), top: true }; break;
     case "close": closeSheet(); break;
@@ -665,6 +669,10 @@ function onSubmit(e) {
   } else if (f === "hl") {
     const t = String(fd.get("t") || "").trim(); if (!t) return;
     cd(U.cid).hl.push({ id: uid(), day: U.sheet.day, text: t }); save(); U.focus = "#hlIn"; render();
+  } else if (f === "hlEdit") {
+    const t = String(fd.get("t") || "").trim(); if (!t) return;
+    const h = cd(U.cid).hl.find(x => x.id === U.sheet.edit); if (h) { h.text = t; save(); }
+    U.sheet = { k: "hl", day: U.sheet.day }; U.focus = "#hlIn"; render();
   } else if (f === "add") {
     const t = String(fd.get("t") || "").trim(), a = num(fd.get("a")); if (!t || !a) { toast("Enter a title and an amount"); return; }
     cd(U.cid).adds.push({ id: uid(), day: U.sheet.day || dayKey(new Date()), title: t, amount: a });
