@@ -387,8 +387,8 @@ function calHTML(c) {
 function clientHTML() {
   const c = getClient(U.cid); if (!c) { U.screen = "home"; return homeHTML(); }
   const n = notesCount(c.id), x = totalsOf(c), data = cd(c.id);
-  const pend = []; Object.keys(data.notes).sort().forEach(k => data.notes[k].forEach(nn => { if (!nn.done) pend.push({ k, t: nn.text }); }));
-  const open = pend.slice(0, 12).map(p => `<li><button style="display:flex;gap:10px;width:100%;text-align:left;align-items:center" data-a="day" data-day="${p.k}"><span class="dt">${dayShort(p.k)}</span><span dir="auto" style="flex:1;overflow-wrap:anywhere">${esc(p.t)}</span></button></li>`).join("");
+  const pend = []; Object.keys(data.notes).sort().forEach(k => data.notes[k].forEach(nn => { if (!nn.done) pend.push({ k, t: nn.text, id: nn.id }); }));
+  const open = pend.slice(0, 12).map(p => `<li><button class="chk" data-a="doneOpen" data-day="${p.k}" data-id="${p.id}" aria-label="Mark done: ${esc(p.t)}">${ic("check")}</button><button style="display:flex;gap:10px;flex:1;min-width:0;text-align:left;align-items:center;min-height:44px" data-a="day" data-day="${p.k}"><span class="dt">${dayShort(p.k)}</span><span dir="auto" style="flex:1;overflow-wrap:anywhere">${esc(p.t)}</span></button></li>`).join("");
   return `<div class="wrap">
   <div class="chead"><button class="ib" data-a="back" aria-label="Back">${ic("back")}</button>${avatar(c)}<div class="nm" dir="auto">${esc(c.name)}</div><button class="ib" data-a="editClient" aria-label="Edit client">${ic("edit")}</button></div>
   <div class="stats"><div class="card"><div class="lbl">Notes</div><div class="v">${n.d}/${n.t}</div><div class="bar"><i style="width:${n.t ? Math.round(n.d / n.t * 100) : 0}%"></i></div></div>
@@ -628,6 +628,7 @@ function onClick(e) {
     case "toHl": U.sheet = { k: "hl", day: U.sheet.day }; U.focus = "#hlIn"; break;
     case "eh": U.sheet = { k: "hl", day: U.sheet.day, edit: ds.id }; U.focus = "#hlEd"; break;
     case "cancelHl": U.sheet = { k: "hl", day: U.sheet.day }; U.focus = "#hlIn"; break;
+    case "doneOpen": { const l = cd(U.cid).notes[ds.day] || []; const n = l.find(x => x.id === ds.id); if (n) { n.done = true; save(); } break; }
     case "dh": { const x = cd(U.cid); x.hl = x.hl.filter(h => h.id !== ds.id); save(); U.focus = "#hlIn"; break; }
     case "salaryToday": U.sheet = { k: "salary", day: dayKey(new Date()), top: true }; break;
     case "close": closeSheet(); break;
