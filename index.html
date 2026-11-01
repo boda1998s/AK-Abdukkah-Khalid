@@ -515,7 +515,7 @@ function invHTML() {
   const title = (I.kind === "client" ? "Invoice" : "Statement");
   return `<div class="inv-bar"><button class="ib" data-a="closeInv" aria-label="Close">${ic("back")}</button>
   ${I.kind === "client" ? `<label><input type="checkbox" id="logT" ${I.log ? "checked" : ""}> Include work completed</label>` : ""}
-  <span style="flex:1"></span><button class="btn sm" data-a="printInv">${ic("print")} Save as PDF</button></div>
+  <span style="flex:1"></span><button class="btn sm" id="pdfBtn" data-a="printInv">${ic("print")} <span id="pdfLbl">${pdfLabel()}</span></button></div>
   <div class="doc"><div class="d-head">${logoSvg("d-logo")}<div class="d-title"><h1>${title.toUpperCase()}</h1><p>No. ${esc(no)}</p></div></div>
   <div class="d-meta"><div><small>${I.kind === "client" ? "Billed to" : "Covers"}</small><b dir="auto">${esc(billed)}</b></div><div><small>Period</small><b>${esc(monthLabel(snap.month))}</b></div><div><small>Issued</small><b>${dateFull(issued)}</b></div></div>
   ${body}<div class="d-foot">AK Media · Abdullah Khalid</div></div>`;
@@ -549,6 +549,7 @@ function render() {
   const sh = $("#sheet"), oldS = $(".sheet", sh), keepTop = oldS ? oldS.scrollTop : 0, prevK = sh.dataset.k;
   sh.innerHTML = sheetHTML(); sh.classList.toggle("on", !!U.sheet); sh.dataset.k = U.sheet ? U.sheet.k : "";
   { const ns = $(".sheet", sh); if (ns && prevK === sh.dataset.k) ns.scrollTop = keepTop; }
+  if (PDF && PDF.key !== JSON.stringify(U.inv || null)) PDF = null;
   const inv = $("#inv"); inv.innerHTML = invHTML(); inv.classList.toggle("on", !!U.inv);
   document.body.classList.toggle("lock-scroll", !!(U.sheet || U.inv));
   if (U.focus) { const e = $(U.focus); if (e) { e.focus(); try { const n = e.value.length; e.setSelectionRange(n, n); } catch (x) {} } U.focus = null; }
@@ -592,6 +593,57 @@ function doImport(file) {
   };
   r.readAsText(file);
 }
+const IOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+let PDF = null;
+const pdfLabel = () => !PDF ? "Save as PDF" : PDF.busy ? "Preparing…" : "Share PDF";
+function setPdfBtn() { const l = $("#pdfLbl"), b = $("#pdfBtn"); if (l) l.textContent = pdfLabel(); if (b) b.disabled = !!(PDF && PDF.busy); }
+function invName() {
+  const I = U.inv, snap = I.src === "live" ? { month: D.month, clients: snapshot(D.month).clients } : D.archive[I.i0];
+  const who = I.kind === "client" ? ((snap.clients[I.idx] || {}).name || "Client") : "All clients";
+  return "AK Media - " + (I.kind === "client" ? "Invoice" : "Statement") + " - " + who + " - " + snap.month;
+}
+function loadScript(src) { return new Promise((res, rej) => { const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = () => rej(new Error("load " + src)); document.head.appendChild(s); }); }
+async function makePdf() {
+  const key = JSON.stringify(U.inv); PDF = { key, busy: true }; setPdfBtn();
+  try {
+    if (!window.html2canvas) await loadScript("lib/html2canvas.min.js");
+    if (!window.jspdf) await loadScript("lib/jspdf.umd.min.js");
+    const el = $(".doc"), marks = [];
+    const est = el.offsetHeight * 1.5 + 200, SC = Math.max(1, Math.min(2, Math.sqrt(14e6 / (794 * est))));
+    const canvas = await window.html2canvas(el, { scale: SC, backgroundColor: "#ffffff", windowWidth: 900, logging: false,
+      onclone: cdoc => {
+        const inv = cdoc.getElementById("inv"); if (inv) inv.style.cssText = "position:static;overflow:visible;height:auto;background:#fff;display:block";
+        const e = cdoc.querySelector(".doc"); e.style.width = "794px"; e.style.margin = "0"; e.style.boxShadow = "none";
+        cdoc.querySelectorAll(".d-logo").forEach(sv => { sv.innerHTML = sv.innerHTML.replace(/currentColor/g, "#3A3C3F"); });
+        const top = e.getBoundingClientRect().top; e.querySelectorAll("tr, li, h4").forEach(n => marks.push(n.getBoundingClientRect().bottom - top));
+      } });
+    const cw = canvas.width, ch = canvas.height, mm = 10, usableW = 210 - 2 * mm, usableH = 297 - 2 * mm;
+    const sliceH = Math.floor(cw * usableH / usableW), bs = marks.map(m => Math.round(m * SC)).sort((a, b) => a - b);
+    const cuts = []; let pos = 0;
+    while (ch - pos > sliceH) {
+      let cut = pos + sliceH; const cand = bs.filter(b => b > pos + sliceH * 0.5 && b <= pos + sliceH);
+      if (cand.length) cut = cand[cand.length - 1]; cuts.push([pos, cut]); pos = cut;
+    }
+    cuts.push([pos, ch]);
+    const pdf = new window.jspdf.jsPDF({ unit: "mm", format: "a4", orientation: "portrait", compress: true });
+    cuts.forEach(([a, b], i) => {
+      const part = document.createElement("canvas"); part.width = cw; part.height = b - a;
+      const ctx = part.getContext("2d"); ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, cw, b - a); ctx.drawImage(canvas, 0, a, cw, b - a, 0, 0, cw, b - a);
+      if (i) pdf.addPage();
+      pdf.addImage(part.toDataURL("image/jpeg", 0.92), "JPEG", mm, mm, usableW, (b - a) * usableW / cw);
+    });
+    const blob = pdf.output("blob"), name = invName() + ".pdf";
+    PDF = { key, file: new File([blob], name, { type: "application/pdf" }), url: URL.createObjectURL(blob), name };
+    setPdfBtn(); toast("PDF ready — tap Share PDF");
+  } catch (e) { PDF = null; setPdfBtn(); toast(navigator.onLine === false ? "Open the app once online to enable PDF" : "Could not create the PDF, try again"); }
+}
+async function sharePdf() {
+  if (!PDF || !PDF.file) return;
+  try { if (navigator.canShare && navigator.canShare({ files: [PDF.file] })) { await navigator.share({ files: [PDF.file], title: PDF.name }); return; } }
+  catch (e) { if (e && e.name === "AbortError") return; }
+  if (!window.open(PDF.url, "_blank")) location.href = PDF.url;
+}
+function pdfAction() { if (PDF && PDF.busy) return; if (PDF && PDF.file) sharePdf(); else makePdf(); }
 function printInv() {
   const old = document.title, I = U.inv;
   const snap = I.src === "live" ? { month: D.month, clients: snapshot(D.month).clients } : D.archive[I.i0];
@@ -654,7 +706,7 @@ function onClick(e) {
     case "histClosed": { const i = D.archive.findIndex(z => z.month === D.pending); D.pending = null; U.sheet = null; U.mk = Math.max(0, i); U.screen = "month"; save(); break; }
     case "dismissClosed": D.pending = null; U.sheet = null; save(); break;
     case "closeInv": U.inv = null; break;
-    case "printInv": printInv(); return;
+    case "printInv": if (IOS) pdfAction(); else printInv(); return;
     default: return;
   }
   render();
