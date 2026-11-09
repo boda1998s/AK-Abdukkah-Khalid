@@ -39,6 +39,42 @@ button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visi
 .logo{width:min(74vw,290px);height:auto;color:var(--silver);display:block}
 .month{font-family:var(--serif);letter-spacing:.28em;text-align:center;color:var(--muted);font-size:13px;margin:6px 0 18px;text-transform:uppercase}
 .chip{display:block;margin:-10px auto 14px;font-size:12.5px;color:var(--muted);min-height:34px;padding:0 12px;border-radius:17px}
+body.nt-on{background:#000}
+.nt{--y:#FFD60A;max-width:680px;margin:0 auto;padding:max(14px,env(safe-area-inset-top)) 16px calc(96px + env(safe-area-inset-bottom));min-height:100vh}
+.nt-top{display:flex;align-items:center;gap:4px;min-height:48px}.nt-top .sp{flex:1}
+.nt-link{color:var(--y);display:inline-flex;align-items:center;min-height:44px;padding:0 6px;font-size:17px;margin-left:-6px}
+.nt-link .ic{width:24px;height:24px;margin-right:2px}
+.nt-top .ib.plain{color:var(--y)}
+.nt h1{font-size:34px;margin:2px 0 10px;font-weight:800;letter-spacing:-.01em}
+.nt .nt-search{background:#1C1C1E;border:0;border-radius:12px;min-height:40px;color:#fff;margin-bottom:16px}
+.nt-group{background:#1C1C1E;border-radius:14px;overflow:hidden}
+.nt-row{display:block;width:100%;text-align:left;padding:11px 16px;border-bottom:1px solid #38383A;min-height:66px}
+.nt-row[hidden]{display:none}
+.nt-row:last-child{border-bottom:0}
+.nt-row b{display:block;font-size:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
+.nt-row .pv{display:block;color:#98989F;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:2px}
+.nt-row .pv em{font-style:normal;color:#C7C7CC;margin-right:8px}
+.nt-empty{color:#98989F;text-align:center;margin:40px 10px}
+.nt-bar{position:fixed;left:0;right:0;bottom:0;z-index:5;display:flex;align-items:center;justify-content:center;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(28,28,30,.92);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid #38383A}
+.nt-cnt{color:#98989F;font-size:13px;position:absolute;left:0;right:0;text-align:center;pointer-events:none}
+.nt-bt{width:46px;height:46px;border-radius:12px;color:var(--y);display:grid;place-items:center;position:relative;margin-left:auto}
+.nt-bar .nt-bt:only-child{margin:0}
+.nt-bt .ic{width:26px;height:26px}
+.nt-date{text-align:center;color:#98989F;font-size:12px;margin:2px 0 10px}
+.nt input.nt-title{width:100%;background:none;border:0;border-radius:0;color:#fff;font-size:28px;font-weight:800;padding:2px 0;min-height:48px;outline:none}
+.nt-line{display:flex;gap:8px;align-items:flex-start}
+.nt-cb{width:40px;height:40px;margin:-2px -6px -2px -8px;display:none;place-items:center;flex:none}
+.nt-cb i{width:24px;height:24px;border-radius:50%;border:2px solid #8E8E93;display:grid;place-items:center;color:transparent}
+.nt-cb i .ic{width:14px;height:14px;stroke-width:3.6}
+.nt-line.c .nt-cb{display:grid}
+.nt-line.c.d .nt-cb i{background:var(--y);border-color:var(--y);color:#000}
+.nt-line textarea{flex:1;min-width:0;background:none;border:0;color:#fff;font:inherit;font-size:17px;line-height:1.45;resize:none;overflow:hidden;padding:6px 0;min-height:36px;outline:none;display:block}
+.nt-line.c.d textarea{color:#8E8E93;text-decoration:line-through}
+.nt-tail{min-height:55vh}
+.pn-card{display:flex;align-items:center;gap:14px;margin-top:14px;text-align:left}
+.pn-ic{width:46px;height:46px;border-radius:13px;background:#FFD60A;color:#000;display:grid;place-items:center;flex:none}
+.pn-t{font-weight:700;font-size:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pn-card>div:nth-child(2){min-width:0;flex:1}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px}
 .lbl{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .veil{display:block;text-align:left;color:inherit;min-height:44px;border-radius:12px;padding:2px 4px;margin:-2px -4px}
@@ -239,6 +275,7 @@ const IC = {
   down: '<path d="M12 4v10M8 11l4 4 4-4M5 19h14"/>', up: '<path d="M12 15V5M8 8l4-4 4 4M5 19h14"/>',
   img: '<rect x="3.5" y="6" width="17" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.2"/><path d="M8 6l1.5-2h5L16 6"/>',
   notes: '<path d="M6 4h12v16H6zM9 9h6M9 13h6M9 17h3"/>', cash: '<rect x="3" y="7" width="18" height="10" rx="2"/><circle cx="12" cy="12" r="2.5"/>',
+  chk2: '<rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/>',
   print: '<path d="M7 9V4h10v5M7 17H5a1 1 0 01-1-1v-5a2 2 0 012-2h12a2 2 0 012 2v5a1 1 0 01-1 1h-2"/><path d="M7 14h10v6H7z"/>'
 };
 const ic = (n, c = "") => `<svg class="ic ${c}" viewBox="0 0 24 24" aria-hidden="true">${IC[n]}</svg>`;
@@ -250,7 +287,7 @@ const avatar = c => { const p = safeImg(c.photo); return `<span class="av">${p ?
 
 /* ---------- storage ---------- */
 const KEY = "ak_media_tracker_v1";
-const defaults = () => ({ v: 1, pin: "1998", weekStart: 6, month: monthKey(new Date()), clients: [], cur: {}, sessions: [], timer: { running: false, startedAt: null }, archive: [], pending: null, manualClosed: null, updatedAt: 0, syncedRev: 0, cloudUid: null, photoSynced: {} });
+const defaults = () => ({ v: 1, pin: "1998", weekStart: 6, month: monthKey(new Date()), clients: [], cur: {}, sessions: [], timer: { running: false, startedAt: null }, archive: [], pending: null, manualClosed: null, updatedAt: 0, syncedRev: 0, cloudUid: null, photoSynced: {}, pnotes: [] });
 function load() {
   try { const r = localStorage.getItem(KEY); if (r) return Object.assign(defaults(), JSON.parse(r)); } catch (e) {}
   return defaults();
@@ -367,6 +404,7 @@ function homeHTML() {
   <section class="card timer"><div><div class="lbl">Work timer</div><div class="tm ${D.timer.running ? "on" : ""}" id="tm">${fmtDur(elapsedNow())}</div><div class="sub" id="tmSub">Today ${fmtHM(todayMs())} · This month ${fmtHM(sessionsMs() + elapsedNow())}</div></div>
   <button class="btn" data-a="timer">${D.timer.running ? ic("stop", "fill") + " Stop" : ic("play", "fill") + " Start"}</button>
   ${sess ? `<details class="sess" style="width:100%"><summary>Logged sessions (${D.sessions.length})</summary><ul class="clean">${sess}</ul></details>` : ""}</section>
+  <button class="card pn-card" data-a="pnotes"><span class="pn-ic">${ic("notes")}</span><div><div class="lbl">My notes</div><div class="pn-t" dir="auto">${D.pnotes.length ? esc(noteTitle(latestNote())) : "Write something just for you"}</div><div class="sub">${D.pnotes.length} note${D.pnotes.length === 1 ? "" : "s"} · private, never on invoices</div></div></button>
   <div class="sec-h"><h2>Clients</h2><button class="btn sm" data-a="addClient">${ic("plus")} Add client</button></div>
   <div class="grid">${tiles || `<button class="tile empty" data-a="addClient">${ic("plus")} Add your first client</button>`}</div>
   </div>`;
@@ -436,7 +474,9 @@ function sheetHTML() {
   }
   if (s.k === "notes") {
     const c = getClient(U.cid), ns = cd(c.id).notes[s.day] || [];
-    const li = ns.map(n => `<li class="${n.done ? "done" : ""}"><button class="chk" data-a="tn" data-id="${n.id}" aria-pressed="${n.done}" aria-label="Mark done">${ic("check")}</button><span class="t" dir="auto">${esc(n.text)}</span><button class="xb" data-a="dn" data-id="${n.id}" aria-label="Delete note">${ic("trash")}</button></li>`).join("");
+    const li = ns.map(n => s.edit === n.id
+      ? `<li class="${n.done ? "done" : ""}"><form data-form="noteEdit" class="inl" style="flex:1;min-width:0"><input name="t" id="nEd" dir="auto" autocomplete="off" value="${esc(n.text)}" aria-label="Edit note" required><button class="btn sm" type="submit">Save</button><button type="button" class="xb" data-a="cancelNote" aria-label="Cancel editing">${ic("x")}</button></form></li>`
+      : `<li class="${n.done ? "done" : ""}"><button class="chk" data-a="tn" data-id="${n.id}" aria-pressed="${n.done}" aria-label="Mark done">${ic("check")}</button><span class="t" dir="auto">${esc(n.text)}</span><button class="xb" data-a="en" data-id="${n.id}" aria-label="Edit note">${ic("edit")}</button><button class="xb" data-a="dn" data-id="${n.id}" aria-label="Delete note">${ic("trash")}</button></li>`).join("");
     return `<div class="sheet">${head("Notes · " + esc(dayShort(s.day)), "toDay")}
     <ul class="clean notes">${li || '<li class="empty-n" style="display:block;border:0">No notes for this day yet.</li>'}</ul>
     <form data-form="note" class="inl mt"><input name="t" id="noteIn" dir="auto" autocomplete="off" placeholder="What I did / what is left…" aria-label="New note" required><button class="btn" type="submit">Add</button></form></div>`;
@@ -542,10 +582,12 @@ function pinKey(k) {
 function render() {
   const lock = $("#lock");
   lock.classList.toggle("on", U.locked);
-  if (U.locked) { lock.innerHTML = lockHTML(); $("#app").innerHTML = ""; $("#sheet").classList.remove("on"); $("#inv").classList.remove("on"); document.body.classList.add("lock-scroll"); return; }
+  if (U.locked) { lock.innerHTML = lockHTML(); $("#app").innerHTML = ""; $("#sheet").classList.remove("on"); $("#inv").classList.remove("on"); document.body.classList.remove("nt-on"); document.body.classList.add("lock-scroll"); return; }
   if (D.pending && !U.sheet && !U.inv) { U.sheet = { k: "closed", mk: D.pending }; }
-  const scr = { home: homeHTML, client: clientHTML, history: historyHTML, month: monthHTML }[U.screen] || homeHTML;
+  const scr = { home: homeHTML, client: clientHTML, history: historyHTML, month: monthHTML, pnotes: pnotesHTML, pnote: pnoteHTML }[U.screen] || homeHTML;
+  document.body.classList.toggle("nt-on", U.screen === "pnotes" || U.screen === "pnote");
   $("#app").innerHTML = scr();
+  document.querySelectorAll("#lines textarea").forEach(autosize);
   const sh = $("#sheet"), oldS = $(".sheet", sh), keepTop = oldS ? oldS.scrollTop : 0, prevK = sh.dataset.k;
   sh.innerHTML = sheetHTML(); sh.classList.toggle("on", !!U.sheet); sh.dataset.k = U.sheet ? U.sheet.k : "";
   { const ns = $(".sheet", sh); if (ns && prevK === sh.dataset.k) ns.scrollTop = keepTop; }
@@ -554,6 +596,77 @@ function render() {
   document.body.classList.toggle("lock-scroll", !!(U.sheet || U.inv));
   if (U.focus) { const e = $(U.focus); if (e) { e.focus(); try { const n = e.value.length; e.setSelectionRange(n, n); } catch (x) {} } U.focus = null; }
 }
+
+
+/* ---------- personal notes (Apple Notes style) ---------- */
+const getNote = id => D.pnotes.find(n => n.id === id);
+const latestNote = () => D.pnotes.slice().sort((a, b) => b.updated - a.updated)[0];
+const firstText = n => { const l = n.lines.find(x => x.text.trim()); return l ? l.text.trim() : ""; };
+const noteTitle = n => n.title.trim() || firstText(n) || "New Note";
+const notePreview = n => { const t = n.title.trim(); const rest = n.lines.filter(x => x.text.trim()).map(x => x.text.trim()); return (t ? rest[0] : rest[1]) || "No additional text"; };
+function noteDate(ts) { const d = new Date(ts), n = new Date(); return d.toDateString() === n.toDateString() ? timeHM(ts) : d.getFullYear() === n.getFullYear() ? d.getDate() + " " + MS3[d.getMonth()] : d.getDate() + "/" + (d.getMonth() + 1) + "/" + String(d.getFullYear()).slice(2); }
+const lineHTML = l => `<div class="nt-line ${l.c ? "c" : ""} ${l.d ? "d" : ""}" data-lid="${l.id}"><button class="nt-cb" data-a="ptog" data-id="${l.id}" aria-pressed="${!!l.d}" aria-label="Done"><i>${ic("check")}</i></button><textarea data-ln="${l.id}" rows="1" dir="auto" spellcheck="false" aria-label="Note text">${esc(l.text)}</textarea></div>`;
+function pnotesHTML() {
+  const ns = D.pnotes.slice().sort((a, b) => b.updated - a.updated);
+  const rows = ns.map(n => `<button class="nt-row" data-a="popen" data-id="${n.id}" data-s="${esc((noteTitle(n) + " " + notePreview(n)).toLowerCase())}"><b dir="auto">${esc(noteTitle(n))}</b><span class="pv"><em>${esc(noteDate(n.updated))}</em><span dir="auto">${esc(notePreview(n))}</span></span></button>`).join("");
+  return `<div class="nt"><div class="nt-top"><button class="nt-link" data-a="back">${ic("back")}Back</button></div><h1>Notes</h1>
+  ${ns.length ? `<input class="nt-search" id="pSearch" type="search" placeholder="Search" aria-label="Search notes" autocomplete="off"><div class="nt-group" id="pList">${rows}</div>` : '<p class="nt-empty">No notes yet.<br>Tap the button below to write your first one.</p>'}
+  <div class="nt-bar"><span class="nt-cnt">${ns.length} Note${ns.length === 1 ? "" : "s"}</span><button class="nt-bt" data-a="pnew" aria-label="New note">${ic("edit")}</button></div></div>`;
+}
+function pnoteHTML() {
+  const n = getNote(U.pid); if (!n) { U.screen = "pnotes"; return pnotesHTML(); }
+  const d = new Date(n.updated);
+  return `<div class="nt"><div class="nt-top"><button class="nt-link" data-a="pback">${ic("back")}Notes</button><span class="sp" style="flex:1"></span><button class="ib plain" data-a="pdel" aria-label="Delete note">${ic("trash")}</button><button class="nt-link" data-a="pdone" style="margin-left:0">Done</button></div>
+  <div class="nt-date">${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()} at ${timeHM(n.updated)}</div>
+  <input class="nt-title" id="pTitle" dir="auto" autocomplete="off" placeholder="Title" aria-label="Title" value="${esc(n.title)}">
+  <div id="lines">${n.lines.map(lineHTML).join("")}</div><div class="nt-tail" data-a="ptail"></div>
+  <div class="nt-bar"><button class="nt-bt" data-a="pchk" aria-label="Checklist" style="margin:0">${ic("chk2")}</button></div></div>`;
+}
+const lineEl = id => document.querySelector('[data-lid="' + id + '"]');
+const lineTa = id => { const e = lineEl(id); return e && e.querySelector("textarea"); };
+function autosize(t) { t.style.height = "auto"; t.style.height = t.scrollHeight + "px"; }
+function syncLine(l) { const e = lineEl(l.id); if (!e) return; e.classList.toggle("c", !!l.c); e.classList.toggle("d", !!l.d); const b = e.querySelector(".nt-cb"); if (b) b.setAttribute("aria-pressed", String(!!l.d)); }
+let saveT = null;
+const saveSoon = () => { clearTimeout(saveT); saveT = setTimeout(() => { saveT = null; save(); }, 350); };
+const flushSave = () => { if (saveT) { clearTimeout(saveT); saveT = null; save(); } };
+function newNote() { const n = { id: uid(), title: "", lines: [{ id: uid(), text: "", c: false, d: false }], updated: Date.now() }; D.pnotes.unshift(n); save(); return n; }
+const noteEmpty = n => !n.title.trim() && n.lines.every(l => !l.text.trim());
+function leaveNote() { flushSave(); const n = getNote(U.pid); if (n && noteEmpty(n)) { D.pnotes = D.pnotes.filter(x => x.id !== n.id); save(); } }
+document.addEventListener("input", e => {
+  const t = e.target, n = getNote(U.pid);
+  if (t.id === "pSearch") { const q = t.value.trim().toLowerCase(); document.querySelectorAll("#pList .nt-row").forEach(r => { r.hidden = !!q && !r.dataset.s.includes(q); }); return; }
+  if (!n || U.screen !== "pnote") return;
+  if (t.id === "pTitle") { n.title = t.value; n.updated = Date.now(); saveSoon(); }
+  else if (t.dataset && t.dataset.ln) { const l = n.lines.find(x => x.id === t.dataset.ln); if (l) { l.text = t.value; n.updated = Date.now(); autosize(t); saveSoon(); } }
+});
+document.addEventListener("focusin", e => { if (e.target.dataset && e.target.dataset.ln) U.pFocus = e.target.dataset.ln; });
+document.addEventListener("mousedown", e => { if (e.target.closest('[data-a="pchk"],[data-a="pdone"]')) e.preventDefault(); });
+document.addEventListener("keydown", e => {
+  const t = e.target;
+  if (t.id === "pTitle" && e.key === "Enter" && !e.isComposing) { e.preventDefault(); const n = getNote(U.pid), f = n && lineTa(n.lines[0].id); if (f) { f.focus(); f.setSelectionRange(0, 0); } return; }
+  if (!(t.dataset && t.dataset.ln) || U.screen !== "pnote") return;
+  const n = getNote(U.pid); if (!n) return;
+  const i = n.lines.findIndex(x => x.id === t.dataset.ln), l = n.lines[i]; if (!l) return;
+  if (e.key === "Enter" && !e.shiftKey && !e.isComposing) {
+    e.preventDefault();
+    if (l.c && !l.text.trim()) { l.c = false; l.d = false; syncLine(l); n.updated = Date.now(); saveSoon(); return; }
+    const before = t.value.slice(0, t.selectionStart), after = t.value.slice(t.selectionEnd);
+    l.text = before; t.value = before; autosize(t);
+    const nl = { id: uid(), text: after, c: l.c, d: false };
+    n.lines.splice(i + 1, 0, nl);
+    lineEl(l.id).insertAdjacentHTML("afterend", lineHTML(nl));
+    const nt = lineTa(nl.id); autosize(nt); nt.focus(); nt.setSelectionRange(0, 0);
+    n.updated = Date.now(); saveSoon();
+  } else if (e.key === "Backspace" && t.selectionStart === 0 && t.selectionEnd === 0) {
+    if (l.c) { e.preventDefault(); l.c = false; l.d = false; syncLine(l); n.updated = Date.now(); saveSoon(); }
+    else if (i > 0) {
+      e.preventDefault(); const prev = n.lines[i - 1], at = prev.text.length; prev.text += l.text; n.lines.splice(i, 1);
+      const pt = lineTa(prev.id); pt.value = prev.text; autosize(pt); pt.focus(); pt.setSelectionRange(at, at);
+      lineEl(l.id).remove(); n.updated = Date.now(); saveSoon();
+    }
+  }
+});
+window.addEventListener("pagehide", flushSave);
 
 /* ---------- actions ---------- */
 function resizeImage(file, size = 256) {
@@ -667,6 +780,15 @@ function onClick(e) {
     case "back": U.screen = (U.screen === "month") ? "history" : "home"; break;
     case "timer": toggleTimer(); return;
     case "reveal": toggleReveal(); return;
+    case "pnotes": U.screen = "pnotes"; break;
+    case "pnew": { const n = newNote(); U.pid = n.id; U.screen = "pnote"; U.focus = "#pTitle"; break; }
+    case "popen": { U.pid = ds.id; U.screen = "pnote"; const n = getNote(ds.id); if (n && noteEmpty(n)) U.focus = "#pTitle"; break; }
+    case "pback": leaveNote(); U.screen = "pnotes"; break;
+    case "pdone": flushSave(); if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); return;
+    case "pdel": { const n = getNote(U.pid); if (!n) break; if (!noteEmpty(n) && !confirm("Delete this note?")) return; D.pnotes = D.pnotes.filter(x => x.id !== n.id); save(); U.screen = "pnotes"; break; }
+    case "ptog": { const n = getNote(U.pid), l = n && n.lines.find(x => x.id === ds.id); if (l) { l.d = !l.d; n.updated = Date.now(); syncLine(l); saveSoon(); } return; }
+    case "pchk": { const n = getNote(U.pid); if (!n) return; const l = n.lines.find(x => x.id === U.pFocus) || n.lines[n.lines.length - 1]; l.c = !l.c; if (!l.c) l.d = false; n.updated = Date.now(); syncLine(l); saveSoon(); const t = lineTa(l.id); if (t) t.focus(); return; }
+    case "ptail": { const n = getNote(U.pid); if (!n) return; const last = n.lines[n.lines.length - 1], t = lineTa(last.id); if (t) { t.focus(); t.setSelectionRange(t.value.length, t.value.length); } return; }
     case "delSess": D.sessions = D.sessions.filter(s => s.id !== ds.id); save(); break;
     case "addClient": U.tmpPhoto = null; U.sheet = { k: "client", id: null }; U.focus = "#cName"; break;
     case "editClient": { const c = getClient(U.cid); U.tmpPhoto = c.photo || null; U.sheet = { k: "client", id: c.id }; break; }
@@ -681,6 +803,8 @@ function onClick(e) {
     case "eh": U.sheet = { k: "hl", day: U.sheet.day, edit: ds.id }; U.focus = "#hlEd"; break;
     case "cancelHl": U.sheet = { k: "hl", day: U.sheet.day }; U.focus = "#hlIn"; break;
     case "doneOpen": { const l = cd(U.cid).notes[ds.day] || []; const n = l.find(x => x.id === ds.id); if (n) { n.done = true; save(); } break; }
+    case "en": U.sheet = { k: "notes", day: U.sheet.day, edit: ds.id }; U.focus = "#nEd"; break;
+    case "cancelNote": U.sheet = { k: "notes", day: U.sheet.day }; U.focus = "#noteIn"; break;
     case "dh": { const x = cd(U.cid); x.hl = x.hl.filter(h => h.id !== ds.id); save(); U.focus = "#hlIn"; break; }
     case "salaryToday": U.sheet = { k: "salary", day: dayKey(new Date()), top: true }; break;
     case "close": closeSheet(); break;
@@ -722,6 +846,10 @@ function onSubmit(e) {
   } else if (f === "hl") {
     const t = String(fd.get("t") || "").trim(); if (!t) return;
     cd(U.cid).hl.push({ id: uid(), day: U.sheet.day, text: t }); save(); U.focus = "#hlIn"; render();
+  } else if (f === "noteEdit") {
+    const t = String(fd.get("t") || "").trim(); if (!t) return;
+    const l = cd(U.cid).notes[U.sheet.day] || [], n = l.find(x => x.id === U.sheet.edit); if (n) { n.text = t; save(); }
+    U.sheet = { k: "notes", day: U.sheet.day }; U.focus = "#noteIn"; render();
   } else if (f === "hlEdit") {
     const t = String(fd.get("t") || "").trim(); if (!t) return;
     const h = cd(U.cid).hl.find(x => x.id === U.sheet.edit); if (h) { h.text = t; save(); }
