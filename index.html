@@ -68,8 +68,20 @@ body.nt-on{background:#000}
 .nt-cb i .ic{width:14px;height:14px;stroke-width:3.6}
 .nt-line.c .nt-cb{display:grid}
 .nt-line.c.d .nt-cb i{background:var(--y);border-color:var(--y);color:#000}
-.nt-line textarea{flex:1;min-width:0;background:none;border:0;color:#fff;font:inherit;font-size:17px;line-height:1.45;resize:none;overflow:hidden;padding:6px 0;min-height:36px;outline:none;display:block}
-.nt-line.c.d textarea{color:#8E8E93;text-decoration:line-through}
+.nt-ed{flex:1;min-width:0;color:#fff;font-size:17px;line-height:1.45;padding:6px 0;min-height:36px;outline:none;overflow-wrap:anywhere;white-space:pre-wrap;-webkit-user-select:text;user-select:text;-webkit-touch-callout:default}
+.nt-line.s-t .nt-ed{font-size:28px;font-weight:800;line-height:1.25;min-height:44px}
+.nt-line.s-h .nt-ed{font-size:22px;font-weight:700;line-height:1.3;min-height:40px}
+.nt-line.s-sh .nt-ed{font-size:19px;font-weight:700;line-height:1.35}
+.nt-ed b{font-weight:800}.nt-ed i{font-style:italic}.nt-ed u{text-decoration:underline}.nt-ed s{text-decoration:line-through}
+.nt-fmt{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(74px + env(safe-area-inset-bottom));width:min(430px,calc(100% - 24px));background:#2C2C2E;border:1px solid #48484A;border-radius:18px;padding:10px;z-index:6;box-shadow:0 10px 34px rgba(0,0,0,.7)}
+.nt-fmt[hidden]{display:none}
+.nt-fr{display:flex;gap:8px}.nt-fr+.nt-fr{margin-top:8px}
+.nt-fb,.nt-st{flex:1;min-width:0;height:46px;border-radius:11px;background:#3A3A3C;color:#fff;font-size:19px;display:grid;place-items:center}
+.nt-st{font-size:14.5px;font-weight:600;white-space:nowrap;padding:0 2px}
+.nt-fb.on,.nt-st.on,.nt-bt.on{background:var(--y);color:#000}
+.nt-bar.two{gap:30px}.nt-bar.two .nt-bt{margin:0}
+.nt-bt .aa{font-weight:700;font-size:21px;letter-spacing:-.02em}
+.nt-line.c.d .nt-ed{color:#8E8E93;text-decoration:line-through}
 .nt-tail{min-height:55vh}
 .pn-card{display:flex;align-items:center;gap:14px;margin-top:14px;text-align:left}
 .pn-ic{width:46px;height:46px;border-radius:13px;background:#FFD60A;color:#000;display:grid;place-items:center;flex:none}
@@ -587,7 +599,6 @@ function render() {
   const scr = { home: homeHTML, client: clientHTML, history: historyHTML, month: monthHTML, pnotes: pnotesHTML, pnote: pnoteHTML }[U.screen] || homeHTML;
   document.body.classList.toggle("nt-on", U.screen === "pnotes" || U.screen === "pnote");
   $("#app").innerHTML = scr();
-  document.querySelectorAll("#lines textarea").forEach(autosize);
   const sh = $("#sheet"), oldS = $(".sheet", sh), keepTop = oldS ? oldS.scrollTop : 0, prevK = sh.dataset.k;
   sh.innerHTML = sheetHTML(); sh.classList.toggle("on", !!U.sheet); sh.dataset.k = U.sheet ? U.sheet.k : "";
   { const ns = $(".sheet", sh); if (ns && prevK === sh.dataset.k) ns.scrollTop = keepTop; }
@@ -605,7 +616,23 @@ const firstText = n => { const l = n.lines.find(x => x.text.trim()); return l ? 
 const noteTitle = n => n.title.trim() || firstText(n) || "New Note";
 const notePreview = n => { const t = n.title.trim(); const rest = n.lines.filter(x => x.text.trim()).map(x => x.text.trim()); return (t ? rest[0] : rest[1]) || "No additional text"; };
 function noteDate(ts) { const d = new Date(ts), n = new Date(); return d.toDateString() === n.toDateString() ? timeHM(ts) : d.getFullYear() === n.getFullYear() ? d.getDate() + " " + MS3[d.getMonth()] : d.getDate() + "/" + (d.getMonth() + 1) + "/" + String(d.getFullYear()).slice(2); }
-const lineHTML = l => `<div class="nt-line ${l.c ? "c" : ""} ${l.d ? "d" : ""}" data-lid="${l.id}"><button class="nt-cb" data-a="ptog" data-id="${l.id}" aria-pressed="${!!l.d}" aria-label="Done"><i>${ic("check")}</i></button><textarea data-ln="${l.id}" rows="1" dir="auto" spellcheck="false" aria-label="Note text">${esc(l.text)}</textarea></div>`;
+const ALLOWED = { B: "b", STRONG: "b", I: "i", EM: "i", U: "u", S: "s", STRIKE: "s", DEL: "s" };
+function cleanHTML(html) {
+  const t = document.createElement("template"); t.innerHTML = html; const out = document.createElement("div");
+  (function walk(from, to) {
+    from.childNodes.forEach(n => {
+      if (n.nodeType === 3) to.appendChild(document.createTextNode(n.nodeValue));
+      else if (n.nodeType === 1 && n.tagName !== "BR") {
+        const tag = ALLOWED[n.tagName];
+        if (tag) { const e = document.createElement(tag); walk(n, e); if (e.childNodes.length) to.appendChild(e); } else walk(n, to);
+      }
+    });
+  })(t.content, out);
+  return out.innerHTML;
+}
+const htmlText = h => { const d = document.createElement("div"); d.innerHTML = h; return d.textContent; };
+const lineBody = l => l.h != null ? cleanHTML(l.h) : esc(l.text);
+const lineHTML = l => `<div class="nt-line ${l.c ? "c" : ""} ${l.d ? "d" : ""} s-${l.s || "b"}" data-lid="${l.id}"><button class="nt-cb" data-a="ptog" data-id="${l.id}" aria-pressed="${!!l.d}" aria-label="Done"><i>${ic("check")}</i></button><div class="nt-ed" contenteditable="true" data-ln="${l.id}" dir="auto" role="textbox" aria-multiline="true" spellcheck="false" aria-label="Note text">${lineBody(l)}</div></div>`;
 function pnotesHTML() {
   const ns = D.pnotes.slice().sort((a, b) => b.updated - a.updated);
   const rows = ns.map(n => `<button class="nt-row" data-a="popen" data-id="${n.id}" data-s="${esc((noteTitle(n) + " " + notePreview(n)).toLowerCase())}"><b dir="auto">${esc(noteTitle(n))}</b><span class="pv"><em>${esc(noteDate(n.updated))}</em><span dir="auto">${esc(notePreview(n))}</span></span></button>`).join("");
@@ -620,16 +647,54 @@ function pnoteHTML() {
   <div class="nt-date">${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()} at ${timeHM(n.updated)}</div>
   <input class="nt-title" id="pTitle" dir="auto" autocomplete="off" placeholder="Title" aria-label="Title" value="${esc(n.title)}">
   <div id="lines">${n.lines.map(lineHTML).join("")}</div><div class="nt-tail" data-a="ptail"></div>
-  <div class="nt-bar"><button class="nt-bt" data-a="pchk" aria-label="Checklist" style="margin:0">${ic("chk2")}</button></div></div>`;
+  <div class="nt-fmt" id="ntFmt" hidden><div class="nt-fr"><button class="nt-fb" data-a="pfmt" data-f="bold" aria-label="Bold"><b>B</b></button><button class="nt-fb" data-a="pfmt" data-f="italic" aria-label="Italic"><i>I</i></button><button class="nt-fb" data-a="pfmt" data-f="underline" aria-label="Underline"><u>U</u></button><button class="nt-fb" data-a="pfmt" data-f="strikeThrough" aria-label="Strikethrough"><s>S</s></button></div>
+  <div class="nt-fr"><button class="nt-st" data-a="pstyle" data-v="t" style="font-size:19px;font-weight:800">Title</button><button class="nt-st" data-a="pstyle" data-v="h" style="font-size:17px;font-weight:700">Heading</button><button class="nt-st" data-a="pstyle" data-v="sh" style="font-weight:700">Subhead</button><button class="nt-st" data-a="pstyle" data-v="b">Body</button></div></div>
+  <div class="nt-bar two"><button class="nt-bt" id="ntFmtBtn" data-a="pfmtbtn" aria-label="Text format" aria-pressed="false"><span class="aa">Aa</span></button><button class="nt-bt" data-a="pchk" aria-label="Checklist">${ic("chk2")}</button></div></div>`;
 }
 const lineEl = id => document.querySelector('[data-lid="' + id + '"]');
-const lineTa = id => { const e = lineEl(id); return e && e.querySelector("textarea"); };
-function autosize(t) { t.style.height = "auto"; t.style.height = t.scrollHeight + "px"; }
-function syncLine(l) { const e = lineEl(l.id); if (!e) return; e.classList.toggle("c", !!l.c); e.classList.toggle("d", !!l.d); const b = e.querySelector(".nt-cb"); if (b) b.setAttribute("aria-pressed", String(!!l.d)); }
+const lineEd = id => { const e = lineEl(id); return e && e.querySelector(".nt-ed"); };
+function setCaret(ed, off) {
+  const sel = getSelection(), r = document.createRange(), w = document.createTreeWalker(ed, NodeFilter.SHOW_TEXT); let n, acc = 0, done = false;
+  while (!done && (n = w.nextNode())) { const len = n.nodeValue.length; if (acc + len >= off) { r.setStart(n, off - acc); done = true; } else acc += len; }
+  if (!done) { r.selectNodeContents(ed); r.collapse(false); } else r.collapse(true);
+  sel.removeAllRanges(); sel.addRange(r);
+}
+function caretEnd(ed) { const r = document.createRange(); r.selectNodeContents(ed); r.collapse(false); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+function atStart(ed) {
+  const s = getSelection(); if (!s.rangeCount || !s.isCollapsed) return false;
+  const r = s.getRangeAt(0); if (!ed.contains(r.startContainer)) return false;
+  const pre = r.cloneRange(); pre.selectNodeContents(ed); pre.setEnd(r.startContainer, r.startOffset); return pre.toString() === "";
+}
+function splitAtCaret(ed) {
+  const s = getSelection(); if (!s.rangeCount) return null;
+  const r = s.getRangeAt(0); if (!ed.contains(r.startContainer)) return null;
+  r.deleteContents();
+  const tail = document.createRange(); tail.selectNodeContents(ed); tail.setStart(r.endContainer, r.endOffset);
+  const tmp = document.createElement("div"); tmp.appendChild(tail.extractContents()); return tmp.innerHTML;
+}
+function syncLine(l) {
+  const e = lineEl(l.id); if (!e) return;
+  e.className = "nt-line" + (l.c ? " c" : "") + (l.d ? " d" : "") + " s-" + (l.s || "b");
+  const b = e.querySelector(".nt-cb"); if (b) b.setAttribute("aria-pressed", String(!!l.d));
+}
+function syncFromDom(ed) {
+  const n = getNote(U.pid), l = n && n.lines.find(x => x.id === ed.dataset.ln); if (!l) return;
+  l.text = ed.textContent; l.h = cleanHTML(ed.innerHTML); n.updated = Date.now(); saveSoon();
+}
+function addLineAfter(n, afterId, l) {
+  n.lines.splice(n.lines.findIndex(x => x.id === afterId) + 1, 0, l);
+  lineEl(afterId).insertAdjacentHTML("afterend", lineHTML(l));
+}
+function updFmt() {
+  if (U.screen !== "pnote") return; const p = $("#ntFmt"); if (!p || p.hidden) return;
+  ["bold", "italic", "underline", "strikeThrough"].forEach(f => { let on = false; try { on = document.queryCommandState(f); } catch (e) {} const b = p.querySelector('[data-f="' + f + '"]'); if (b) b.classList.toggle("on", !!on); });
+  const n = getNote(U.pid), l = n && n.lines.find(x => x.id === U.pFocus);
+  p.querySelectorAll("[data-v]").forEach(b => b.classList.toggle("on", !!l && (l.s || "b") === b.dataset.v));
+}
 let saveT = null;
 const saveSoon = () => { clearTimeout(saveT); saveT = setTimeout(() => { saveT = null; save(); }, 350); };
 const flushSave = () => { if (saveT) { clearTimeout(saveT); saveT = null; save(); } };
-function newNote() { const n = { id: uid(), title: "", lines: [{ id: uid(), text: "", c: false, d: false }], updated: Date.now() }; D.pnotes.unshift(n); save(); return n; }
+function newNote() { const n = { id: uid(), title: "", lines: [{ id: uid(), text: "", h: "", c: false, d: false, s: "" }], updated: Date.now() }; D.pnotes.unshift(n); save(); return n; }
 const noteEmpty = n => !n.title.trim() && n.lines.every(l => !l.text.trim());
 function leaveNote() { flushSave(); const n = getNote(U.pid); if (n && noteEmpty(n)) { D.pnotes = D.pnotes.filter(x => x.id !== n.id); save(); } }
 document.addEventListener("input", e => {
@@ -637,36 +702,51 @@ document.addEventListener("input", e => {
   if (t.id === "pSearch") { const q = t.value.trim().toLowerCase(); document.querySelectorAll("#pList .nt-row").forEach(r => { r.hidden = !!q && !r.dataset.s.includes(q); }); return; }
   if (!n || U.screen !== "pnote") return;
   if (t.id === "pTitle") { n.title = t.value; n.updated = Date.now(); saveSoon(); }
-  else if (t.dataset && t.dataset.ln) { const l = n.lines.find(x => x.id === t.dataset.ln); if (l) { l.text = t.value; n.updated = Date.now(); autosize(t); saveSoon(); } }
+  else if (t.dataset && t.dataset.ln) { syncFromDom(t); updFmt(); }
 });
-document.addEventListener("focusin", e => { if (e.target.dataset && e.target.dataset.ln) U.pFocus = e.target.dataset.ln; });
-document.addEventListener("mousedown", e => { if (e.target.closest('[data-a="pchk"],[data-a="pdone"]')) e.preventDefault(); });
+document.addEventListener("focusin", e => { if (e.target.dataset && e.target.dataset.ln) { U.pFocus = e.target.dataset.ln; updFmt(); } });
+document.addEventListener("selectionchange", updFmt);
+document.addEventListener("mousedown", e => { if (e.target.closest('[data-a="pchk"],[data-a="pfmt"],[data-a="pstyle"],[data-a="pfmtbtn"]')) e.preventDefault(); });
+document.addEventListener("paste", e => {
+  const t = e.target; if (!(t.dataset && t.dataset.ln) || U.screen !== "pnote") return;
+  const n = getNote(U.pid), l = n && n.lines.find(x => x.id === t.dataset.ln); if (!l) return;
+  e.preventDefault();
+  const parts = ((e.clipboardData || window.clipboardData).getData("text/plain") || "").replace(/\r/g, "").split("\n");
+  if (parts.length === 1) { document.execCommand("insertText", false, parts[0]); return; }
+  const tail = splitAtCaret(t); if (tail == null) return;
+  t.appendChild(document.createTextNode(parts[0])); syncFromDom(t);
+  let prev = l.id;
+  parts.slice(1).forEach((pt, k) => {
+    const h = esc(pt) + (k === parts.length - 2 ? tail : ""), nl = { id: uid(), text: htmlText(h), h, c: l.c, d: false, s: "" };
+    addLineAfter(n, prev, nl); prev = nl.id;
+  });
+  const le = lineEd(prev); le.focus(); setCaret(le, parts[parts.length - 1].length); n.updated = Date.now(); saveSoon();
+});
 document.addEventListener("keydown", e => {
   const t = e.target;
-  if (t.id === "pTitle" && e.key === "Enter" && !e.isComposing) { e.preventDefault(); const n = getNote(U.pid), f = n && lineTa(n.lines[0].id); if (f) { f.focus(); f.setSelectionRange(0, 0); } return; }
+  if (t.id === "pTitle" && e.key === "Enter" && !e.isComposing) { e.preventDefault(); const n = getNote(U.pid), f = n && lineEd(n.lines[0].id); if (f) { f.focus(); setCaret(f, 0); } return; }
   if (!(t.dataset && t.dataset.ln) || U.screen !== "pnote") return;
   const n = getNote(U.pid); if (!n) return;
   const i = n.lines.findIndex(x => x.id === t.dataset.ln), l = n.lines[i]; if (!l) return;
-  if (e.key === "Enter" && !e.shiftKey && !e.isComposing) {
+  if (e.key === "Enter" && !e.isComposing) {
     e.preventDefault();
-    if (l.c && !l.text.trim()) { l.c = false; l.d = false; syncLine(l); n.updated = Date.now(); saveSoon(); return; }
-    const before = t.value.slice(0, t.selectionStart), after = t.value.slice(t.selectionEnd);
-    l.text = before; t.value = before; autosize(t);
-    const nl = { id: uid(), text: after, c: l.c, d: false };
-    n.lines.splice(i + 1, 0, nl);
-    lineEl(l.id).insertAdjacentHTML("afterend", lineHTML(nl));
-    const nt = lineTa(nl.id); autosize(nt); nt.focus(); nt.setSelectionRange(0, 0);
-    n.updated = Date.now(); saveSoon();
-  } else if (e.key === "Backspace" && t.selectionStart === 0 && t.selectionEnd === 0) {
-    if (l.c) { e.preventDefault(); l.c = false; l.d = false; syncLine(l); n.updated = Date.now(); saveSoon(); }
+    if (l.c && !t.textContent.trim()) { l.c = false; l.d = false; syncLine(l); syncFromDom(t); return; }
+    const tail = splitAtCaret(t); if (tail == null) return;
+    syncFromDom(t);
+    const h = cleanHTML(tail), nl = { id: uid(), text: htmlText(h), h, c: l.c, d: false, s: "" };
+    addLineAfter(n, l.id, nl);
+    const ne = lineEd(nl.id); ne.focus(); setCaret(ne, 0); n.updated = Date.now(); saveSoon();
+  } else if (e.key === "Backspace" && atStart(t)) {
+    if (l.c || (l.s && l.s !== "b")) { e.preventDefault(); if (l.c) { l.c = false; l.d = false; } else l.s = ""; syncLine(l); n.updated = Date.now(); saveSoon(); updFmt(); }
     else if (i > 0) {
-      e.preventDefault(); const prev = n.lines[i - 1], at = prev.text.length; prev.text += l.text; n.lines.splice(i, 1);
-      const pt = lineTa(prev.id); pt.value = prev.text; autosize(pt); pt.focus(); pt.setSelectionRange(at, at);
-      lineEl(l.id).remove(); n.updated = Date.now(); saveSoon();
+      e.preventDefault(); const prev = n.lines[i - 1], pe = lineEd(prev.id), at = pe.textContent.length;
+      pe.innerHTML = cleanHTML(pe.innerHTML + t.innerHTML); n.lines.splice(i, 1); lineEl(l.id).remove();
+      pe.focus(); setCaret(pe, at); syncFromDom(pe);
     }
   }
 });
 window.addEventListener("pagehide", flushSave);
+document.addEventListener("visibilitychange", () => { if (document.hidden) flushSave(); });
 
 /* ---------- actions ---------- */
 function resizeImage(file, size = 256) {
@@ -783,12 +863,14 @@ function onClick(e) {
     case "pnotes": U.screen = "pnotes"; break;
     case "pnew": { const n = newNote(); U.pid = n.id; U.screen = "pnote"; U.focus = "#pTitle"; break; }
     case "popen": { U.pid = ds.id; U.screen = "pnote"; const n = getNote(ds.id); if (n && noteEmpty(n)) U.focus = "#pTitle"; break; }
-    case "pback": leaveNote(); U.screen = "pnotes"; break;
-    case "pdone": flushSave(); if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); return;
+    case "pback": case "pdone": leaveNote(); U.screen = "pnotes"; break;
     case "pdel": { const n = getNote(U.pid); if (!n) break; if (!noteEmpty(n) && !confirm("Delete this note?")) return; D.pnotes = D.pnotes.filter(x => x.id !== n.id); save(); U.screen = "pnotes"; break; }
     case "ptog": { const n = getNote(U.pid), l = n && n.lines.find(x => x.id === ds.id); if (l) { l.d = !l.d; n.updated = Date.now(); syncLine(l); saveSoon(); } return; }
-    case "pchk": { const n = getNote(U.pid); if (!n) return; const l = n.lines.find(x => x.id === U.pFocus) || n.lines[n.lines.length - 1]; l.c = !l.c; if (!l.c) l.d = false; n.updated = Date.now(); syncLine(l); saveSoon(); const t = lineTa(l.id); if (t) t.focus(); return; }
-    case "ptail": { const n = getNote(U.pid); if (!n) return; const last = n.lines[n.lines.length - 1], t = lineTa(last.id); if (t) { t.focus(); t.setSelectionRange(t.value.length, t.value.length); } return; }
+    case "pchk": { const n = getNote(U.pid); if (!n) return; const l = n.lines.find(x => x.id === U.pFocus) || n.lines[n.lines.length - 1]; l.c = !l.c; if (!l.c) l.d = false; n.updated = Date.now(); syncLine(l); saveSoon(); const t = lineEd(l.id); if (t && document.activeElement !== t) { t.focus(); caretEnd(t); } return; }
+    case "pfmtbtn": { const p = $("#ntFmt"); if (!p) return; p.hidden = !p.hidden; const b = $("#ntFmtBtn"); b.classList.toggle("on", !p.hidden); b.setAttribute("aria-pressed", String(!p.hidden)); updFmt(); return; }
+    case "pfmt": { const t = U.pFocus && lineEd(U.pFocus); if (!t) { toast("Tap a line first"); return; } if (document.activeElement !== t) { t.focus(); caretEnd(t); } document.execCommand(ds.f, false, null); syncFromDom(t); updFmt(); return; }
+    case "pstyle": { const n = getNote(U.pid), l = n && n.lines.find(x => x.id === U.pFocus); if (!l) { toast("Tap a line first"); return; } l.s = ds.v === "b" ? "" : ds.v; n.updated = Date.now(); syncLine(l); saveSoon(); updFmt(); return; }
+    case "ptail": { const n = getNote(U.pid); if (!n) return; const t = lineEd(n.lines[n.lines.length - 1].id); if (t) { t.focus(); caretEnd(t); } return; }
     case "delSess": D.sessions = D.sessions.filter(s => s.id !== ds.id); save(); break;
     case "addClient": U.tmpPhoto = null; U.sheet = { k: "client", id: null }; U.focus = "#cName"; break;
     case "editClient": { const c = getClient(U.cid); U.tmpPhoto = c.photo || null; U.sheet = { k: "client", id: c.id }; break; }
@@ -947,7 +1029,7 @@ async function pushNow() {
 }
 function softRender() {
   const a = document.activeElement;
-  if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) { setTimeout(softRender, 2500); return; }
+  if (a && (/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName) || a.isContentEditable)) { setTimeout(softRender, 2500); return; }
   render();
 }
 async function applyRemote(m, uidv) {
