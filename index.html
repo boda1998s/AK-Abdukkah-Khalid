@@ -443,7 +443,7 @@ function clientHTML() {
   <div class="chead"><button class="ib" data-a="back" aria-label="Back">${ic("back")}</button>${avatar(c)}<div class="nm" dir="auto">${esc(c.name)}</div><button class="ib" data-a="editClient" aria-label="Edit client">${ic("edit")}</button></div>
   <div class="stats"><div class="card"><div class="lbl">Notes</div><div class="v">${n.d}/${n.t}</div><div class="bar"><i style="width:${n.t ? Math.round(n.d / n.t * 100) : 0}%"></i></div></div>
   <button class="card" data-a="salaryToday"><div class="lbl">Salary · tap to edit</div><div class="v">${fmt(x.total)}</div><div class="sub">Base ${fmtN(x.base)} + ${fmtN(x.adds)}</div></button></div>
-  <div class="sec-h"><h2>${esc(monthLabel(D.month))}</h2><button class="btn ghost sm" data-a="invClient" data-id="${c.id}">${ic("file")} Invoice</button></div>
+  <div class="sec-h" style="flex-wrap:wrap;gap:10px"><h2 style="flex:1 1 100%">${esc(monthLabel(D.month))}</h2><div style="display:flex;gap:8px;flex:1 1 100%"><button class="btn ghost sm" style="flex:1" data-a="hlOpen">${ic("notes")} Invoice notes${data.hl.length ? " (" + data.hl.length + ")" : ""}</button><button class="btn ghost sm" style="flex:1" data-a="invClient" data-id="${c.id}">${ic("file")} Invoice</button></div></div>
   ${calHTML(c)}
   <div class="legend"><span>● has notes</span><span>${ic("check", "ok")} all done</span><span><b>+</b> salary addition</span></div>
   ${pend.length ? `<div class="sec-h"><h2>Open items (${pend.length})</h2></div><ul class="clean open">${open}</ul>` : ""}
@@ -468,21 +468,22 @@ function sheetHTML() {
   const head = (t, back) => `<div class="sh-h">${back ? `<button class="ib" data-a="${back}" aria-label="Back">${ic("back")}</button>` : ""}<h3>${t}</h3><button class="ib" data-a="close" aria-label="Close">${ic("x")}</button></div>`;
   if (s.k === "day") {
     const c = getClient(U.cid), x = cd(c.id), ns = x.notes[s.day] || [], ad = x.adds.filter(a => a.day === s.day);
-    const left = ns.filter(n => !n.done).length, hn = x.hl.filter(h => h.day === s.day).length;
+    const left = ns.filter(n => !n.done).length;
     return `<div class="sheet">${head(esc(dayLabel(s.day)))}<div class="choices">
     <button class="choice" data-a="toNotes">${ic("notes")}Notes<small>${ns.length ? left + " left of " + ns.length : "none yet"}</small></button>
-    <button class="choice" data-a="toSalary">${ic("cash")}Salary<small>${ad.length ? ad.length + " addition" + (ad.length > 1 ? "s" : "") : "base + additions"}</small></button>
-    <button class="choice" data-a="toHl" style="grid-column:1/-1;min-height:92px">${ic("file")}Invoice notes<small>${hn ? hn + " item" + (hn > 1 ? "s" : "") + " for the invoice" : "key work that goes on the invoice"}</small></button></div></div>`;
+    <button class="choice" data-a="toSalary">${ic("cash")}Salary<small>${ad.length ? ad.length + " addition" + (ad.length > 1 ? "s" : "") : "base + additions"}</small></button></div></div>`;
   }
   if (s.k === "hl") {
-    const c = getClient(U.cid), hs = cd(c.id).hl.filter(h => h.day === s.day);
+    const c = getClient(U.cid), hs = cd(c.id).hl.slice().sort((p, q) => p.day < q.day ? -1 : p.day > q.day ? 1 : 0);
     const li = hs.map(h => s.edit === h.id
       ? `<li><form data-form="hlEdit" class="inl" style="flex:1;min-width:0"><input name="t" id="hlEd" dir="auto" autocomplete="off" value="${esc(h.text)}" aria-label="Edit invoice note" required><button class="btn sm" type="submit">Save</button><button type="button" class="xb" data-a="cancelHl" aria-label="Cancel editing">${ic("x")}</button></form></li>`
-      : `<li><span class="t" dir="auto">${esc(h.text)}</span><button class="xb" data-a="eh" data-id="${h.id}" aria-label="Edit item">${ic("edit")}</button><button class="xb" data-a="dh" data-id="${h.id}" aria-label="Delete item">${ic("trash")}</button></li>`).join("");
-    return `<div class="sheet">${head("Invoice notes · " + esc(dayShort(s.day)), "toDay")}
+      : `<li><span class="dt" style="opacity:.6;margin-right:8px;white-space:nowrap">${dayShort(h.day)}</span><span class="t" dir="auto">${esc(h.text)}</span><button class="xb" data-a="eh" data-id="${h.id}" aria-label="Edit item">${ic("edit")}</button><button class="xb" data-a="dh" data-id="${h.id}" aria-label="Delete item">${ic("trash")}</button></li>`).join("");
+    const td = dayKey(new Date()), dv = U.hlDay && U.hlDay.startsWith(D.month) ? U.hlDay : (td.startsWith(D.month) ? td : D.month + "-01");
+    const dim = new Date(+D.month.slice(0, 4), +D.month.slice(5, 7), 0).getDate();
+    return `<div class="sheet">${head("Invoice notes")}
     <p class="hint" style="margin:0 0 6px">Only the key work you want to bill. These lines appear on the invoice. Your daily Notes never do.</p>
-    <ul class="clean notes">${li || '<li class="empty-n" style="display:block;border:0">Nothing added for this day yet.</li>'}</ul>
-    <form data-form="hl" class="inl mt"><input name="t" id="hlIn" dir="auto" autocomplete="off" placeholder="e.g. Built the booking page" aria-label="New invoice note" required><button class="btn" type="submit">Add</button></form></div>`;
+    <ul class="clean notes">${li || '<li class="empty-n" style="display:block;border:0">Nothing added yet.</li>'}</ul>
+    <form data-form="hl" class="inl mt" style="flex-wrap:wrap"><input type="date" name="d" value="${dv}" min="${D.month}-01" max="${D.month}-${pad(dim)}" aria-label="Date" style="flex:0 0 100%;margin-bottom:8px"><input name="t" id="hlIn" dir="auto" autocomplete="off" placeholder="e.g. Built the booking page" aria-label="New invoice note" required style="flex:1;min-width:0"><button class="btn" type="submit">Add</button></form></div>`;
   }
   if (s.k === "notes") {
     const c = getClient(U.cid), ns = cd(c.id).notes[s.day] || [];
@@ -881,9 +882,9 @@ function onClick(e) {
     case "toDay": U.sheet = { k: "day", day: U.sheet.day }; break;
     case "toNotes": U.sheet = { k: "notes", day: U.sheet.day }; U.focus = "#noteIn"; break;
     case "toSalary": U.sheet = { k: "salary", day: U.sheet.day }; break;
-    case "toHl": U.sheet = { k: "hl", day: U.sheet.day }; U.focus = "#hlIn"; break;
-    case "eh": U.sheet = { k: "hl", day: U.sheet.day, edit: ds.id }; U.focus = "#hlEd"; break;
-    case "cancelHl": U.sheet = { k: "hl", day: U.sheet.day }; U.focus = "#hlIn"; break;
+    case "hlOpen": U.sheet = { k: "hl" }; U.focus = "#hlIn"; break;
+    case "eh": U.sheet = { k: "hl", edit: ds.id }; U.focus = "#hlEd"; break;
+    case "cancelHl": U.sheet = { k: "hl" }; U.focus = "#hlIn"; break;
     case "doneOpen": { const l = cd(U.cid).notes[ds.day] || []; const n = l.find(x => x.id === ds.id); if (n) { n.done = true; save(); } break; }
     case "en": U.sheet = { k: "notes", day: U.sheet.day, edit: ds.id }; U.focus = "#nEd"; break;
     case "cancelNote": U.sheet = { k: "notes", day: U.sheet.day }; U.focus = "#noteIn"; break;
@@ -927,7 +928,8 @@ function onSubmit(e) {
     save(); U.focus = "#noteIn"; render();
   } else if (f === "hl") {
     const t = String(fd.get("t") || "").trim(); if (!t) return;
-    cd(U.cid).hl.push({ id: uid(), day: U.sheet.day, text: t }); save(); U.focus = "#hlIn"; render();
+    let dd = String(fd.get("d") || ""); if (!dd.startsWith(D.month)) dd = D.month + "-01"; U.hlDay = dd;
+    cd(U.cid).hl.push({ id: uid(), day: dd, text: t }); save(); U.focus = "#hlIn"; render();
   } else if (f === "noteEdit") {
     const t = String(fd.get("t") || "").trim(); if (!t) return;
     const l = cd(U.cid).notes[U.sheet.day] || [], n = l.find(x => x.id === U.sheet.edit); if (n) { n.text = t; save(); }
@@ -935,7 +937,7 @@ function onSubmit(e) {
   } else if (f === "hlEdit") {
     const t = String(fd.get("t") || "").trim(); if (!t) return;
     const h = cd(U.cid).hl.find(x => x.id === U.sheet.edit); if (h) { h.text = t; save(); }
-    U.sheet = { k: "hl", day: U.sheet.day }; U.focus = "#hlIn"; render();
+    U.sheet = { k: "hl" }; U.focus = "#hlIn"; render();
   } else if (f === "add") {
     const t = String(fd.get("t") || "").trim(), a = num(fd.get("a")); if (!t || !a) { toast("Enter a title and an amount"); return; }
     cd(U.cid).adds.push({ id: uid(), day: U.sheet.day || dayKey(new Date()), title: t, amount: a });
